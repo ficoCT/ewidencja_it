@@ -11,21 +11,27 @@ import {
 import Computers from "./components/Computers";
 import Software from "./components/Software";
 import Login from "./components/Login";
+import OtherHardware from "./components/OtherHardware";
+import Administration from "./components/Administration";
+import Timetable from "./components/Timetable";
+import Reports from "./components/Reports";
+import Repairs from "./components/Repairs";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
       <BrowserRouter>
           <Routes>
-              <Route path="/" element={<App />} />
-              <Route path="computers" element={<Computers />} />
-              <Route path="software" element={<Software />} />
-              <Route path="otherHardware" element={<OtherHardware />} />
-              <Route path="login" element={<Login />} />
-              <Route path="administration" element={<Administration />} />
-              <Route path="timetable" element={<Timetable />} />
-              <Route path="reports" element={<Reports />} />
-              <Route path="repairs" element={<Repairs />} />
+              <Route path="/" element={<App />} >
+                  <Route path="computers" element={<Computers />} />
+                  <Route path="software" element={<Software />} />
+                  <Route path="otherHardware" element={<OtherHardware />} />
+                  <Route path="login" element={<Login />} />
+                  <Route path="administration" element={<Administration />} />
+                  <Route path="timetable" element={<Timetable />} />
+                  <Route path="reports" element={<Reports />} />
+                  <Route path="repairs" element={<Repairs />} />
+              </Route>
           </Routes>
       </BrowserRouter>
   </React.StrictMode>
