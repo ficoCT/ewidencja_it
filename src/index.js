@@ -8,7 +8,7 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
-import Computers from "./components/Computers";
+import ComputersManager from "./components/ComputersManager";
 import Software from "./components/Software";
 import Login from "./components/Login";
 import OtherHardware from "./components/OtherHardware";
@@ -16,6 +16,7 @@ import Administration from "./components/Administration";
 import Timetable from "./components/Timetable";
 import Reports from "./components/Reports";
 import Repairs from "./components/Repairs";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,7 +24,7 @@ root.render(
       <BrowserRouter>
           <Routes>
               <Route path="/" element={<App />} >
-                  <Route path="computers" element={<Computers />} />
+                  <Route path="computers-manager" element={<ComputersManager />} />
                   <Route path="software" element={<Software />} />
                   <Route path="otherHardware" element={<OtherHardware />} />
                   <Route path="login" element={<Login />} />

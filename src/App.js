@@ -5,7 +5,7 @@ function App() {
   return (
       <>
       <nav>
-      <Link to="/computers">Komputery</Link> |{" "}
+      <Link to="/computers-manager">Komputery</Link> |{" "}
       <Link to="/software">Oprogramowanie</Link> |{" "}
       <Link to="/otherHardware">Inny sprzęt</Link> |{" "}
       <Link to="/administration">Administracja</Link> |{" "}
