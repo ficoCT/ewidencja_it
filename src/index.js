@@ -17,6 +17,7 @@ import Timetable from "./components/Timetable";
 import Reports from "./components/Reports";
 import Repairs from "./components/Repairs";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NetworkDevices from "./components/NetworkDevices";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -26,12 +27,13 @@ root.render(
               <Route path="/" element={<App />} >
                   <Route path="computers-manager" element={<ComputersManager />} />
                   <Route path="software" element={<Software />} />
-                  <Route path="otherHardware" element={<OtherHardware />} />
-                  <Route path="login" element={<Login />} />
-                  <Route path="administration" element={<Administration />} />
+                  <Route path="other-hardware" element={<OtherHardware />} />
+                  <Route path="network-devices" element={<NetworkDevices />} />
                   <Route path="timetable" element={<Timetable />} />
                   <Route path="reports" element={<Reports />} />
                   <Route path="repairs" element={<Repairs />} />
+                  <Route path="administration" element={<Administration />} />
+                  <Route path="login" element={<Login />} />
               </Route>
           </Routes>
       </BrowserRouter>

@@ -1,29 +1,54 @@
 import './App.css';
 import {Outlet, Link, Route} from "react-router-dom";
 import {Container, Nav, Navbar} from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faComputer, faCompactDisc, faCalendarDays, faPrint, faNetworkWired, faFileCircleCheck, faScrewdriverWrench, faUserCheck, faArrowRightToBracket  } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+library.add( faComputer, faCompactDisc, faCalendarDays, faPrint, faNetworkWired, faFileCircleCheck, faScrewdriverWrench, faUserCheck, faArrowRightToBracket  );
 
 function App() {
   return (
       <>
           <Navbar bg="light" variant="light">
               <Container>
-                  <Navbar.Brand href="#home">Navbar</Navbar.Brand>
                   <Nav className="me-auto">
                       <Link to="/computers-manager">
+                          <FontAwesomeIcon icon="fa-computer" />
                           Komputery
-                          <i className="fa-solid fa-computer"></i>
                       </Link> |{" "}
                       <Link to="/software">
+                          <FontAwesomeIcon icon="fa-compact-disc" />
                           Oprogramowanie
-                          <i className="fa-solid fa-display-arrow-down"></i>
                       </Link> |{" "}
-                      <Link to="/otherHardware">Inny sprzęt</Link> |{" "}
-                      <Link to="/administration">Administracja</Link> |{" "}
-                      <Link to="/timetable">Terminarz</Link> |{" "}
-                      <Link to="/reports">Raporty</Link> |{" "}
-                      <Link to="/repairs">Naprawy</Link> |{" "}
-                      <Link to="/login">Zaloguj się</Link>
+                      <Link to="/other-hardware">
+                          <FontAwesomeIcon icon="fa-solid fa-print" />
+                          Inny sprzęt
+                      </Link> |{" "}
+                      <Link to="/network-devices">
+                          <FontAwesomeIcon icon="fa-solid fa-network-wired" />
+                          Urządzenia sieciowe
+                      </Link> |{" "}
+                      <Link to="/timetable">
+                          <FontAwesomeIcon icon="fa-solid fa-calendar-days" />
+                          Terminarz
+                      </Link> |{" "}
+                      <Link to="/reports">
+                          <FontAwesomeIcon icon="fa-solid fa-file-circle-check" />
+                          Raporty
+                      </Link> |{" "}
+                      <Link to="/repairs">
+                          <FontAwesomeIcon icon="fa-solid fa-screwdriver-wrench" />
+                          Naprawy
+                      </Link> |{" "}
+                      <Link to="/administration">
+                          <FontAwesomeIcon icon="fa-solid fa-user-check" />
+                          Administracja
+                      </Link> |{" "}
+                      <Link to="/login">
+                          <FontAwesomeIcon icon="fa-solid fa-arrow-right-to-bracket" />
+                          Zaloguj się
+                      </Link>
                   </Nav>
               </Container>
           </Navbar>
