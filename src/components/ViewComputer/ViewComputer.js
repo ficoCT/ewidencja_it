@@ -1,7 +1,9 @@
 import * as React from 'react';
 
-export default function ViewComputer() {
+export default function ViewComputer({ computer: { id, name, company} }) {
   return (
-        <h1>ViewComputer</h1>
+      <>
+        <strong>{id}{' '}{name}</strong> {company}
+      </>
   );
 }

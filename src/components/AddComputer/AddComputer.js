@@ -1,7 +1,14 @@
 import * as React from 'react';
+import ComputerForm from "../ComputerForm";
 
-export default function AddComputer() {
+export default function AddComputer({ onSubmit }) {
+
+  const INITIAL_VALUES = { name: '', company: '' };
+
   return (
-        <h1>AddComputer</h1>
+      <>
+        <h3>Dodaj komputer</h3>
+        <ComputerForm computer={INITIAL_VALUES} submitLabel="Dodaj" onSubmit={onSubmit} />
+      </>
   );
 }
