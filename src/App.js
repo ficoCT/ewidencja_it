@@ -5,7 +5,7 @@ function App() {
   return (
       <>
       <nav>
-      <Link to="/computers-manager">Komputery</Link> |{" "}
+      <Link to="/computers-manager-user">Komputery użytkownik</Link> |{" "}
       <Link to="/software">Oprogramowanie</Link> |{" "}
       <Link to="/otherHardware">Inny sprzęt</Link> |{" "}
       <Link to="/administration">Administracja</Link> |{" "}
@@ -13,6 +13,8 @@ function App() {
       <Link to="/reports">Raporty</Link> |{" "}
       <Link to="/repairs">Naprawy</Link> |{" "}
       <Link to="/login">Zaloguj się</Link>
+          computers-manager-admin
+     <Link to="/computers-manager-admin">Komputery administrator</Link> |{" "}
       </nav>
       <Outlet />
       </>
