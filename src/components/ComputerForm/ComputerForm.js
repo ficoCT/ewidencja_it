@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import FieldComputer from "../FieldComputer"
+import Field from "../Field"
 import validate from './validateComputerValues';
 
 function mapComputerToFormValues(computer) {
-  // console.log('mapComputerToFormValues', computer.id, ' ', computer.name, ' ', computer.company);
   return {
     name: computer.name,
     company: computer.company
@@ -41,20 +40,36 @@ export default function ComputerForm({ computer, submitLabel, onSubmit }) {
 
   return (
   <form onSubmit={handleSubmit}>
-    <FieldComputer
-        label="Nazwa"
-        name="name"
-        type="text"
-        value={values.name}
-        errorMessage={errorMessages?.name}
-        onChange={handleChange}
-    />
-    <FieldComputer
+    <Field
         label="Producent"
         name="company"
         type="text"
         value={values.company}
-        errorMessage={errorMessages?.name}
+        errorMessage={errorMessages?.company}
+        onChange={handleChange}
+    />
+    <Field
+        label="Model"
+        name="model"
+        type="text"
+        value={values.model}
+        errorMessage={errorMessages?.model}
+        onChange={handleChange}
+    />
+    <Field
+        label="Numer inwentaryzacyjny"
+        name="inventoryNumber"
+        type="text"
+        value={values.inventoryNumber}
+        errorMessage={errorMessages?.inventoryNumber}
+        onChange={handleChange}
+    />
+    <Field
+        label="Numer seryjny"
+        name="serialNumber"
+        type="text"
+        value={values.serialNumber}
+        errorMessage={errorMessages?.serialNumber}
         onChange={handleChange}
     />
     <input type="submit" value={submitLabel} />

@@ -2,7 +2,7 @@ function isBlank(text) {
   return text.trim().length === 0;
 }
 
-export default function validateCarValues(values) {
+export default function validateComputerValues(values) {
   const errorMessages = {};
 
   if (isBlank(values.name)) {
