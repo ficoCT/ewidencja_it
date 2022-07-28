@@ -1,36 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import {collection, doc, getDocs, getFirestore, setDoc} from "firebase/firestore";
+import {collection, doc, getDocs, deleteDoc,  getFirestore, setDoc} from "firebase/firestore";
 import Computer from '../Computer';
 import AddComputer from '../AddComputer';
 import {app} from "../../firebase";
 // import * as API from '../../api/cars';
 
 export default function ComputersManagerAdmin() {
-    // const [computers, setComputers] = useState([
-    //     {id: 1, company:'company A', model:'Desktop 1', inventoryNumber: "1D", serialNumber: "ASX23TD" },
-    //     {id: 2, company:'company B', model:'Desktop 2', inventoryNumber: "2D", serialNumber: "ASX23TD" },
-    //     {id: 1, company:'company A', model:'Laptop 1', inventoryNumber: "1L", serialNumber: "ASX23TD" },
-    //     {id: 2, company:'company B', model:'Laptop 2', inventoryNumber: "2L", serialNumber: "ASX23TD" }
-    // ]);
+
     const [computers, setComputers] = useState([]);
     const db = getFirestore(app);
 
-    async function getComputers(db) {
-        const computers = collection(db, 'computers');
-        const computersSnapshot = await getDocs(computers);
+    async function loadComputers(db) {
+        const computersRef = collection(db, 'computers');
+        const computersSnapshot = await getDocs(computersRef);
         const computersData = computersSnapshot.docs.map(doc => doc.data());
         return computersData;
     }
 
   useEffect(() => {
-      getComputers(db).then(computersData => setComputers(computersData));
-      console.log("computers", computers);
+      loadComputers(db).then(computersData => setComputers(computersData));
   }, []);
-
-  // function loadCars() {
-  //   API.getCars()
-  //     .then(setCars);
-  // }
 
   function addComputer(computer) {
     // API.createCar(car)
@@ -43,8 +32,12 @@ export default function ComputersManagerAdmin() {
   }
 
   function deleteComputer(id) {
-    // API.deleteCar(id)
-    //   .then(() => setCars(cars => cars.filter(car => car.id !== id)));
+      const computersRef = doc(db, 'computers', id)
+
+      deleteDoc(computersRef)
+          .then(() => {
+              console.log("Usunięto");
+          })
   }
 
   // if (cars.length === 0) return null;
