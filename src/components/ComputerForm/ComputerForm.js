@@ -4,15 +4,19 @@ import validate from './validateComputerValues';
 
 function mapComputerToFormValues(computer) {
   return {
-    name: computer.name,
-    company: computer.company
+    company: computer.company,
+    materialIndex: computer.materialIndex,
+    model: computer.model,
+    serialNumber: computer.serialNumber
   };
 }
 
 function mapFormValuesToComputer(values) {
   return {
-    name:   values.name,
-    company:  values.company
+    company:values.company,
+    materialIndex: values.materialIndex,
+    model: values.model,
+    serialNumber: values.serialNumber
   };
 }
 
@@ -58,10 +62,10 @@ export default function ComputerForm({ computer, submitLabel, onSubmit }) {
     />
     <Field
         label="Numer inwentaryzacyjny"
-        name="inventoryNumber"
+        name="materialIndex"
         type="text"
-        value={values.inventoryNumber}
-        errorMessage={errorMessages?.inventoryNumber}
+        value={values.materialIndex}
+        errorMessage={errorMessages?.materialIndex}
         onChange={handleChange}
     />
     <Field

@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-export default function ViewComputer({ computer: { id, company, model, inventoryNumber, serialNumber} }) {
+export default function ViewComputer({ computer: { id, company, model, materialIndex, serialNumber} }) {
   return (
       <>
-        <strong> {id} </strong> {' '} {company} {' '} {model} {' '} {inventoryNumber} {' '} {serialNumber}
+        <strong> {id} </strong> {' '} {company} {' '} {model} {' '} {materialIndex} {' '} {serialNumber}
       </>
   );
 }

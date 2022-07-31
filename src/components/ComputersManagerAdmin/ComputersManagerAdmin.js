@@ -1,29 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import {collection, doc, getDocs, deleteDoc,  getFirestore, setDoc} from "firebase/firestore";
+import {collection, doc, getDocs, addDoc, deleteDoc,  getFirestore, setDoc} from "firebase/firestore";
 import Computer from '../Computer';
 import AddComputer from '../AddComputer';
 import {app} from "../../firebase";
-// import * as API from '../../api/cars';
 
 export default function ComputersManagerAdmin() {
 
     const [computers, setComputers] = useState([]);
     const db = getFirestore(app);
+    const computersRef = collection(db, 'computers');
 
-    async function loadComputers(db) {
-        const computersRef = collection(db, 'computers');
-        const computersSnapshot = await getDocs(computersRef);
-        const computersData = computersSnapshot.docs.map(doc => doc.data());
+    async function loadComputers(computersRef) {
+
+        let computersData = [];
+        await getDocs(computersRef).then(snapshot => {
+                snapshot.docs.forEach(doc => {
+                    computersData.push({ ...doc.data(), id: doc.id })
+                })
+            })
         return computersData;
     }
 
   useEffect(() => {
-      loadComputers(db).then(computersData => setComputers(computersData));
+      loadComputers(computersRef).then(computersData => setComputers(computersData));;
   }, []);
 
   function addComputer(computer) {
-    // API.createCar(car)
-    //   .then(car => setCars(cars => [...cars, car]));
+
+      addDoc(computersRef, {
+          company: computer.company,
+          materialIndex: computer.materialIndex,
+          model: computer.model,
+          serialNumber: computer.serialNumber
+      })
+          .then(() => {
+              setComputers(computers => [...computers, computer])
+          })
   }
 
   function updateComputer(id, computer) {
@@ -32,9 +44,9 @@ export default function ComputersManagerAdmin() {
   }
 
   function deleteComputer(id) {
-      const computersRef = doc(db, 'computers', id)
+      const computerRef = doc(db, 'computers', id)
 
-      deleteDoc(computersRef)
+      deleteDoc(computerRef)
           .then(() => {
               console.log("Usunięto");
           })

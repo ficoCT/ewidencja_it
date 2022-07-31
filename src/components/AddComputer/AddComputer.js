@@ -3,7 +3,7 @@ import ComputerForm from "../ComputerForm";
 
 export default function AddComputer({ onSubmit }) {
 
-  const INITIAL_VALUES = { company: '', model: '', inventoryNumber: '', serialNumber: ''};
+  const INITIAL_VALUES = { company: '', model: '', materialIndex: '', serialNumber: ''};
 
   return (
       <>

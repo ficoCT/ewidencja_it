@@ -5,10 +5,6 @@ function isBlank(text) {
 export default function validateComputerValues(values) {
   const errorMessages = {};
 
-  if (isBlank(values.name)) {
-    errorMessages.name = 'Proszę wpisać wartość';
-  }
-
   if (isBlank(values.company)) {
     errorMessages.company = 'Proszę wpisać wartość';
   }
