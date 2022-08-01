@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {collection, doc, getDocs, addDoc, deleteDoc,  getFirestore, setDoc} from "firebase/firestore";
+import {collection, doc, getDocs, addDoc, deleteDoc,  getFirestore, setDoc, onSnapshot} from "firebase/firestore";
 import Computer from '../Computer';
 import AddComputer from '../AddComputer';
 import {app} from "../../firebase";
@@ -22,7 +22,7 @@ export default function ComputersManagerAdmin() {
     }
 
   useEffect(() => {
-      loadComputers(computersRef).then(computersData => setComputers(computersData));;
+      loadComputers(computersRef).then(computersData => setComputers(computersData));
   }, []);
 
   function addComputer(computer) {
@@ -34,7 +34,7 @@ export default function ComputersManagerAdmin() {
           serialNumber: computer.serialNumber
       })
           .then(() => {
-              setComputers(computers => [...computers, computer])
+              loadComputers(computersRef).then(computersData => setComputers(computersData));
           })
   }
 
@@ -48,21 +48,23 @@ export default function ComputersManagerAdmin() {
 
       deleteDoc(computerRef)
           .then(() => {
-              console.log("Usunięto");
+              loadComputers(computersRef).then(computersData => setComputers(computersData));
           })
   }
 
-  // if (cars.length === 0) return null;
-
   return (
     <div>
-      <ul>
-        {computers.map(computer => (
-          <li key={computer.id}>
-            <Computer computer={computer} onUpdate={updateComputer} onDelete={deleteComputer} />
-          </li>
-        ))}
-      </ul>
+      {computers.length === 0 ?
+          <h1>Ładowanie danych ...</h1>
+          :
+          <ul>
+            {computers.map(computer => (
+              <li key={computer.id}>
+                <Computer computer={computer} onUpdate={updateComputer} onDelete={deleteComputer} />
+              </li>
+            ))}
+          </ul>
+      }
       <div>
         <AddComputer onSubmit={addComputer} />
       </div>
