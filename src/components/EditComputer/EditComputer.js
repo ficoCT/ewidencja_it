@@ -3,6 +3,6 @@ import ComputerForm from "../ComputerForm";
 
 export default function EditComputer({ computer, onSubmit }) {
   return (
-        <ComputerForm />
+        <ComputerForm computer={computer} submitLabel="Zapisz" onSubmit={onSubmit}/>
   );
 }

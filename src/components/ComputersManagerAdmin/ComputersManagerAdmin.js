@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {collection, doc, getDocs, addDoc, deleteDoc,  getFirestore, setDoc, onSnapshot} from "firebase/firestore";
+import {collection, doc, getDocs, addDoc, deleteDoc,  getFirestore, setDoc, onSnapshot, updateDoc} from "firebase/firestore";
 import Computer from '../Computer';
 import AddComputer from '../AddComputer';
 import {app} from "../../firebase";
@@ -39,8 +39,18 @@ export default function ComputersManagerAdmin() {
   }
 
   function updateComputer(id, computer) {
-    // API.updateCar(id, car)
-    //   .then(updatedCar => setCars(cars => cars.map(car => car.id === id ? updatedCar : car)));
+       const computerRef = doc(db, 'computers', id)
+
+       updateDoc(computerRef, {
+          "company": computer.company,
+          "model": computer.model,
+          "materialIndex": computer.materialIndex,
+          "serialNumber": computer.serialNumber,
+      })
+           .then(() => {
+           loadComputers(computersRef).then(computersData => setComputers(computersData));
+       })
+
   }
 
   function deleteComputer(id) {
