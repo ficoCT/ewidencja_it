@@ -2,20 +2,36 @@ import React, { useEffect, useState } from 'react';
 import {
     collection, getFirestore,
     doc, getDocs, addDoc, deleteDoc, updateDoc,
-    onSnapshot,
     query, where
 } from "firebase/firestore";
 import Computer from '../Computer';
 import AddComputer from '../AddComputer';
 import {app} from "../../firebase";
 import QueryComputer from "../QueryComputer";
+import Select from 'react-select';
 
 export default function ComputersManagerAdmin() {
 
     const [computers, setComputers] = useState([]);
     const [queryComputer, setQueryComputer] = useState([]);
+    const [companies, setCompanies] = useState([]);
+    const [selectedOption, setSelectedOption] = useState(null);
+
     const db = getFirestore(app);
     const computersRef = collection(db, 'computers');
+    const companyRef = collection(db, 'company');
+
+    async function loadCompany(computersRef) {
+
+        let companyData = [];
+        await getDocs(computersRef).then(snapshot => {
+            snapshot.docs.forEach(doc => {
+                companyData.push({ ...doc.data(), id: doc.id })
+            })
+        })
+        console.log('companyData', companyData);
+        return companyData;
+    }
 
     async function loadComputers(computersRef) {
 
@@ -30,6 +46,7 @@ export default function ComputersManagerAdmin() {
 
       useEffect(() => {
           loadComputers(computersRef).then(computersData => setComputers(computersData));
+          loadCompany(companyRef).then(companyData => setCompanies(companyData));
       }, []);
 
       function addComputer(computer) {
@@ -76,6 +93,7 @@ export default function ComputersManagerAdmin() {
 
   return (
     <div>
+      <h1>Lista komputerów w przedsiębiorstwie</h1>
       {computers.length === 0 ?
           <h1>Ładowanie danych ...</h1>
           :
@@ -106,6 +124,16 @@ export default function ComputersManagerAdmin() {
                 ))}
             </ul>
         }
+        <hr />
+        <h1>Lista modeli komputerów w przedsiębiorstwie</h1>
+        <Select
+            options={companies}
+        />
+        <br />
+        <Select
+            options={companies}
+            onChange={setSelectedOption}
+        />
     </div>
   );
 }
