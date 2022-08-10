@@ -15,11 +15,74 @@ export default function ComputersManagerAdmin() {
     const [computers, setComputers] = useState([]);
     const [queryComputer, setQueryComputer] = useState([]);
     const [companies, setCompanies] = useState([]);
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [company, setCompany] = useState([]);
+    const [models, setModels] = useState([]);
+
+    const [values, setValues] = useState({company: 'dell'});
 
     const db = getFirestore(app);
     const computersRef = collection(db, 'computers');
     const companyRef = collection(db, 'company');
+
+    const selectItems = {
+        name: "size",
+        fields: {
+            company: [
+                {
+                    value: "dell",
+                    label: "Dell",
+                },
+                {
+                    value: "asus",
+                    label: "Asus",
+                },
+                {
+                    value: "toshiba",
+                    label: "Toshiba",
+                }
+            ],
+            dell: [
+                {
+                    value: "modelDell1",
+                },
+                {
+                    value: "modelDell2"
+                },
+                {
+                    value: "modelDell3"
+                }
+            ],
+            asus: [
+                {
+                    value: "modelAsus1",
+                },
+                {
+                    value: "modelAsus2"
+                },
+                {
+                    value: "modelAsus3"
+                }
+            ],
+            toshiba: [
+                {
+                    value: "modelToshiba1",
+                },
+                {
+                    value: "modelToshiba2"
+                },
+                {
+                    value: "modelToshiba3"
+                }
+            ],
+        }
+    };
+
+    const handleChange = (name, value) => {
+        console.log('[name]: value', name, value);
+        setValues((s) => {
+            return { ...s, [name]: value };
+        });
+    };
 
     async function loadCompany(computersRef) {
 
@@ -29,7 +92,6 @@ export default function ComputersManagerAdmin() {
                 companyData.push({ ...doc.data(), id: doc.id })
             })
         })
-        console.log('companyData', companyData);
         return companyData;
     }
 
@@ -126,14 +188,34 @@ export default function ComputersManagerAdmin() {
         }
         <hr />
         <h1>Lista modeli komputerów w przedsiębiorstwie</h1>
-        <Select
-            options={companies}
-        />
+        <select
+            id="size1"
+            name="size1"
+            onChange={(e) => handleChange("company", e.target.value)}
+        >
+            {selectItems.fields['company'].map(({ value, label }) => {
+                return (
+                    <option key={value} value={value}>
+                        {label}
+                    </option>
+                );
+            })}
+        </select>
         <br />
-        <Select
-            options={companies}
-            onChange={setSelectedOption}
-        />
+        <br />
+        <select
+            id="size2"
+            name="size2"
+            onChange={(e) => handleChange("size2", e.target.value)}
+        >
+            {selectItems.fields[values.company].map(({ value, selected }) => {
+                return (
+                    <option key={value} value={value} selected={!!selected}>
+                        {value}
+                    </option>
+                );
+            })}
+        </select>
     </div>
   );
 }
