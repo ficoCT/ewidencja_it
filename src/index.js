@@ -17,6 +17,8 @@ import Reports from "./components/Reports";
 import Repairs from "./components/Repairs";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ComputersManagerAdmin from "./components/ComputersManagerAdmin";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -31,8 +33,9 @@ root.render(
                   <Route path="timetable" element={<Timetable />} />
                   <Route path="reports" element={<Reports />} />
                   <Route path="repairs" element={<Repairs />} />
-
                   <Route path="computers-manager-admin" element={<ComputersManagerAdmin />} />
+                  <Route path="login" element={<Login />} />
+                  <Route path="register" element={<Register />} />
               </Route>
           </Routes>
       </BrowserRouter>

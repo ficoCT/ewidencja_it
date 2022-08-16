@@ -23,17 +23,12 @@ function mapFormValuesToComputer(values) {
 export default function ComputerForm({ computer, submitLabel, onSubmit }) {
 
   const initialValues = mapComputerToFormValues(computer);
-  // const [values, setValues] = useState(initialValues);
-  const [values, setValues] = useState({
-    company: 'dell',
-    materialIndex: '',
-    model: 'modelDell1',
-    serialNumber: ''});
+  const [values, setValues] = useState(initialValues);
+
   const [errorMessages, setErrorMessages] = useState(null);
 
   const selectItems = {
-    name: "size",
-    fields: {
+    models: {
       company: [
         {
           value: "dell",
@@ -84,10 +79,7 @@ export default function ComputerForm({ computer, submitLabel, onSubmit }) {
     }
   };
 
-  const [valuesS, setValuesS] = useState({company: 'dell'});
-
   const handleChangeS = (name, value) => {
-    console.log('[name]: value', name, value);
     setValues((s) => {
       return { ...s, [name]: value };
     });
@@ -111,28 +103,12 @@ export default function ComputerForm({ computer, submitLabel, onSubmit }) {
 
   return (
   <form onSubmit={handleSubmit}>
-    {/*<Field*/}
-    {/*    label="Producent"*/}
-    {/*    name="company"*/}
-    {/*    type="text"*/}
-    {/*    value={values.company}*/}
-    {/*    errorMessage={errorMessages?.company}*/}
-    {/*    onChange={handleChange}*/}
-    {/*/>*/}
-    {/*<Field*/}
-    {/*    label="Model"*/}
-    {/*    name="model"*/}
-    {/*    type="text"*/}
-    {/*    value={values.model}*/}
-    {/*    errorMessage={errorMessages?.model}*/}
-    {/*    onChange={handleChange}*/}
-    {/*/>*/}
     <select
         id="size1"
         name="size1"
         onChange={(e) => handleChangeS("company", e.target.value)}
     >
-      {selectItems.fields['company'].map(({ value, label }) => {
+      {selectItems.models['company'].map(({ value, label }) => {
         return (
             <option key={value} value={value}>
               {label}
@@ -147,9 +123,9 @@ export default function ComputerForm({ computer, submitLabel, onSubmit }) {
         name="size2"
         onChange={(e) => handleChangeS("model", e.target.value)}
     >
-      {selectItems.fields[values.company].map(({ value, selected }) => {
+      {selectItems.models[values.company].map(({ value }) => {
         return (
-            <option key={value} value={value} selected={!!selected}>
+            <option key={value} value={value}>
               {value}
             </option>
         );

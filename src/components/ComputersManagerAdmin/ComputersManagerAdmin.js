@@ -8,7 +8,6 @@ import Computer from '../Computer';
 import AddComputer from '../AddComputer';
 import {app} from "../../firebase";
 import QueryComputer from "../QueryComputer";
-import Select from 'react-select';
 
 export default function ComputersManagerAdmin() {
 
@@ -210,7 +209,7 @@ export default function ComputersManagerAdmin() {
         >
             {selectItems.fields[values.company].map(({ value, selected }) => {
                 return (
-                    <option key={value} value={value} selected={!!selected}>
+                    <option key={value} value={value}>
                         {value}
                     </option>
                 );

@@ -2,6 +2,7 @@ import './App.css';
 import {Outlet, Link, Route} from "react-router-dom";
 
 function App() {
+
   return (
       <>
       <nav>
@@ -12,9 +13,9 @@ function App() {
       <Link to="/timetable">Terminarz</Link> |{" "}
       <Link to="/reports">Raporty</Link> |{" "}
       <Link to="/repairs">Naprawy</Link> |{" "}
-      <Link to="/login">Zaloguj się</Link>
-          computers-manager-admin
-     <Link to="/computers-manager-admin">Komputery administrator</Link> |{" "}
+      <Link to="/login">Zaloguj się</Link> |{" "}
+      <Link to="/register">Zarejestruj się</Link> |{" "}
+      <Link to="/computers-manager-admin">Komputery administrator</Link> |{" "}
       </nav>
       <Outlet />
       </>
