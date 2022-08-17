@@ -1,17 +1,21 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
+import { useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
 import Links from "./Links";
 import {Input} from "./Input";
 import {validateLogin} from "../validateLogin";
+import {AuthContext} from "../context/AuthContext";
 
 function Login() {
   const [values, setValues] = useState({email: "", password: ""});
   const [errorMessages, setErrorMessages] = useState(null);
 
+  const navigate = useNavigate();
+
+  const {dispatch} = useContext(AuthContext) ;
+
   const handleSubmit = (e) => {
       e.preventDefault();
-    console.log('handleSubmit');
       setErrorMessages(validateLogin(values));
 
       if (errorMessages) return;
@@ -20,12 +24,12 @@ function Login() {
       signInWithEmailAndPassword(auth, values.email, values.password)
           .then((userCredential) => {
               const user = userCredential.user;
-              console.log('user', user.email);
+              dispatch({type:"LOGIN", payload:user})
+              navigate("/home");
           })
           .catch((error) => {
               const errorCode = error.code;
               const errorMessage = error.message;
-              console.log('errorMessage', errorMessage);
           });
   };
 
@@ -65,7 +69,6 @@ function Login() {
       </div>
       <div>
           <button
-
               onClick={handleSubmit}
           >
               Zaloguj się

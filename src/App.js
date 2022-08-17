@@ -1,24 +1,129 @@
 import './App.css';
-import {Outlet, Link, Route} from "react-router-dom";
+import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import ComputersManagerUser from "./components/ComputersManagerUser";
+import Software from "./components/Software";
+import OtherHardware from "./components/OtherHardware";
+import Administration from "./components/Administration";
+import Timetable from "./components/Timetable";
+import Reports from "./components/Reports";
+import Repairs from "./components/Repairs";
+import ComputersManagerAdmin from "./components/ComputersManagerAdmin";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import React, {useContext} from "react";
+import Home from "./components/Home";
+import {AuthContext} from "./context/AuthContext";
 
 function App() {
 
+    const {currentUser} = useContext(AuthContext);
+
+    const RequireAuth = ({ children }) => {
+        return currentUser ? children : <Navigate to="/login" />;
+    };
+
   return (
-      <>
-      <nav>
-      <Link to="/computers-manager-user">Komputery użytkownik</Link> |{" "}
-      <Link to="/software">Oprogramowanie</Link> |{" "}
-      <Link to="/otherHardware">Inny sprzęt</Link> |{" "}
-      <Link to="/administration">Administracja</Link> |{" "}
-      <Link to="/timetable">Terminarz</Link> |{" "}
-      <Link to="/reports">Raporty</Link> |{" "}
-      <Link to="/repairs">Naprawy</Link> |{" "}
-      <Link to="/login">Zaloguj się</Link> |{" "}
-      <Link to="/register">Zarejestruj się</Link> |{" "}
-      <Link to="/computers-manager-admin">Komputery administrator</Link> |{" "}
-      </nav>
-      <Outlet />
-      </>
+          <BrowserRouter>
+              <Routes>
+                  <Route
+                      path="/*"
+                  >
+                      <Route
+                          index
+                          path="home"
+                          element={
+                              <RequireAuth>
+                                  <Home/>
+                              </RequireAuth>
+                          }
+                      />
+                      <Route
+                          path="register"
+                          element={
+                              <RequireAuth>
+                                  <Register/> />
+                              </RequireAuth>
+                          }
+                      />
+                      <Route
+                          path="login"
+                          element={
+                                  <Login />
+                          }
+                      />
+                      <Route
+                          path="computers-manager-user"
+                          element={
+                              <RequireAuth>
+                                  <ComputersManagerUser />
+                              </RequireAuth>
+                          }
+                      />
+                      <Route
+                          path="software"
+                          element={
+                              <RequireAuth>
+                                  <Software />
+                              </RequireAuth>
+                          }
+                      />
+                      <Route path="otherHardware"
+                             element={
+                                 <RequireAuth>
+                                     <OtherHardware />
+                                 </RequireAuth>
+                             }
+                      />
+                      <Route
+                          path="administration"
+                          element={
+                              <RequireAuth>
+                                  <Administration />
+                              </RequireAuth>
+                          }
+                      />
+                      <Route
+                          path="timetable"
+                          element={
+                              <RequireAuth>
+                                  <Timetable />
+                              </RequireAuth>
+                          }
+                      />
+                      <Route
+                          path="reports"
+                          element={
+                              <RequireAuth>
+                                  <Reports />
+                              </RequireAuth>
+                          }
+                      />
+                      <Route
+                          path="repairs"
+                          element={
+                              <RequireAuth>
+                                  <Repairs />
+                              </RequireAuth>
+                          }
+                      />
+                      <Route
+                          path="computers-manager-admin"
+                          element={
+                              <RequireAuth>
+                                  <ComputersManagerAdmin />
+                              </RequireAuth>
+                          }
+                      />
+                      <Route
+                          path="*"
+                          element={
+                          <Navigate to="/login"
+                                    replace
+                          />}
+                      />
+                  </Route>
+              </Routes>
+          </BrowserRouter>
   );
 }
 

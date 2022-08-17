@@ -39,43 +39,41 @@ function Register() {
             <div>
                 <Links />
             </div>
-            <span>
-          Załóż konto
-            </span>
-            <div>
-                <Input
-                    label="Email"
-                    name="email"
-                    type="email"
-                    value={values.email}
-                    errorMessage={errorMessages?.email}
-                    onChange={handleChange}
-                />
-                <Input
-                    label="Hasło"
-                    name="password"
-                    type="password"
-                    value={values.password}
-                    errorMessage={errorMessages?.password}
-                    onChange={handleChange}
-                />
-                <Input
-                    label="Powtórz hasło"
-                    name="password1"
-                    type="password"
-                    value={values.password1}
-                    errorMessage={errorMessages?.password1}
-                    onChange={handleChange}
-                />
+              <span>
+            Załóż konto
+              </span>
+              <div>
+            <Input
+                label="Email"
+                name="email"
+                type="email"
+                value={values.email}
+                errorMessage={errorMessages?.email}
+                onChange={handleChange}
+            />
+            <Input
+                label="Hasło"
+                name="password"
+                type="password"
+                value={values.password}
+                errorMessage={errorMessages?.password}
+                onChange={handleChange}
+            />
+            <Input
+                label="Powtórz hasło"
+                name="password1"
+                type="password"
+                value={values.password1}
+                errorMessage={errorMessages?.password1}
+                onChange={handleChange}
+            />
             </div>
             <button
-
                 onClick={handleSubmit}
             >
                 Załóż konto
             </button>
         </div>
-
     );
 }
 

@@ -19,26 +19,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ComputersManagerAdmin from "./components/ComputersManagerAdmin";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import {AuthContextProvider} from "./context/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      <BrowserRouter>
-          <Routes>
-              <Route path="/" element={<App />} >
-                  <Route path="computers-manager-user" element={<ComputersManagerUser />} />
-                  <Route path="software" element={<Software />} />
-                  <Route path="otherHardware" element={<OtherHardware />} />
-                  <Route path="administration" element={<Administration />} />
-                  <Route path="timetable" element={<Timetable />} />
-                  <Route path="reports" element={<Reports />} />
-                  <Route path="repairs" element={<Repairs />} />
-                  <Route path="computers-manager-admin" element={<ComputersManagerAdmin />} />
-                  <Route path="login" element={<Login />} />
-                  <Route path="register" element={<Register />} />
-              </Route>
-          </Routes>
-      </BrowserRouter>
+      <AuthContextProvider>
+          <App />
+      </AuthContextProvider>
   </React.StrictMode>
 );
 
