@@ -13,6 +13,8 @@ import Login from "./components/Login";
 import React, {useContext} from "react";
 import Home from "./components/Home";
 import {AuthContext} from "./context/AuthContext";
+import {userInputs} from "./formSource";
+import New from "./components/New";
 
 function App() {
 
@@ -111,6 +113,14 @@ function App() {
                           element={
                               <RequireAuth>
                                   <ComputersManagerAdmin />
+                              </RequireAuth>
+                          }
+                      />
+                      <Route
+                          path="new"
+                          element={
+                              <RequireAuth>
+                                  <New inputs={userInputs} title="Add New User" />
                               </RequireAuth>
                           }
                       />
