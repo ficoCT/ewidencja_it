@@ -2,7 +2,7 @@ import {useState} from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 import Links from "./Links";
-import {Input} from "./Input";
+import Field from "./Field";
 import {validateRegister} from "../validateRegister";
 
 function Register() {
@@ -43,7 +43,7 @@ function Register() {
             Załóż konto
               </span>
               <div>
-            <Input
+            <Field
                 label="Email"
                 name="email"
                 type="email"
@@ -51,7 +51,7 @@ function Register() {
                 errorMessage={errorMessages?.email}
                 onChange={handleChange}
             />
-            <Input
+            <Field
                 label="Hasło"
                 name="password"
                 type="password"
@@ -59,7 +59,7 @@ function Register() {
                 errorMessage={errorMessages?.password}
                 onChange={handleChange}
             />
-            <Input
+            <Field
                 label="Powtórz hasło"
                 name="password1"
                 type="password"
@@ -67,6 +67,7 @@ function Register() {
                 errorMessage={errorMessages?.password1}
                 onChange={handleChange}
             />
+
             </div>
             <button
                 onClick={handleSubmit}

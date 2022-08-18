@@ -14,7 +14,8 @@ import React, {useContext} from "react";
 import Home from "./components/Home";
 import {AuthContext} from "./context/AuthContext";
 import {userInputs} from "./formSource";
-import New from "./components/New";
+import NewUser from "./components/NewUser";
+import UserList from "./components/UserList";
 
 function App() {
 
@@ -117,10 +118,18 @@ function App() {
                           }
                       />
                       <Route
-                          path="new"
+                          path="new-user"
                           element={
                               <RequireAuth>
-                                  <New inputs={userInputs} title="Add New User" />
+                                  <NewUser inputs={userInputs} title="Add NewUser User" />
+                              </RequireAuth>
+                          }
+                      />
+                      <Route
+                          path="user-list"
+                          element={
+                              <RequireAuth>
+                                  <UserList/>
                               </RequireAuth>
                           }
                       />

@@ -2,9 +2,10 @@ import {useContext, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import Links from "./Links";
-import {Input} from "./Input";
 import {validateLogin} from "../validateLogin";
 import {AuthContext} from "../context/AuthContext";
+import Field from "./Field";
+import React from "react";
 
 function Login() {
   const [values, setValues] = useState({email: "", password: ""});
@@ -50,7 +51,7 @@ function Login() {
           Zaloguj się
       </span>
       <div>
-          <Input
+          <Field
               label="Email"
               name="email"
               type="email"
@@ -58,7 +59,7 @@ function Login() {
               errorMessage={errorMessages?.email}
               onChange={handleChange}
           />
-          <Input
+          <Field
               label="Hasło"
               name="password"
               type="password"
@@ -66,6 +67,7 @@ function Login() {
               errorMessage={errorMessages?.password}
               onChange={handleChange}
           />
+
       </div>
       <div>
           <button
