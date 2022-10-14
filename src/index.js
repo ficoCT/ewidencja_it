@@ -12,7 +12,7 @@ import ComputersManagerUser from "./components/ComputersManagerUser";
 import Software from "./components/Software";
 import OtherHardware from "./components/OtherHardware";
 import Administration from "./components/Administration";
-import Timetable from "./components/Timetable";
+import Timetable from "./components/Scheduler";
 import Reports from "./components/Reports";
 import Repairs from "./components/Repairs";
 import 'bootstrap/dist/css/bootstrap.min.css';

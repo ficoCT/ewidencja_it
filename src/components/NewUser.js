@@ -8,18 +8,19 @@ import { auth, db, storage } from "../firebase.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 const NewUser = ({ inputs, title }) => {
     const [file, setFile] = useState("");
     const [data, setData] = useState({});
     const [per, setPer] = useState(null);
-    const navigate = useNavigate()
+    const [errorFile, setErrorFile] = useState(false);
+    const [errorUser, setErrorUser] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const uploadFile = () => {
-            const name = new Date().getTime() + file.name;
 
-            console.log(name);
             const storageRef = ref(storage, file.name);
             const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -42,7 +43,7 @@ const NewUser = ({ inputs, title }) => {
                     }
                 },
                 (error) => {
-                    console.log(error);
+                    setErrorFile(true);
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -53,8 +54,6 @@ const NewUser = ({ inputs, title }) => {
         };
         file && uploadFile();
     }, [file]);
-
-    console.log(data);
 
     const handleInput = (e) => {
         const id = e.target.id;
@@ -77,18 +76,18 @@ const NewUser = ({ inputs, title }) => {
             });
             navigate(-1)
         } catch (err) {
-            console.log(err);
+            setErrorUser(true);
         }
     };
 
     return (
-        <div className="new">
-            <div className="newContainer">
-                <div className="top">
+        <div>
+            <div>
+                <div>
                     <h1>{title}</h1>
                 </div>
-                <div className="bottom">
-                    <div className="left">
+                <div>
+                    <div>
                         <img
                             src={
                                 file
@@ -98,12 +97,13 @@ const NewUser = ({ inputs, title }) => {
                             alt=""
                         />
                     </div>
-                    <div className="right">
+                    <div>
                         <form onSubmit={handleAdd}>
-                            <div className="formInput">
+                            <div>
                                 <label htmlFor="file">
                                     Image: Icon
                                 </label>
+                                {errorFile && <span>{'Coś poszło nie tak :('}</span>}
                                 <input
                                     type="file"
                                     id="file"
@@ -113,7 +113,7 @@ const NewUser = ({ inputs, title }) => {
                             </div>
 
                             {inputs.map((input) => (
-                                <div className="formInput" key={input.id}>
+                                <div key={input.id}>
                                     <label>{input.label}</label>
                                     <input
                                         id={input.id}

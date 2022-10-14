@@ -1,9 +1,9 @@
 import {useState} from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-import Links from "./Links";
 import Field from "./Field";
 import {validateRegister} from "../validateRegister";
+import NavbarAdmin from "./NavbarAdmin";
 
 function Register() {
     const [values, setValues] = useState({email: "", password: "", password1: ""});
@@ -37,7 +37,7 @@ function Register() {
     return (
         <div>
             <div>
-                <Links />
+                <NavbarAdmin />
             </div>
               <span>
             Załóż konto

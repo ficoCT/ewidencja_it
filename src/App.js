@@ -4,7 +4,7 @@ import ComputersManagerUser from "./components/ComputersManagerUser";
 import Software from "./components/Software";
 import OtherHardware from "./components/OtherHardware";
 import Administration from "./components/Administration";
-import Timetable from "./components/Timetable";
+import Timetable from "./components/Scheduler";
 import Reports from "./components/Reports";
 import Repairs from "./components/Repairs";
 import ComputersManagerAdmin from "./components/ComputersManagerAdmin";
@@ -109,6 +109,7 @@ function App() {
                               </RequireAuth>
                           }
                       />
+
                       <Route
                           path="computers-manager-admin"
                           element={
@@ -117,6 +118,7 @@ function App() {
                               </RequireAuth>
                           }
                       />
+
                       <Route
                           path="new-user"
                           element={
