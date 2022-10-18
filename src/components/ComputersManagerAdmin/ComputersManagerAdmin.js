@@ -124,7 +124,7 @@ export default function ComputersManagerAdmin() {
       }
 
       function updateComputer(id, computer) {
-           const computerRef = doc(db, 'computers', id)
+           const computerRef = doc(db, 'computers', id);
 
            updateDoc(computerRef, {
               "company": computer.company,

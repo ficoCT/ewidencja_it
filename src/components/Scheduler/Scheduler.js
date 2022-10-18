@@ -2,7 +2,7 @@ import { Scheduler } from "@aldabil/react-scheduler";
 import { EVENTS } from "./events";
 import * as React from 'react';
 import {useState} from "react";
-import {collection, getDocs, getFirestore} from "firebase/firestore";
+import {addDoc, collection, doc, getDocs, getFirestore, updateDoc} from "firebase/firestore";
 import {app} from "../../firebase";
 import {useEffect} from "react";
 import Computer from "../Computer";
@@ -37,10 +37,26 @@ export default function App() {
 
     const handleConfirm = async (event, action) => {
         console.log(event, action);
+        console.log('event.event_id', event.event_id);
+
+        event.event_id = event.event_id || Math.random();
+
         if (action === "edit") {
-            /** PUT event to remote DB */
+            //const schedulerRefUpdate = doc(db, 'scheduler', String(event.event_id));
+            const schedulerRefUpdate = doc(db, 'scheduler', '0.5924571511220311');
+            console.log('String(event.event_id)', String(event.event_id));
+            await updateDoc(schedulerRefUpdate, {
+                title: event.title,
+                start: event.start,
+                end: event.end,
+            })
         } else if (action === "create") {
-            /**POST event to remote DB */
+            addDoc(schedulerRef, {
+                event_id: event.event_id,
+                title: event.title,
+                start: event.start,
+                end: event.end,
+            })
         }
         /**
          * Make sure to return 4 mandatory fields:
@@ -50,15 +66,12 @@ export default function App() {
          * end: Date|string
          * ....extra other fields depend on your custom fields/editor properties
          */
-        // Simulate http request: return added/edited event
-        return new Promise((res, rej) => {
-            setTimeout(() => {
-                res({
-                    ...event,
-                    event_id: event.event_id || Math.random()
-                });
-            }, 3000);
-        });
+
+        return {
+            ...event,
+            event_id: event.event_id || Math.random()
+        };
+
     };
 
     const handleDelete = async (deletedId) => {
@@ -72,16 +85,20 @@ export default function App() {
 
   return (
       <>
-      {events.length === 0 ?
-              'Ładuje się ...'
-              :
-              <Scheduler
-                  events={events}
-                  // remoteEvents={fetchRemote}
-                  onConfirm={handleConfirm}
-                  onDelete={handleDelete}
-              />
-      }
+      {/*{events.length === 0 ?*/}
+      {/*        'Ładuje się ...'*/}
+      {/*        :*/}
+      {/*        <Scheduler*/}
+      {/*            events={events}*/}
+      {/*            // onConfirm={handleConfirm}*/}
+      {/*            // onDelete={handleDelete}*/}
+      {/*        />*/}
+      {/*}*/}
+                  <Scheduler
+                      events={events}
+                      onConfirm={handleConfirm}
+                      // onDelete={handleDelete}
+                  />
       </>
   );
 }
