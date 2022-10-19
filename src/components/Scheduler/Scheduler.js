@@ -2,7 +2,7 @@ import { Scheduler } from "@aldabil/react-scheduler";
 import { EVENTS } from "./events";
 import * as React from 'react';
 import {useState} from "react";
-import {addDoc, collection, doc, getDocs, getFirestore, updateDoc} from "firebase/firestore";
+import {addDoc, collection, deleteDoc, doc, getDocs, getFirestore, updateDoc} from "firebase/firestore";
 import {app} from "../../firebase";
 import {useEffect} from "react";
 import Computer from "../Computer";
@@ -23,10 +23,12 @@ export default function App() {
             })
         })
         eventsData.forEach(event => {
+            event.event_id = event.id
+            console.log('event.id', event.id);
             event.start = event.start.toDate();
             event.end = event.end.toDate();
         });
-
+        console.log('eventsData', eventsData);
         return eventsData;
     }
 
@@ -41,21 +43,25 @@ export default function App() {
 
         event.event_id = event.event_id || Math.random();
 
+
         if (action === "edit") {
             //const schedulerRefUpdate = doc(db, 'scheduler', String(event.event_id));
-            const schedulerRefUpdate = doc(db, 'scheduler', '0.5924571511220311');
-            console.log('String(event.event_id)', String(event.event_id));
-            await updateDoc(schedulerRefUpdate, {
+            const schedulerRefUpdate = doc(db, 'scheduler', event.id);
+            console.log('String(event.event_id)', schedulerRefUpdate);
+            updateDoc(schedulerRefUpdate, {
                 title: event.title,
                 start: event.start,
                 end: event.end,
             })
         } else if (action === "create") {
             addDoc(schedulerRef, {
-                event_id: event.event_id,
+                event_id: '',
                 title: event.title,
                 start: event.start,
                 end: event.end,
+            }) .then(() => {
+                loadEvents(schedulerRef)
+                    .then( eventsData => setEvents(eventsData));
             })
         }
         /**
@@ -69,18 +75,18 @@ export default function App() {
 
         return {
             ...event,
-            event_id: event.event_id || Math.random()
+            event_id: event.id
         };
 
     };
 
     const handleDelete = async (deletedId) => {
-        // Simulate http request: return the deleted id
-        return new Promise((res, rej) => {
-            setTimeout(() => {
-                res(deletedId);
-            }, 3000);
-        });
+
+        console.log('handleDelete', handleDelete);
+        const computerRef = doc(db, 'scheduler', deletedId)
+        await deleteDoc(computerRef);
+
+        return deletedId;
     };
 
   return (
@@ -97,7 +103,7 @@ export default function App() {
                   <Scheduler
                       events={events}
                       onConfirm={handleConfirm}
-                      // onDelete={handleDelete}
+                      onDelete={handleDelete}
                   />
       </>
   );
