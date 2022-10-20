@@ -32,6 +32,29 @@ export default function App() {
         return eventsData;
     }
 
+    async function reloadEvents(schedulerRef) {
+
+        let eventsData = [];
+        await getDocs(schedulerRef).then(snapshot => {
+            snapshot.docs.forEach(doc => {
+                eventsData.push({ ...doc.data(), id: doc.id })
+            })
+        })
+        eventsData.forEach(event => {
+
+            const schedulerRefUpdate = doc(db, 'scheduler', event.id);
+
+            updateDoc(schedulerRefUpdate, {
+                event_id: event.id,
+                title: event.title,
+                start: event.start,
+                end: event.end,
+            })
+        });
+
+        return eventsData;
+    }
+
     useEffect(() => {
         loadEvents(schedulerRef)
             .then( eventsData => setEvents(eventsData));
@@ -41,17 +64,17 @@ export default function App() {
         console.log(event, action);
         console.log('event.event_id', event.event_id);
 
-        event.event_id = event.event_id || Math.random();
-
-
         if (action === "edit") {
             //const schedulerRefUpdate = doc(db, 'scheduler', String(event.event_id));
-            const schedulerRefUpdate = doc(db, 'scheduler', event.id);
+            const schedulerRefUpdate = doc(db, 'scheduler', event.event_id);
             console.log('String(event.event_id)', schedulerRefUpdate);
             updateDoc(schedulerRefUpdate, {
                 title: event.title,
                 start: event.start,
                 end: event.end,
+            }).then(() => {
+                loadEvents(schedulerRef)
+                    .then( eventsData => setEvents(eventsData));
             })
         } else if (action === "create") {
             addDoc(schedulerRef, {
@@ -59,7 +82,9 @@ export default function App() {
                 title: event.title,
                 start: event.start,
                 end: event.end,
-            }) .then(() => {
+            })
+
+            reloadEvents(schedulerRef).then(() => {
                 loadEvents(schedulerRef)
                     .then( eventsData => setEvents(eventsData));
             })
@@ -91,20 +116,15 @@ export default function App() {
 
   return (
       <>
-      {/*{events.length === 0 ?*/}
-      {/*        'Ładuje się ...'*/}
-      {/*        :*/}
-      {/*        <Scheduler*/}
-      {/*            events={events}*/}
-      {/*            // onConfirm={handleConfirm}*/}
-      {/*            // onDelete={handleDelete}*/}
-      {/*        />*/}
-      {/*}*/}
-                  <Scheduler
-                      events={events}
-                      onConfirm={handleConfirm}
-                      onDelete={handleDelete}
-                  />
+      {events.length === 0 ?
+              'Ładuje się ...'
+              :
+              <Scheduler
+                  events={events}
+                  onConfirm={handleConfirm}
+                  onDelete={handleDelete}
+              />
+      }
       </>
   );
 }
