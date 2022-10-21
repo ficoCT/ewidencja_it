@@ -8,6 +8,7 @@ import Computer from '../Computer';
 import AddComputer from '../AddComputer';
 import {app} from "../../firebase";
 import QueryComputer from "../QueryComputer";
+import ToggleVisibility from "../ToggleVisibility";
 
 export default function ComputersManagerAdmin() {
 
@@ -153,8 +154,11 @@ export default function ComputersManagerAdmin() {
     }
 
   return (
-    <div>
-      <h1>Lista komputerów w przedsiębiorstwie</h1>
+    <>
+      <div>
+          <span style={{color:'red'}}>Lista komputerów w przedsiębiorstwie</span>
+      <ToggleVisibility>
+      <div>
       {computers.length === 0 ?
           <h1>Ładowanie danych ...</h1>
           :
@@ -167,13 +171,21 @@ export default function ComputersManagerAdmin() {
           </ul>
       }
       <br />
+      </div>
+          </ToggleVisibility>
+      </div>
       <div>
-        <AddComputer onSubmit={addComputer} />
+          <span style={{color:'red'}}>DODAJ KOMPUTER</span>
+          <ToggleVisibility>
+              <AddComputer onSubmit={addComputer} />
+          </ToggleVisibility>
+
       </div>
       <br />
+      <span style={{color:'red'}}>WYSZUKAJ KOMPUTER</span>
+      <ToggleVisibility>
       <div>
-         <QueryComputer submitLabel="Wyszukaj" onSubmit={queryComputers} />
-      </div>
+        <QueryComputer submitLabel="Wyszukaj" onSubmit={queryComputers} />
         {queryComputer.length === 0 ?
             ''
             :
@@ -185,8 +197,13 @@ export default function ComputersManagerAdmin() {
                 ))}
             </ul>
         }
+      </div>
+      </ToggleVisibility>
         <hr />
-        <h1>Lista modeli komputerów w przedsiębiorstwie</h1>
+        <div>
+        <span style={{color:'red'}}>Lista modeli komputerów w przedsiębiorstwie</span>
+        <ToggleVisibility>
+        <div>
         <select
             id="size1"
             name="size1"
@@ -215,6 +232,9 @@ export default function ComputersManagerAdmin() {
                 );
             })}
         </select>
-    </div>
+        </div>
+        </ToggleVisibility>
+        </div>
+    </>
   );
 }

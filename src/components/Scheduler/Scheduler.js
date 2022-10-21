@@ -23,12 +23,10 @@ export default function App() {
             })
         })
         eventsData.forEach(event => {
-            event.event_id = event.id
-            console.log('event.id', event.id);
+            event.event_id = event.id;
             event.start = event.start.toDate();
             event.end = event.end.toDate();
         });
-        console.log('eventsData', eventsData);
         return eventsData;
     }
 
@@ -62,12 +60,10 @@ export default function App() {
 
     const handleConfirm = async (event, action) => {
         console.log(event, action);
-        console.log('event.event_id', event.event_id);
 
         if (action === "edit") {
             //const schedulerRefUpdate = doc(db, 'scheduler', String(event.event_id));
             const schedulerRefUpdate = doc(db, 'scheduler', event.event_id);
-            console.log('String(event.event_id)', schedulerRefUpdate);
             updateDoc(schedulerRefUpdate, {
                 title: event.title,
                 start: event.start,
@@ -107,7 +103,6 @@ export default function App() {
 
     const handleDelete = async (deletedId) => {
 
-        console.log('handleDelete', handleDelete);
         const computerRef = doc(db, 'scheduler', deletedId)
         await deleteDoc(computerRef);
 
