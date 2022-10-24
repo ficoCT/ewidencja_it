@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Field from "../Field"
 import validate from './validateComputerValues';
+import {collection, getDocs, getFirestore} from "firebase/firestore";
+import {useEffect} from "react";
+import {app} from "../../firebase";
 
 function mapComputerToFormValues(computer) {
   return {
@@ -22,72 +25,56 @@ function mapFormValuesToComputer(values) {
 
 export default function ComputerForm({ computer, submitLabel, onSubmit }) {
 
-  const initialValues = mapComputerToFormValues(computer);
+  const initialValues = mapComputerToFormValues({ company: 'asus', model: '', materialIndex: 'Tutaj wpisz index', serialNumber: 'Tutaj wpisz numer seryjny'});
   const [values, setValues] = useState(initialValues);
+  const [companies, setCompanies] = useState([]);
+  const [models, setModels] = useState({});
 
   const [errorMessages, setErrorMessages] = useState(null);
 
-  const selectItems = {
-    models: {
-      company: [
-        {
-          value: "dell",
-          label: "Dell",
-        },
-        {
-          value: "asus",
-          label: "Asus",
-        },
-        {
-          value: "toshiba",
-          label: "Toshiba",
-        }
-      ],
-      dell: [
-        {
-          value: "modelDell1",
-        },
-        {
-          value: "modelDell2"
-        },
-        {
-          value: "modelDell3"
-        }
-      ],
-      asus: [
-        {
-          value: "modelAsus1",
-        },
-        {
-          value: "modelAsus2"
-        },
-        {
-          value: "modelAsus3"
-        }
-      ],
-      toshiba: [
-        {
-          value: "modelToshiba1",
-        },
-        {
-          value: "modelToshiba2"
-        },
-        {
-          value: "modelToshiba3"
-        }
-      ],
-    }
-  };
+  const db = getFirestore(app);
+  const companyRef = collection(db, 'company');
 
-  const handleChangeS = (name, value) => {
-    setValues((s) => {
-      return { ...s, [name]: value };
+  const handleChange = (name, value) => {
+
+    setValues((values) => {
+      return { ...values, [name]: value };
     });
+
   };
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setValues(values => ({ ...values, [name]: value }))
+  async function loadCompany(companyRef) {
+
+    let label;
+    let companiesData = [];
+    let companyData = {};
+    await getDocs(companyRef).then(snapshot => {
+      snapshot.docs.forEach(doc => {
+        label = doc.id.split("");
+        label[0] = label[0].toUpperCase();
+        label.toString();
+        companiesData.push({value: doc.id, label: label});
+        Object.assign(companyData, {[doc.id]: doc.data()});
+      })
+    })
+    let allModelsCompany = [];
+    let allModels = {};
+    for (let company in companyData) {
+      allModels = companyData[company];
+      for (let typeModels in allModels) {
+        for (let model of allModels[typeModels]) {
+          allModelsCompany.push(model);
+        }
+      }
+      companyData[company] = allModelsCompany;
+      allModelsCompany = [];
+    }
+
+    return {
+      companiesData: companiesData,
+      companyData: companyData
+    };
+
   }
 
   function handleSubmit(event) {
@@ -101,35 +88,52 @@ export default function ComputerForm({ computer, submitLabel, onSubmit }) {
     setValues(initialValues);
   }
 
+  useEffect(() => {
+
+    loadCompany(companyRef).then(data => {
+      setCompanies(data.companiesData);
+      setModels(data.companyData);
+    });
+
+  }, []);
+
   return (
   <form onSubmit={handleSubmit}>
+
     <select
-        id="size1"
-        name="size1"
-        onChange={(e) => handleChangeS("company", e.target.value)}
+        id="company"
+        name="company"
+        onChange={(e) => handleChange("company", e.target.value)}
     >
-      {selectItems.models['company'].map(({ value, label }) => {
-        return (
-            <option key={value} value={value}>
-              {label}
-            </option>
-        );
-      })}
+      {companies.length === 0 ?
+          'Ładuje się ...'
+          :
+          companies.map(({value, label}) => {
+            return (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+            );
+          })
+      }
     </select>
     <br />
     <br />
     <select
-        id="size2"
-        name="size2"
-        onChange={(e) => handleChangeS("model", e.target.value)}
+        id="models"
+        name="models"
+        onChange={(e) => handleChange("model", e.target.value)}
     >
-      {selectItems.models[values.company].map(({ value }) => {
-        return (
-            <option key={value} value={value}>
-              {value}
-            </option>
-        );
-      })}
+      {Object.keys(models).length === 0 ?
+          'Ładuje się ...'
+          :
+          models[values.company].map(value => {
+            return (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+            );
+          })}
     </select>
     <br />
     <br />
@@ -139,7 +143,7 @@ export default function ComputerForm({ computer, submitLabel, onSubmit }) {
         type="text"
         value={values.materialIndex}
         errorMessage={errorMessages?.materialIndex}
-        onChange={handleChange}
+        onChange={(e) => handleChange("materialIndex", e.target.value)}
     />
     <Field
         label="Numer seryjny"
@@ -147,7 +151,7 @@ export default function ComputerForm({ computer, submitLabel, onSubmit }) {
         type="text"
         value={values.serialNumber}
         errorMessage={errorMessages?.serialNumber}
-        onChange={handleChange}
+        onChange={(e) => handleChange("serialNumber", e.target.value)}
     />
     <input type="submit" value={submitLabel} />
   </form>

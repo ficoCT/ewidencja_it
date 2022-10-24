@@ -56,7 +56,7 @@ export default function ComputersManagerAdmin() {
             companyData[company] = allModelsCompany;
             allModelsCompany = [];
         }
-        
+
         return {
             companiesData: companiesData,
             companyData: companyData
