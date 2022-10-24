@@ -16,7 +16,8 @@ export default function ComputersManagerAdmin() {
     const [queryComputer, setQueryComputer] = useState([]);
     const [companies, setCompanies] = useState([]);
     const [models, setModels] = useState({});
-    const [values, setValues] = useState({company: 'asus', models: ''});
+    const [values, setValues] = useState({company: 'asus', model: ''});
+    const [initialValues, setInitialValues] = useState({company: '', model:  '', materialIndex: '',serialNumber: ''});
 
     const db = getFirestore(app);
     const computersRef = collection(db, 'computers');
@@ -56,6 +57,15 @@ export default function ComputersManagerAdmin() {
             companyData[company] = allModelsCompany;
             allModelsCompany = [];
         }
+
+        let initialValuesCompany = Object.keys(companyData)[0];
+        let initialValuesModel = companyData[Object.keys(companyData)[0]][0];
+
+            setInitialValues({
+            company: initialValuesCompany,
+            model:  initialValuesModel,
+            materialIndex: 'Tutaj wpisz index materiałowy',
+            serialNumber: 'Tutaj wpisz numer seryjny'});
 
         return {
             companiesData: companiesData,
@@ -143,7 +153,7 @@ export default function ComputersManagerAdmin() {
               <ul>
                 {computers.map(computer => (
                   <li key={computer.id}>
-                    <Computer computer={computer} onUpdate={updateComputer} onDelete={deleteComputer} />
+                    <Computer companiesData={companies} modelsData={models} computer={computer} onUpdate={updateComputer} onDelete={deleteComputer} />
                   </li>
                 ))}
               </ul>
@@ -153,7 +163,7 @@ export default function ComputersManagerAdmin() {
 
       <span style={{color:'red'}}>DODAJ KOMPUTER</span>
       <ToggleVisibility>
-        <AddComputer onSubmit={addComputer} />
+        <AddComputer companiesData={companies} modelsData={models} computer={initialValues} onSubmit={addComputer} />
       </ToggleVisibility>
 
       <span style={{color:'red'}}>WYSZUKAJ KOMPUTER</span>
@@ -170,47 +180,6 @@ export default function ComputersManagerAdmin() {
                    ))}
                </ul>
           }
-      </ToggleVisibility>
-
-      <span style={{color:'red'}}>Lista modeli komputerów w przedsiębiorstwie</span>
-      <ToggleVisibility>
-      <div>
-      <select
-          id="company"
-          name="company"
-          onChange={(e) => handleChange("company", e.target.value)}
-      >
-          {companies.length === 0 ?
-              'Ładuje się ...'
-              :
-                  companies.map(({value, label}) => {
-                      return (
-                          <option key={value} value={value}>
-                              {label}
-                          </option>
-                      );
-                  })
-          }
-      </select>
-      <br />
-      <br />
-      <select
-          id="models"
-          name="models"
-          onChange={(e) => handleChange("models", e.target.value)}
-      >
-          {Object.keys(models).length === 0 ?
-              'Ładuje się ...'
-              :
-              models[values.company].map(value => {
-                  return (
-                      <option key={value} value={value}>
-                          {value}
-                      </option>
-                  );
-              })}
-      </select>
-      </div>
       </ToggleVisibility>
 
     </>

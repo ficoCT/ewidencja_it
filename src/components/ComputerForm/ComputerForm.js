@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import Field from "../Field"
 import validate from './validateComputerValues';
-import {collection, getDocs, getFirestore} from "firebase/firestore";
-import {useEffect} from "react";
-import {app} from "../../firebase";
 
 function mapComputerToFormValues(computer) {
   return {
@@ -23,17 +20,15 @@ function mapFormValuesToComputer(values) {
   };
 }
 
-export default function ComputerForm({ computer, submitLabel, onSubmit }) {
+export default function ComputerForm({companiesData, modelsData, computer, submitLabel, onSubmit }) {
 
-  const initialValues = mapComputerToFormValues({ company: 'asus', model: '', materialIndex: 'Tutaj wpisz index', serialNumber: 'Tutaj wpisz numer seryjny'});
+  const initialValues = mapComputerToFormValues(computer);
+
   const [values, setValues] = useState(initialValues);
-  const [companies, setCompanies] = useState([]);
-  const [models, setModels] = useState({});
+  const [companies, setCompanies] = useState(companiesData);
+  const [models, setModels] = useState(modelsData);
 
   const [errorMessages, setErrorMessages] = useState(null);
-
-  const db = getFirestore(app);
-  const companyRef = collection(db, 'company');
 
   const handleChange = (name, value) => {
 
@@ -43,40 +38,6 @@ export default function ComputerForm({ computer, submitLabel, onSubmit }) {
 
   };
 
-  async function loadCompany(companyRef) {
-
-    let label;
-    let companiesData = [];
-    let companyData = {};
-    await getDocs(companyRef).then(snapshot => {
-      snapshot.docs.forEach(doc => {
-        label = doc.id.split("");
-        label[0] = label[0].toUpperCase();
-        label.toString();
-        companiesData.push({value: doc.id, label: label});
-        Object.assign(companyData, {[doc.id]: doc.data()});
-      })
-    })
-    let allModelsCompany = [];
-    let allModels = {};
-    for (let company in companyData) {
-      allModels = companyData[company];
-      for (let typeModels in allModels) {
-        for (let model of allModels[typeModels]) {
-          allModelsCompany.push(model);
-        }
-      }
-      companyData[company] = allModelsCompany;
-      allModelsCompany = [];
-    }
-
-    return {
-      companiesData: companiesData,
-      companyData: companyData
-    };
-
-  }
-
   function handleSubmit(event) {
     event.preventDefault();
     const errorMessages = validate(values);
@@ -85,17 +46,7 @@ export default function ComputerForm({ computer, submitLabel, onSubmit }) {
 
     if (typeof onSubmit !== 'function') return;
     onSubmit(mapFormValuesToComputer(values));
-    setValues(initialValues);
   }
-
-  useEffect(() => {
-
-    loadCompany(companyRef).then(data => {
-      setCompanies(data.companiesData);
-      setModels(data.companyData);
-    });
-
-  }, []);
 
   return (
   <form onSubmit={handleSubmit}>
@@ -103,7 +54,7 @@ export default function ComputerForm({ computer, submitLabel, onSubmit }) {
     <select
         id="company"
         name="company"
-        onChange={(e) => handleChange("company", e.target.value)}
+        onChange={(e) => {handleChange("company", e.target.value)}}
     >
       {companies.length === 0 ?
           'Ładuje się ...'
@@ -129,7 +80,7 @@ export default function ComputerForm({ computer, submitLabel, onSubmit }) {
           :
           models[values.company].map(value => {
             return (
-                <option key={value} value={value}>
+                <option key={value} value={value} defaultValue={'Wybierz model'}>
                   {value}
                 </option>
             );

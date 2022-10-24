@@ -1,8 +1,9 @@
 import * as React from 'react';
 import ComputerForm from "../ComputerForm";
 
-export default function EditComputer({ computer, onSubmit }) {
+export default function EditComputer({companiesData, modelsData, computer, onSubmit }) {
+
   return (
-        <ComputerForm computer={computer} submitLabel="Zapisz" onSubmit={onSubmit}/>
+        <ComputerForm submitLabel="Zapisz" companiesData={companiesData} modelsData={modelsData} computer={computer} onSubmit={onSubmit}/>
   );
 }

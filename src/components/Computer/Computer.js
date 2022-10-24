@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import EditComputer from '../EditComputer';
 import ViewComputer from '../ViewComputer';
 
-export default function Computer({ computer, onUpdate, onDelete }) {
+export default function Computer({companiesData, modelsData, computer, onUpdate, onDelete }) {
     const [isEditing, setIsEditing] = useState(false);
 
     function handleEditButtonClick() {
@@ -25,7 +25,7 @@ export default function Computer({ computer, onUpdate, onDelete }) {
             {isEditing
                 ? (
                     <div>
-                        <EditComputer computer={computer} onSubmit={handleUpdate} />
+                        <EditComputer companiesData={companiesData} modelsData={modelsData} computer={computer} onSubmit={handleUpdate} />
                     </div>
                 )
                 : (
