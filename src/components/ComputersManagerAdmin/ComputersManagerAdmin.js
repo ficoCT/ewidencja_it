@@ -15,73 +15,53 @@ export default function ComputersManagerAdmin() {
     const [computers, setComputers] = useState([]);
     const [queryComputer, setQueryComputer] = useState([]);
     const [companies, setCompanies] = useState([]);
-    const [values, setValues] = useState({company: 'dell', models: ''});
+    const [models, setModels] = useState({});
+    const [values, setValues] = useState({company: 'asus', models: ''});
 
     const db = getFirestore(app);
     const computersRef = collection(db, 'computers');
     const companyRef = collection(db, 'company');
 
-    const selectItems = {
-        name: "size",
-        fields: {
-            dell: [
-                {
-                    value: "modelDell1",
-                },
-                {
-                    value: "modelDell2"
-                },
-                {
-                    value: "modelDell3"
-                }
-            ],
-            asus: [
-                {
-                    value: "modelAsus1",
-                },
-                {
-                    value: "modelAsus2"
-                },
-                {
-                    value: "modelAsus3"
-                }
-            ],
-            toshiba: [
-                {
-                    value: "modelToshiba1",
-                },
-                {
-                    value: "modelToshiba2"
-                },
-                {
-                    value: "modelToshiba3"
-                }
-            ],
-        }
-    };
-
     const handleChange = (name, value) => {
+
         setValues((s) => {
             return { ...s, [name]: value };
         });
+
     };
 
     async function loadCompany(companyRef) {
 
         let label;
         let companiesData = [];
-        let companyData = [];
+        let companyData = {};
         await getDocs(companyRef).then(snapshot => {
             snapshot.docs.forEach(doc => {
-                companyData.push({ ...doc.data(), id: doc.id });
                 label = doc.id.split("");
                 label[0] = label[0].toUpperCase();
                 label.toString();
                 companiesData.push({value: doc.id, label: label});
+                Object.assign(companyData, {[doc.id]: doc.data()});
             })
         })
-        console.log('computersData', companiesData);
-        return {companiesData: companiesData, companyData: companyData};
+        let allModelsCompany = [];
+        let allModels = {};
+        for (let company in companyData) {
+            allModels = companyData[company];
+            for (let typeModels in allModels) {
+                for (let model of allModels[typeModels]) {
+                    allModelsCompany.push(model);
+                }
+            }
+            companyData[company] = allModelsCompany;
+            allModelsCompany = [];
+        }
+        
+        return {
+            companiesData: companiesData,
+            companyData: companyData
+        };
+
     }
 
     async function loadComputers(computersRef) {
@@ -100,6 +80,7 @@ export default function ComputersManagerAdmin() {
           loadComputers(computersRef).then(computersData => setComputers(computersData));
           loadCompany(companyRef).then(data => {
               setCompanies(data.companiesData);
+              setModels(data.companyData);
           });
 
       }, []);
@@ -218,13 +199,16 @@ export default function ComputersManagerAdmin() {
           name="models"
           onChange={(e) => handleChange("models", e.target.value)}
       >
-          {selectItems.fields[values.company].map(({ value, selected }) => {
-               return (
-                  <option key={value} value={value}>
-                      {value}
-                  </option>
-               );
-          })}
+          {Object.keys(models).length === 0 ?
+              'Ładuje się ...'
+              :
+              models[values.company].map(value => {
+                  return (
+                      <option key={value} value={value}>
+                          {value}
+                      </option>
+                  );
+              })}
       </select>
       </div>
       </ToggleVisibility>
