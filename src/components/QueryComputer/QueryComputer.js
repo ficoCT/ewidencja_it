@@ -4,7 +4,7 @@ import {useState} from "react";
 
 export default function QueryComputer({submitLabel, onSubmit }) {
 
-    const [values, setValues] = useState({company: ""});
+    const [values, setValues] = useState({company: "", model: "", materialIndex: "", serialNumber: ""});
 
     function handleChange(event) {
         const { name, value } = event.target;
@@ -21,10 +21,31 @@ export default function QueryComputer({submitLabel, onSubmit }) {
   return (
           <form onSubmit={handleSubmit}>
               <Field
-                  label="Wyszukaj"
+                  label="Producent"
                   name="company"
                   type="text"
                   value={values.company}
+                  onChange={handleChange}
+              />
+              <Field
+                  label="Model"
+                  name="model"
+                  type="text"
+                  value={values.model}
+                  onChange={handleChange}
+              />
+              <Field
+                  label="Numer inwentaryzacyjny"
+                  name="materialIndex"
+                  type="text"
+                  value={values.materialIndex}
+                  onChange={handleChange}
+              />
+              <Field
+                  label="Numer seryjny"
+                  name="serialNumber"
+                  type="text"
+                  value={values.serialNumber}
                   onChange={handleChange}
               />
               <input type="submit" value={submitLabel} />

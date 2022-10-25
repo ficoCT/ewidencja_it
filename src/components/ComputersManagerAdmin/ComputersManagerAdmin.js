@@ -16,20 +16,20 @@ export default function ComputersManagerAdmin() {
     const [queryComputer, setQueryComputer] = useState([]);
     const [companies, setCompanies] = useState([]);
     const [models, setModels] = useState({});
-    const [values, setValues] = useState({company: 'asus', model: ''});
-    const [initialValues, setInitialValues] = useState({company: '', model:  '', materialIndex: '',serialNumber: ''});
+    // const [values, setValues] = useState({company: 'asus', model: ''});
+    const [initialValues, setInitialValues] = useState({company: '', model:  '', materialIndex: '', serialNumber: ''});
 
     const db = getFirestore(app);
     const computersRef = collection(db, 'computers');
     const companyRef = collection(db, 'company');
 
-    const handleChange = (name, value) => {
-
-        setValues((s) => {
-            return { ...s, [name]: value };
-        });
-
-    };
+    // const handleChange = (name, value) => {
+    //
+    //     setValues((s) => {
+    //         return { ...s, [name]: value };
+    //     });
+    //
+    // };
 
     async function loadCompany(companyRef) {
 
@@ -136,7 +136,14 @@ export default function ComputersManagerAdmin() {
 
     function queryComputers(values) {
 
-        const q = query(computersRef, where("company", "==", values.company));
+        let conditions = []
+
+        if (values.company !== "") conditions.push(where("company", "==", values.company));
+        if (values.model !== "") conditions.push(where("model", "==", values.model));
+        if (values.materialIndex !== "") conditions.push(where("materialIndex", "==", values.materialIndex));
+        if (values.serialNumber !== "") conditions.push(where("serialNumber", "==", values.serialNumber));
+
+        const q = query(computersRef, ...conditions);
         loadComputers(q).then(qC => setQueryComputer(qC));
 
     }
