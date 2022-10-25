@@ -16,20 +16,11 @@ export default function ComputersManagerAdmin() {
     const [queryComputer, setQueryComputer] = useState([]);
     const [companies, setCompanies] = useState([]);
     const [models, setModels] = useState({});
-    // const [values, setValues] = useState({company: 'asus', model: ''});
     const [initialValues, setInitialValues] = useState({company: '', model:  '', materialIndex: '', serialNumber: ''});
 
     const db = getFirestore(app);
     const computersRef = collection(db, 'computers');
     const companyRef = collection(db, 'company');
-
-    // const handleChange = (name, value) => {
-    //
-    //     setValues((s) => {
-    //         return { ...s, [name]: value };
-    //     });
-    //
-    // };
 
     async function loadCompany(companyRef) {
 
@@ -66,6 +57,8 @@ export default function ComputersManagerAdmin() {
             model:  initialValuesModel,
             materialIndex: 'Tutaj wpisz index materiałowy',
             serialNumber: 'Tutaj wpisz numer seryjny'});
+
+            console.log('initialValues', initialValues);
 
         return {
             companiesData: companiesData,
@@ -182,7 +175,7 @@ export default function ComputersManagerAdmin() {
                <ul>
                    {queryComputer.map(computer => (
                       <li key={computer.id}>
-                          <Computer computer={computer} onUpdate={updateComputer} onDelete={deleteComputer} />
+                          <Computer companiesData={companies} modelsData={models} computer={computer} onUpdate={updateComputer} onDelete={deleteComputer} />
                       </li>
                    ))}
                </ul>

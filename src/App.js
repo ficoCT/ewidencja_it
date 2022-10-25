@@ -16,6 +16,7 @@ import {AuthContext} from "./context/AuthContext";
 import {userInputs} from "./formSource";
 import NewUser from "./components/NewUser";
 import UserList from "./components/UserList";
+import AdministratorLog from "./components/AdministratorLog";
 
 function App() {
 
@@ -109,7 +110,14 @@ function App() {
                               </RequireAuth>
                           }
                       />
-
+                      <Route
+                          path="administrator-log"
+                          element={
+                              <RequireAuth>
+                                  <AdministratorLog />
+                              </RequireAuth>
+                          }
+                      />
                       <Route
                           path="computers-manager-admin"
                           element={
