@@ -12,6 +12,7 @@ export default function NavbarAdmin() {
             <Link to="/reports">Raporty</Link> |{" "}
             <Link to="/repairs">Naprawy</Link> |{" "}
             <Link to="/administrator-log">Dziennik administratora</Link> |{" "}
+            <Link to="/user-list">Użytkownicy</Link> |{" "}
             <Link to="/login">Zaloguj się</Link> |{" "}
             <Link to="/register">Zarejestruj się</Link> |{" "}
             <Link to="/computers-manager-admin">Komputery administrator</Link> |{" "}

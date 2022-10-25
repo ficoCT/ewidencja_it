@@ -124,7 +124,7 @@ const NewUser = ({ inputs, title }) => {
                                 </div>
                             ))}
                             <button disabled={per !== null && per < 100} type="submit">
-                                Send
+                                Zapisz
                             </button>
                         </form>
                     </div>

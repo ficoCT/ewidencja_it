@@ -10,7 +10,7 @@ import { db } from "../firebase";
 import React from "react";
 import User from "./User";
 
-const Datatable = () => {
+const DataTable = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -45,12 +45,6 @@ const Datatable = () => {
 
     return (
         <div>
-            <div>
-                Add New User
-                <Link to="/new">
-                    Add New
-                </Link>
-            </div>
             <ul>
                 {data.map(user => (
                     <li key={user.id}>
@@ -58,8 +52,15 @@ const Datatable = () => {
                     </li>
                 ))}
             </ul>
+            <div>
+                Nowy użytkownik
+                <br />
+                <Link to="/new-user">
+                    Dodaj
+                </Link>
+            </div>
         </div>
     );
 };
 
-export default Datatable;
+export default DataTable;

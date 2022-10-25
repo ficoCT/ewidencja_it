@@ -126,21 +126,24 @@ function App() {
                               </RequireAuth>
                           }
                       />
-
-                      <Route
-                          path="new-user"
-                          element={
-                              <RequireAuth>
-                                  <NewUser inputs={userInputs} title="Add NewUser User" />
-                              </RequireAuth>
-                          }
-                      />
+                      {/*<Route*/}
+                      {/*    path="new-user"*/}
+                      {/*    element={*/}
+                      {/*        <RequireAuth>*/}
+                      {/*            <NewUser inputs={userInputs} title="Add NewUser User" />*/}
+                      {/*        </RequireAuth>*/}
+                      {/*    }*/}
+                      {/*/>*/}
                       <Route
                           path="user-list"
                           element={
-                              <RequireAuth>
                                   <UserList/>
-                              </RequireAuth>
+                          }
+                      />
+                      <Route
+                          path="new-user"
+                          element={
+                              <NewUser inputs={userInputs} title="Dodaj użytkownika" />
                           }
                       />
                       <Route

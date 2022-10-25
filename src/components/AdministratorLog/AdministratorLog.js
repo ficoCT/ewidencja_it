@@ -30,9 +30,9 @@ export default function AdministratorLog() {
         logData.push({ ...doc.data(), id: doc.id });
       })
     })
-    console.log('1', logData);
-    return logData;
 
+    return logData;
+    
   }
 
   function addNote() {
