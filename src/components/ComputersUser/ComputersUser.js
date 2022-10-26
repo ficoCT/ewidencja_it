@@ -3,47 +3,69 @@ import {collection, getDocs, getFirestore, query, where} from "firebase/firestor
 import {app} from "../../firebase";
 import {useEffect} from "react";
 import ViewComputer from "../ViewComputer";
+import ViewUser from "../ViewUser";
 
 export default function ComputersUser() {
 
-  const [computersUser, setComputersUser] = useState([]);
+  const [userData, setUserData] = useState({computersData: [], userData: []});
 
   const db = getFirestore(app);
   const computersRef = collection(db, 'computers');
+  const userRef = collection(db, 'users');
 
-  async function loadComputers() {
+  async function loadComputersAndUser() {
 
     let computersData = [];
-    const q = query(computersRef, where("idUser", "==", "80nfJBTHtsbdecCGk8sJ1IE9ws02"));
+    let userData = [];
+    const qk = query(computersRef, where("idUser", "==", "80nfJBTHtsbdecCGk8sJ1IE9ws02"));
+    const qu = query(userRef, where("id", "==", "80nfJBTHtsbdecCGk8sJ1IE9ws02"));
 
-    await getDocs(q).then(snapshot => {
+    await getDocs(qk).then(snapshot => {
       snapshot.docs.forEach(doc => {
         computersData.push({ ...doc.data(), id: doc.id });
       })
     })
-    console.log('computersData', computersData);
-    return computersData;
+
+    await getDocs(qu).then(snapshot => {
+      snapshot.docs.forEach(doc => {
+        userData.push({ ...doc.data(), id: doc.id });
+      })
+    })
+    console.log('userData', userData);
+    return {computersData: computersData, userData: userData};
   }
 
   useEffect(() => {
 
-    loadComputers().then(qC => setComputersUser(qC));
+    loadComputersAndUser().then(qC => setUserData(qC));
 
   }, []);
 
   return (
     <>
       <span style={{color:'red'}}>Dane użytkownika</span>
-      
+      {userData['userData'].length === 0 ?
+          <h1>Ładowanie danych ...</h1>
+          :
+          userData['userData'].map(user => (
+              <li key={user.id}>
+                <ViewUser user={user} />
+              </li>
+          ))
+      }
       <br/>
       <br/>
       <span style={{color:'red'}}>Lista komputerów użytkownika</span>
       <ul>
-        {computersUser.map(computer => (
+      {userData['computersData'].length === 0 ?
+          <h1>Ładowanie danych ...</h1>
+          :
+          userData['computersData'].map(computer => (
             <li key={computer.id}>
-              <ViewComputer computer={computer} />
+            <ViewComputer computer={computer} />
             </li>
-        ))}
+          ))
+      }
       </ul>
     </>
   );
