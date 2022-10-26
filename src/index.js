@@ -8,7 +8,6 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
-import ComputersManagerUser from "./components/ComputersManagerUser";
 import Software from "./components/Software";
 import OtherHardware from "./components/OtherHardware";
 import Administration from "./components/Administration";

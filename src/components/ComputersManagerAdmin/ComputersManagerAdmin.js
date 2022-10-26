@@ -58,8 +58,6 @@ export default function ComputersManagerAdmin() {
             materialIndex: 'Tutaj wpisz index materiałowy',
             serialNumber: 'Tutaj wpisz numer seryjny'});
 
-            console.log('initialValues', initialValues);
-
         return {
             companiesData: companiesData,
             companyData: companyData

@@ -1,6 +1,5 @@
 import './App.css';
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
-import ComputersManagerUser from "./components/ComputersManagerUser";
 import Software from "./components/Software";
 import OtherHardware from "./components/OtherHardware";
 import Administration from "./components/Administration";
@@ -17,6 +16,7 @@ import {userInputs} from "./formSource";
 import NewUser from "./components/NewUser";
 import UserList from "./components/UserList";
 import AdministratorLog from "./components/AdministratorLog";
+import ComputersUser from "./components/ComputersUser";
 
 function App() {
 
@@ -59,7 +59,7 @@ function App() {
                           path="computers-manager-user"
                           element={
                               <RequireAuth>
-                                  <ComputersManagerUser />
+                                  <ComputersUser />
                               </RequireAuth>
                           }
                       />

@@ -32,7 +32,7 @@ export default function AdministratorLog() {
     })
 
     return logData;
-    
+
   }
 
   function addNote() {
