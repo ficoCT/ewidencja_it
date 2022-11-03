@@ -17,6 +17,7 @@ import NewUser from "./components/NewUser";
 import UserList from "./components/UserList";
 import AdministratorLog from "./components/AdministratorLog";
 import ComputersUser from "./components/ComputersUser";
+import Print from "./components/Print";
 
 function App() {
 
@@ -144,6 +145,12 @@ function App() {
                           path="new-user"
                           element={
                               <NewUser inputs={userInputs} title="Dodaj użytkownika" />
+                          }
+                      />
+                      <Route
+                          path="print"
+                          element={
+                              <Print/>
                           }
                       />
                       <Route
