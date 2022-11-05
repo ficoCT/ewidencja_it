@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import EditComputer from '../EditComputer';
 import ViewComputer from '../ViewComputer';
+import Print from "../Print";
 
 export default function Computer({companiesData, modelsData, computer, onUpdate, onDelete }) {
+
     const [isEditing, setIsEditing] = useState(false);
+    const [printing, setPrinting] = useState(false);
 
     function handleEditButtonClick() {
         setIsEditing(true);
@@ -20,21 +23,36 @@ export default function Computer({companiesData, modelsData, computer, onUpdate,
         onDelete(computer.id);
     }
 
+    function handlePrintingButtonClick() {
+        setIsEditing(false);
+        setPrinting(true);
+    }
+
+    let computerComponent;
+
+    if (isEditing) {
+
+        computerComponent = <EditComputer companiesData={companiesData} modelsData={modelsData} computer={computer} onSubmit={handleUpdate} />;
+
+    } else if (printing){
+
+        computerComponent = <Print />
+
+    } else {
+
+        computerComponent =
+        <>
+            <div><ViewComputer computer={computer} /></div>
+            <button onClick={handleEditButtonClick}>Edytuj</button>
+            <button onClick={handleDeleteButtonClick}>Usuń</button>
+            <button onClick={handlePrintingButtonClick}>Drukuj formularz</button>
+        </>
+
+    }
+
     return (
         <div>
-            {isEditing
-                ? (
-                    <div>
-                        <EditComputer companiesData={companiesData} modelsData={modelsData} computer={computer} onSubmit={handleUpdate} />
-                    </div>
-                )
-                : (
-                    <>
-                        <div><ViewComputer computer={computer} /></div>
-                        <button onClick={handleEditButtonClick}>Edytuj</button>
-                        <button onClick={handleDeleteButtonClick}>Usuń</button>
-                    </>
-                )}
+            {computerComponent}
         </div>
     );
 }

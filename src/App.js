@@ -148,12 +148,6 @@ function App() {
                           }
                       />
                       <Route
-                          path="print"
-                          element={
-                              <Print/>
-                          }
-                      />
-                      <Route
                           path="*"
                           element={
                           <Navigate to="/login"
