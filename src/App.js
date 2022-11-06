@@ -144,6 +144,7 @@ function App() {
                       <Route
                           path="new-user"
                           element={
+                              //<NewUser inputs={userInputs} title="Dodaj użytkownika" />
                               <NewUser inputs={userInputs} title="Dodaj użytkownika" />
                           }
                       />

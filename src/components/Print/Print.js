@@ -2,7 +2,7 @@ import React, {useCallback, useRef, useState} from 'react';
 import ReactToPrint from "react-to-print";
 import {ComputerFormPrinting} from "../ComputerFormPrinting";
 
-export default function Print() {
+export default function Print({computer}) {
 
   const componentRef = React.useRef(null);
 
@@ -20,7 +20,6 @@ export default function Print() {
   }, []);
 
   const handleOnBeforeGetContent = React.useCallback(() => {
-    console.log("`onBeforeGetContent` called");
     setLoading(true);
     setText("Loading new text...");
 
@@ -50,7 +49,7 @@ export default function Print() {
 
   const reactToPrintTrigger = React.useCallback(() => {
 
-    return <button>Print using a Functional Component</button>;
+    return <button>Drukuj</button>;
 
   }, []);
 
@@ -58,15 +57,11 @@ export default function Print() {
       <div>
         <ReactToPrint
             content={reactToPrintContent}
-            documentTitle="AwesomeFileName"
-            onAfterPrint={handleAfterPrint}
-            onBeforeGetContent={handleOnBeforeGetContent}
-            onBeforePrint={handleBeforePrint}
             removeAfterPrint
             trigger={reactToPrintTrigger}
         />
         {loading && <p className="indicator">onBeforeGetContent: Loading...</p>}
-        <ComputerFormPrinting ref={componentRef} text={text} />
+        <ComputerFormPrinting ref={componentRef} computer={computer} />
       </div>
   );
 }

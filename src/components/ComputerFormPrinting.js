@@ -1,36 +1,38 @@
 import * as React from 'react';
 
 export class ComputerFormPrinting extends React.PureComponent {
+
   constructor(props) {
       super(props);
 
-      this.state = { checked: false };
-
   }render() {
-        const { text } = this.props;
+
+        const { computer } = this.props;
 
   return (
       <table>
         <tr>
-          <th>Company</th>
-          <th>Contact</th>
-          <th>Country</th>
+          <th>Numer seryjny</th>
+          <th>Producent</th>
+          <th>Model</th>
+          <th>Numer inwentaryzacyjny</th>
         </tr>
         <tr>
-          <td>Alfreds Futterkiste</td>
-          <td>Maria Anders</td>
-          <td>Germany</td>
+          <td>{computer.serialNumber}</td>
+          <td>{computer.company}</td>
+          <td>{computer.model}</td>
+          <td>{computer.materialIndex}</td>
         </tr>
         <tr>
-          <td>Centro comercial Moctezuma</td>
-          <td>Francisco Chang</td>
-          <td>Mexico</td>
+            <th>Podpis Administratora Lokalnego</th>
+            <th>Podpis użytkownika</th>
         </tr>
+          <td>..................................</td>
+          <td>..................................</td>
       </table>
   );
 }}
 
-    export const FunctionalComponentToPrint = React.forwardRef((props, ref) => {
-    // eslint-disable-line max-len
-    return <ComputerFormPrinting ref={ref} text={props.text} />;
+    export const Print = React.forwardRef((props, ref) => {
+    return <ComputerFormPrinting ref={ref} computer={props.computer} />;
 });

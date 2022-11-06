@@ -36,7 +36,7 @@ export default function Computer({companiesData, modelsData, computer, onUpdate,
 
     } else if (printing){
 
-        computerComponent = <Print />
+        computerComponent = <Print computer={computer}/>
 
     } else {
 
@@ -45,7 +45,7 @@ export default function Computer({companiesData, modelsData, computer, onUpdate,
             <div><ViewComputer computer={computer} /></div>
             <button onClick={handleEditButtonClick}>Edytuj</button>
             <button onClick={handleDeleteButtonClick}>Usuń</button>
-            <button onClick={handlePrintingButtonClick}>Drukuj formularz</button>
+            <button onClick={handlePrintingButtonClick}>Podgląd formularza</button>
         </>
 
     }
