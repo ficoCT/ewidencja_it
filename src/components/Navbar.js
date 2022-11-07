@@ -1,11 +1,12 @@
-import {Link} from "react-router-dom";
+import React from "react";
+import { Outlet, Link } from "react-router-dom";
 
-export default function NavbarAdmin() {
+export default function Navbar() {
     return (
         <div>
             <nav>
             <Link to="/computers-manager-user">Komputery użytkownik</Link> |{" "}
-            <Link to="/software">Oprogramowanie</Link> |{" "}
+            <Link to="software">Oprogramowanie</Link> |{" "}
             <Link to="/otherHardware">Inny sprzęt</Link> |{" "}
             <Link to="/administration">Administracja</Link> |{" "}
             <Link to="/timetable">Terminarz</Link> |{" "}
@@ -17,6 +18,7 @@ export default function NavbarAdmin() {
             <Link to="/register">Zarejestruj się</Link> |{" "}
             <Link to="/computers-manager-admin">Komputery administrator</Link> |{" "}
             </nav>
+            <Outlet />
         </div>
     );
 }
