@@ -4,6 +4,7 @@ import {app} from "../../firebase";
 import {useEffect} from "react";
 import ViewComputer from "../ViewComputer";
 import ViewUser from "../ViewUser";
+import Container from 'react-bootstrap/Container';
 
 export default function ComputersUser() {
 
@@ -42,31 +43,31 @@ export default function ComputersUser() {
   }, []);
 
   return (
-    <>
-      <span style={{color:'red'}}>Dane użytkownika</span>
-      {userData['userData'].length === 0 ?
-          <h1>Ładowanie danych ...</h1>
-          :
-          userData['userData'].map(user => (
-              <li key={user.id}>
-                <ViewUser user={user} />
+      <Container>
+        <span style={{color:'red'}}>Dane użytkownika</span>
+        {userData['userData'].length === 0 ?
+            <h1>Ładowanie danych ...</h1>
+            :
+            userData['userData'].map(user => (
+                <li key={user.id}>
+                  <ViewUser user={user} />
+                </li>
+            ))
+        }
+        <br/>
+        <br/>
+        <span style={{color:'red'}}>Lista komputerów użytkownika</span>
+        <ul>
+        {userData['computersData'].length === 0 ?
+            <h1>Ładowanie danych ...</h1>
+            :
+            userData['computersData'].map(computer => (
+              <li key={computer.id}>
+              <ViewComputer computer={computer} />
               </li>
-          ))
-      }
-      <br/>
-      <br/>
-      <span style={{color:'red'}}>Lista komputerów użytkownika</span>
-      <ul>
-      {userData['computersData'].length === 0 ?
-          <h1>Ładowanie danych ...</h1>
-          :
-          userData['computersData'].map(computer => (
-            <li key={computer.id}>
-            <ViewComputer computer={computer} />
-            </li>
-          ))
-      }
-      </ul>
-    </>
+            ))
+        }
+        </ul>
+      </Container>
   );
 }

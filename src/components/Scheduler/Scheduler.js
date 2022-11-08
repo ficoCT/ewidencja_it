@@ -6,6 +6,7 @@ import {addDoc, collection, deleteDoc, doc, getDocs, getFirestore, updateDoc} fr
 import {app} from "../../firebase";
 import {useEffect} from "react";
 import Computer from "../Computer";
+import Container from 'react-bootstrap/Container';
 
 export default function App() {
 
@@ -110,7 +111,7 @@ export default function App() {
     };
 
   return (
-      <>
+      <Container>
       {events.length === 0 ?
               'Ładuje się ...'
               :
@@ -120,6 +121,6 @@ export default function App() {
                   onDelete={handleDelete}
               />
       }
-      </>
+      </Container>
   );
 }

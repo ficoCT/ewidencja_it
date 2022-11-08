@@ -3,12 +3,15 @@ import {app} from "../../firebase";
 import {
     collection, getFirestore,
     doc, getDocs, addDoc, deleteDoc, updateDoc,
+    arrayUnion, arrayRemove,
     query, where
 } from "firebase/firestore";
 import Computer from '../Computer';
 import AddComputer from '../AddComputer';
 import QueryComputer from "../QueryComputer";
 import ToggleVisibility from "../ToggleVisibility";
+import Container from 'react-bootstrap/Container';
+import ModelForm from "../ModelForm";
 
 export default function ComputersManagerAdmin() {
 
@@ -139,47 +142,61 @@ export default function ComputersManagerAdmin() {
 
     }
 
+    function addComputerModel(computerModel) {
+          console.log('computerModel.company', computerModel);
+
+        const washingtonRef = doc(db, "company", computerModel.company);
+
+        updateDoc(washingtonRef, {
+            [computerModel.types]: arrayUnion(computerModel.model)
+        });
+
+    }
+
   return (
-    <>
-
-      <span style={{color:'red'}}>Lista komputerów w przedsiębiorstwie</span>
-      <ToggleVisibility>
-      <div>
-          {computers.length === 0 ?
-              <h1>Ładowanie danych ...</h1>
-              :
-              <ul>
-                {computers.map(computer => (
-                  <li key={computer.id}>
-                    <Computer companiesData={companies} modelsData={models} computer={computer} onUpdate={updateComputer} onDelete={deleteComputer} />
-                  </li>
-                ))}
-              </ul>
-          }
-      </div>
-      </ToggleVisibility>
-
-      <span style={{color:'red'}}>DODAJ KOMPUTER</span>
-      <ToggleVisibility>
-        <AddComputer companiesData={companies} modelsData={models} computer={initialValues} onSubmit={addComputer} />
-      </ToggleVisibility>
-
-      <span style={{color:'red'}}>WYSZUKAJ KOMPUTER</span>
-      <ToggleVisibility>
-      <QueryComputer submitLabel="Wyszukaj" onSubmit={queryComputers} />
-          {queryComputer.length === 0 ?
-               ''
-               :
-               <ul>
-                   {queryComputer.map(computer => (
+      <Container>
+          <span style={{color:'red'}}>Lista komputerów w przedsiębiorstwie</span>
+          <ToggleVisibility>
+          <div>
+              {computers.length === 0 ?
+                  <h1>Ładowanie danych ...</h1>
+                  :
+                  <ul>
+                    {computers.map(computer => (
                       <li key={computer.id}>
-                          <Computer companiesData={companies} modelsData={models} computer={computer} onUpdate={updateComputer} onDelete={deleteComputer} />
+                        <Computer companiesData={companies} modelsData={models} computer={computer} onUpdate={updateComputer} onDelete={deleteComputer} />
                       </li>
-                   ))}
-               </ul>
-          }
-      </ToggleVisibility>
+                    ))}
+                  </ul>
+              }
+          </div>
+          </ToggleVisibility>
 
-    </>
+          <span style={{color:'red'}}>DODAJ KOMPUTER</span>
+          <ToggleVisibility>
+            <AddComputer companiesData={companies} modelsData={models} computer={initialValues} onSubmit={addComputer} />
+          </ToggleVisibility>
+
+          <span style={{color:'red'}}>WYSZUKAJ KOMPUTER</span>
+          <ToggleVisibility>
+          <QueryComputer submitLabel="Wyszukaj" onSubmit={queryComputers} />
+              {queryComputer.length === 0 ?
+                   ''
+                   :
+                   <ul>
+                       {queryComputer.map(computer => (
+                          <li key={computer.id}>
+                              <Computer companiesData={companies} modelsData={models} computer={computer} onUpdate={updateComputer} onDelete={deleteComputer} />
+                          </li>
+                       ))}
+                   </ul>
+              }
+          </ToggleVisibility>
+          <span style={{color:'red'}}>DODAJ MODEL KOMPUTERA</span>
+          <ToggleVisibility>
+              <ModelForm companiesData={companies} submitLabel={'ZAPISZ'} onSubmit={addComputerModel}/>
+          </ToggleVisibility>
+
+      </Container>
   );
 }

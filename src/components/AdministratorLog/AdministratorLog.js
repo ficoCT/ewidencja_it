@@ -4,6 +4,7 @@ import {useState} from "react";
 import {addDoc, collection, getDocs, getFirestore} from "firebase/firestore";
 import {app} from "../../firebase";
 import {useEffect} from "react";
+import Container from 'react-bootstrap/Container';
 
 export default function AdministratorLog() {
 

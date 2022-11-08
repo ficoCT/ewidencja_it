@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Container from 'react-bootstrap/Container';
 
 export class ComputerFormPrinting extends React.PureComponent {
 
@@ -10,26 +11,28 @@ export class ComputerFormPrinting extends React.PureComponent {
         const { computer } = this.props;
 
   return (
-      <table>
-        <tr>
-          <th>Numer seryjny</th>
-          <th>Producent</th>
-          <th>Model</th>
-          <th>Numer inwentaryzacyjny</th>
-        </tr>
-        <tr>
-          <td>{computer.serialNumber}</td>
-          <td>{computer.company}</td>
-          <td>{computer.model}</td>
-          <td>{computer.materialIndex}</td>
-        </tr>
-        <tr>
-            <th>Podpis Administratora Lokalnego</th>
-            <th>Podpis użytkownika</th>
-        </tr>
-          <td>..................................</td>
-          <td>..................................</td>
-      </table>
+      <Container>
+          <table>
+            <tr>
+              <th>Numer seryjny</th>
+              <th>Producent</th>
+              <th>Model</th>
+              <th>Numer inwentaryzacyjny</th>
+            </tr>
+            <tr>
+              <td>{computer.serialNumber}</td>
+              <td>{computer.company}</td>
+              <td>{computer.model}</td>
+              <td>{computer.materialIndex}</td>
+            </tr>
+            <tr>
+                <th>Podpis Administratora Lokalnego</th>
+                <th>Podpis użytkownika</th>
+            </tr>
+              <td>..................................</td>
+              <td>..................................</td>
+          </table>
+      </Container>
   );
 }}
 

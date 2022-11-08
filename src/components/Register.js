@@ -3,7 +3,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 import Field from "./Field";
 import {validateRegister} from "../validateRegister";
-import NavbarAdmin from "./Navbar";
+import NavbarAdmin from "./NavbarApp";
 
 function Register() {
     const [values, setValues] = useState({email: "", password: "", password1: ""});

@@ -3,6 +3,7 @@ import {collection, getDocs, getFirestore} from "firebase/firestore";
 import {app} from "../../firebase";
 import {useEffect} from "react";
 import {useState} from "react";
+import Container from 'react-bootstrap/Container';
 
 export default function Reports() {
 
@@ -40,7 +41,7 @@ export default function Reports() {
   }, []);
 
   return (
-        <>
+      <Container>
           <span style={{color:'red'}}>KOMPUTERY</span>
           {Object.keys(companies).length === 0 ?
               <h1>Ładowanie danych ...</h1>
@@ -59,7 +60,7 @@ export default function Reports() {
             <br/>
             Użytkownicy:
             <br/>
-            <br/>
-        </>
+          a  <br/>
+      </Container>
   );
 }

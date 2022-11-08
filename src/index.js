@@ -19,7 +19,7 @@ import ComputersManagerAdmin from "./components/ComputersManagerAdmin";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import {AuthContext, AuthContextProvider} from "./context/AuthContext";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/NavbarApp";
 import Home from "./components/Home";
 import ComputersUser from "./components/ComputersUser";
 import AdministratorLog from "./components/AdministratorLog";

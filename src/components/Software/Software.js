@@ -1,7 +1,13 @@
 import * as React from 'react';
+import { Button } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
 
 export default function Software() {
   return (
-        <h1>Software</h1>
+      <Container>
+          <Button as="a" variant="success">
+            Button as link
+          </Button>
+      </Container>
   );
 }
