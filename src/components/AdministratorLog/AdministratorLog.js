@@ -5,6 +5,9 @@ import {addDoc, collection, getDocs, getFirestore} from "firebase/firestore";
 import {app} from "../../firebase";
 import {useEffect} from "react";
 import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 
 export default function AdministratorLog() {
 
@@ -60,8 +63,8 @@ export default function AdministratorLog() {
   }
 
   return (
-      <>
-      <form onSubmit={handleSubmit}>
+      <Container>
+      <Form onSubmit={handleSubmit}>
         <br />
         <br />
         <Field
@@ -78,22 +81,25 @@ export default function AdministratorLog() {
             value={values.note}
             onChange={(e) => handleChange("note", e.target.value)}
         />
-        <input type="submit" value={'Zapisz'} />
-      </form>
+        <Button variant="primary" type="submit">
+          ZAPISZ
+        </Button>
+      </Form>
+
       <br/>
       <br/>
       {log.length === 0 ?
            <h1>Ładowanie danych ...</h1>
            :
-           <ul>
-             {log.map(note => (
-                <li key={note.id}>
-                  {note.title} {'-'} {note.note}
-                </li>
-             ))}
-           </ul>
+          <>
+            {log.map(note => (
+                  <Alert key={note.id} variant='primary'>
+                    {note.title} {'-'} {note.note}
+                  </Alert>
+            ))}
+          </>
       }
-      </>
+      </Container>
   );
 
 }
