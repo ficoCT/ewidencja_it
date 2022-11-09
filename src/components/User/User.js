@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ViewUser from "../ViewUser";
+import Button from 'react-bootstrap/Button';
 
 export default function User({ user, onUpdate, onDelete }) {
 
@@ -10,8 +11,8 @@ export default function User({ user, onUpdate, onDelete }) {
 
     return (
                     <>
-                        <div><ViewUser user={user} /></div>
-                        <button onClick={handleDeleteButtonClick}>Usuń</button>
+                        <ViewUser user={user} />
+                        <Button variant="danger" onClick={handleDeleteButtonClick} className='mx-4'>Usuń</Button>
                     </>
     );
 }

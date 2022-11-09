@@ -8,7 +8,9 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import React from "react";
+import Alert from 'react-bootstrap/Alert';
 import User from "./User";
+import Container from "react-bootstrap/Container";
 
 const DataTable = () => {
     const [data, setData] = useState([]);
@@ -44,22 +46,21 @@ const DataTable = () => {
     };
 
     return (
-        <div>
-            <ul>
+        <Container>
+            <div className='mt-2'>
                 {data.map(user => (
-                    <li key={user.id}>
+                    <Alert key={user.id} variant='primary'>
                         <User user={user} onDelete={deleteUser} />
-                    </li>
+                    </Alert>
                 ))}
-            </ul>
-            <div>
+
                 Nowy użytkownik
                 <br />
                 <Link to="/new-user">
                     Dodaj
                 </Link>
             </div>
-        </div>
+        </Container>
     );
 };
 

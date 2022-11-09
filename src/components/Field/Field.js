@@ -7,17 +7,6 @@ export default function Field({ label, name, type, value, errorMessage, onChange
     onChange(event);
   }
 
-    // <label>
-    //     {label}:
-    //     {errorMessage && <span>{' '}({errorMessage})</span>}
-    //     <input
-    //         name={name}
-    //         type={type}
-    //         value={value}
-    //         onChange={handleChange}
-    //     />
-    // </label>
-
   return (
     <Form.Group className="mb-3" controlId={label}>
       <Form.Label>{label}</Form.Label>
