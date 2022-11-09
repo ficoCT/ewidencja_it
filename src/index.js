@@ -81,7 +81,7 @@ root.render(
               {/*            path="software"*/}
               {/*            element={*/}
               {/*                <RequireAuth>*/}
-              {/*                    <Software />*/}
+              {/*                    <Assign />*/}
               {/*                </RequireAuth>*/}
               {/*            }*/}
               {/*        />*/}

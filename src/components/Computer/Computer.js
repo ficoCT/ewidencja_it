@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import EditComputer from '../EditComputer';
 import ViewComputer from '../ViewComputer';
 import Print from "../Print";
+import Assign from "../Assign";
 
-export default function Computer({companiesData, modelsData, computer, onUpdate, onDelete }) {
+export default function Computer({companiesData, modelsData, computer, users, onUpdate, onDelete }) {
 
     const [isEditing, setIsEditing] = useState(false);
     const [printing, setPrinting] = useState(false);
+    const [assignUser, setAssignUser] = useState(false);
 
     function handleEditButtonClick() {
         setIsEditing(true);
@@ -28,6 +30,12 @@ export default function Computer({companiesData, modelsData, computer, onUpdate,
         setPrinting(true);
     }
 
+    function assignUserToComputer() {
+        setAssignUser(true);
+        setIsEditing(false);
+        setPrinting(false);
+    }
+
     let computerComponent;
 
     if (isEditing) {
@@ -38,6 +46,10 @@ export default function Computer({companiesData, modelsData, computer, onUpdate,
 
         computerComponent = <Print computer={computer}/>
 
+    } else if (assignUser){
+
+        computerComponent = <Assign computerId={computer.id} users={users}/>
+
     } else {
 
         computerComponent =
@@ -46,6 +58,7 @@ export default function Computer({companiesData, modelsData, computer, onUpdate,
             <button onClick={handleEditButtonClick}>Edytuj</button>
             <button onClick={handleDeleteButtonClick}>Usuń</button>
             <button onClick={handlePrintingButtonClick}>Podgląd formularza</button>
+            <button onClick={assignUserToComputer}>Przypisz użytkownika</button>
         </>
 
     }

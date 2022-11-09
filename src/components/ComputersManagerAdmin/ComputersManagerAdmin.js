@@ -19,13 +19,15 @@ export default function ComputersManagerAdmin() {
     const [queryComputer, setQueryComputer] = useState([]);
     const [companies, setCompanies] = useState([]);
     const [models, setModels] = useState({});
+    const [users, setUsers] = useState({});
     const [initialValues, setInitialValues] = useState({company: '', model:  '', materialIndex: '', serialNumber: ''});
 
     const db = getFirestore(app);
     const computersRef = collection(db, 'computers');
     const companyRef = collection(db, 'company');
+    const usersRef = collection(db, 'users');
 
-    async function loadCompany(companyRef) {
+    async function loadCompany() {
 
         let label;
         let companiesData = [];
@@ -68,7 +70,7 @@ export default function ComputersManagerAdmin() {
 
     }
 
-    async function loadComputers(computersRef) {
+    async function loadComputers() {
 
         let computersData = [];
         await getDocs(computersRef).then(snapshot => {
@@ -79,12 +81,26 @@ export default function ComputersManagerAdmin() {
         return computersData;
     }
 
+    async function loadUsers() {
+
+        let usersData = [];
+        await getDocs(usersRef).then(snapshot => {
+            snapshot.docs.forEach(doc => {
+                usersData.push({ ...doc.data(), id: doc.id });
+            })
+        })
+        return usersData;
+    }
+
       useEffect(() => {
 
           loadComputers(computersRef).then(computersData => setComputers(computersData));
           loadCompany(companyRef).then(data => {
               setCompanies(data.companiesData);
               setModels(data.companyData);
+          });
+          loadUsers(usersRef).then(data => {
+              setUsers(data);
           });
 
       }, []);
@@ -164,7 +180,7 @@ export default function ComputersManagerAdmin() {
                   <ul>
                     {computers.map(computer => (
                       <li key={computer.id}>
-                        <Computer companiesData={companies} modelsData={models} computer={computer} onUpdate={updateComputer} onDelete={deleteComputer} />
+                        <Computer companiesData={companies} modelsData={models} computer={computer} users={users} onUpdate={updateComputer} onDelete={deleteComputer} />
                       </li>
                     ))}
                   </ul>
