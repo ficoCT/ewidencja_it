@@ -10,7 +10,6 @@ import {
 } from "react-router-dom";
 import Software from "./components/Software";
 import OtherHardware from "./components/OtherHardware";
-import Administration from "./components/Administration";
 import Timetable from "./components/Scheduler";
 import Reports from "./components/Reports";
 import Repairs from "./components/Repairs";
@@ -19,7 +18,6 @@ import ComputersManagerAdmin from "./components/ComputersManagerAdmin";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import {AuthContext, AuthContextProvider} from "./context/AuthContext";
-import Navbar from "./components/NavbarApp";
 import Home from "./components/Home";
 import ComputersUser from "./components/ComputersUser";
 import AdministratorLog from "./components/AdministratorLog";
@@ -221,14 +219,6 @@ root.render(
                                  <OtherHardware />
 
                              }
-                      />
-                      <Route
-                          path="administration"
-                          element={
-
-                              <Administration />
-
-                          }
                       />
                       <Route
                           path="timetable"
