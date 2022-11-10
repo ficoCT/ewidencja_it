@@ -4,7 +4,7 @@ import ViewComputer from '../ViewComputer';
 import Print from "../Print";
 import Assign from "../Assign";
 
-export default function Computer({companiesData, modelsData, computer, users, onUpdate, onDelete }) {
+export default function Computer({companiesData, modelsData, computer, users, onUpdate, onDelete, assign}) {
 
     const [isEditing, setIsEditing] = useState(false);
     const [printing, setPrinting] = useState(false);
@@ -48,7 +48,7 @@ export default function Computer({companiesData, modelsData, computer, users, on
 
     } else if (assignUser){
 
-        computerComponent = <Assign computerId={computer.id} users={users}/>
+        computerComponent = <Assign computerId={computer.id} users={users} assign={assign}/>
 
     } else {
 

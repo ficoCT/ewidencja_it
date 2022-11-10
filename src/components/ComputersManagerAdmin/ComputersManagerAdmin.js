@@ -159,13 +159,25 @@ export default function ComputersManagerAdmin() {
     }
 
     function addComputerModel(computerModel) {
-          console.log('computerModel.company', computerModel);
 
-        const washingtonRef = doc(db, "company", computerModel.company);
+        const companyRef = doc(db, "company", computerModel.company);
 
-        updateDoc(washingtonRef, {
+        updateDoc(companyRef, {
             [computerModel.types]: arrayUnion(computerModel.model)
         });
+
+    }
+
+    function assign(assignment) {
+
+        const computerRef = doc(db, 'computers', assignment.computerId);
+
+        updateDoc(computerRef, {
+            "idUser": assignment.userId,
+        })
+            .then(() => {
+                loadComputers(computersRef).then(computersData => setComputers(computersData));
+            })
 
     }
 
@@ -180,7 +192,7 @@ export default function ComputersManagerAdmin() {
                   <ul>
                     {computers.map(computer => (
                       <li key={computer.id}>
-                        <Computer companiesData={companies} modelsData={models} computer={computer} users={users} onUpdate={updateComputer} onDelete={deleteComputer} />
+                        <Computer companiesData={companies} modelsData={models} computer={computer} users={users} onUpdate={updateComputer} onDelete={deleteComputer} assign={assign}/>
                       </li>
                     ))}
                   </ul>
