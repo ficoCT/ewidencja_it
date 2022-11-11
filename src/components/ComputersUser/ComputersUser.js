@@ -32,7 +32,7 @@ export default function ComputersUser() {
         userData.push({ ...doc.data(), id: doc.id });
       })
     })
-    console.log('userData', userData);
+
     return {computersData: computersData, userData: userData};
   }
 

@@ -1,7 +1,6 @@
 import {useContext, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import Links from "./Links";
 import {validateLogin} from "../validateLogin";
 import {AuthContext} from "../context/AuthContext";
 import Field from "./Field";
@@ -44,9 +43,6 @@ function Login() {
 
   return (
     <div>
-      <div>
-          <Links />
-      </div>
       <span>
           Zaloguj się
       </span>
