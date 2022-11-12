@@ -192,12 +192,6 @@ root.render(
                           }
                       />
                       <Route
-                          path="login"
-                          element={
-                              <Login />
-                          }
-                      />
-                      <Route
                           path="computers-manager-user"
                           element={
 
@@ -289,6 +283,12 @@ root.render(
                               />}
                       />
                   </Route>
+                  <Route
+                      path="login"
+                      element={
+                          <Login />
+                      }
+                  />
               </Routes>
           </BrowserRouter>
       </AuthContextProvider>

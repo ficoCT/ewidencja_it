@@ -11,6 +11,7 @@ import { FaCalendar } from "react-icons/fa";
 import { TfiNotepad } from "react-icons/tfi";
 import { FiUsers } from "react-icons/fi";
 import { FaLaptop } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
 
 export default function NavbarApp() {
     return (
@@ -52,6 +53,10 @@ export default function NavbarApp() {
                                     <Nav.Link href="/computers-manager-admin">
                                         <FaLaptop/>
                                         Komputery
+                                    </Nav.Link>
+                                    <Nav.Link href="/logout">
+                                        <MdLogout/>
+                                        Wyloguj
                                     </Nav.Link>
                                 </Nav>
                         </Container>
