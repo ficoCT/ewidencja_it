@@ -1,5 +1,6 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
 
 export default function Field({ label, name, type, value, errorMessage, onChange }) {
   function handleChange(event) {
@@ -10,7 +11,7 @@ export default function Field({ label, name, type, value, errorMessage, onChange
   return (
     <Form.Group className="mb-3" controlId={label}>
       <Form.Label>{label}</Form.Label>
-      {errorMessage && <span>{' '}({errorMessage})</span>}
+      {errorMessage && <Alert variant="danger">{' '}{errorMessage}</Alert>}
       <Form.Control
         name={name}
         type={type}

@@ -5,6 +5,8 @@ import {validateLogin} from "../validateLogin";
 import {AuthContext} from "../context/AuthContext";
 import Field from "./Field";
 import React from "react";
+import Button from 'react-bootstrap/Button';
+import Container from "react-bootstrap/Container";
 
 function Login() {
   const [values, setValues] = useState({email: "", password: ""});
@@ -42,11 +44,8 @@ function Login() {
   };
 
   return (
-    <div>
-      <span>
-          Zaloguj się
-      </span>
-      <div>
+    <Container>
+        <div className='mt-5'>
           <Field
               label="Email"
               name="email"
@@ -54,6 +53,7 @@ function Login() {
               value={values.email}
               errorMessage={errorMessages?.email}
               onChange={handleChange}
+              className='mt-5'
           />
           <Field
               label="Hasło"
@@ -63,16 +63,15 @@ function Login() {
               errorMessage={errorMessages?.password}
               onChange={handleChange}
           />
-
-      </div>
-      <div>
-          <button
+          <Button
+              variant="primary"
+              type="submit"
               onClick={handleSubmit}
           >
               Zaloguj się
-          </button>
-      </div>
-    </div>
+          </Button>
+        </div>
+    </Container>
   );
 }
 
