@@ -12,7 +12,7 @@ import React from "react";
 
 const NewUser = ({ inputs, title }) => {
     const [file, setFile] = useState("");
-    const [data, setData] = useState({});
+    const [data, setData] = useState({roles: {admin: false }});
     const [per, setPer] = useState(null);
     const [errorFile, setErrorFile] = useState(false);
     const [errorUser, setErrorUser] = useState(false);
