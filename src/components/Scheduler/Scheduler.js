@@ -1,11 +1,9 @@
 import { Scheduler } from "@aldabil/react-scheduler";
-import { EVENTS } from "./events";
 import * as React from 'react';
 import {useState} from "react";
 import {addDoc, collection, deleteDoc, doc, getDocs, getFirestore, updateDoc} from "firebase/firestore";
 import {app} from "../../firebase";
 import {useEffect} from "react";
-import Computer from "../Computer";
 import Container from 'react-bootstrap/Container';
 
 export default function App() {
@@ -116,6 +114,7 @@ export default function App() {
               'Ładuje się ...'
               :
               <Scheduler
+                  style={{ color: 'red' }}
                   events={events}
                   onConfirm={handleConfirm}
                   onDelete={handleDelete}

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Container from 'react-bootstrap/Container';
 
-export default function Home() {
+export default function Unauthorized() {
   return (
-      <Container className="contents">
-        <h1>Home</h1>
+      <Container>
+          Unauthorized
       </Container>
   );
 }

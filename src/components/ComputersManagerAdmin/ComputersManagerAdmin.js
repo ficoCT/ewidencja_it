@@ -182,7 +182,7 @@ export default function ComputersManagerAdmin() {
     }
 
   return (
-      <Container>
+      <Container className="contents">
           <span style={{color:'red'}}>Lista komputerów w przedsiębiorstwie</span>
           <ToggleVisibility>
           <div>

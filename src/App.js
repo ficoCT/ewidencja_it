@@ -1,26 +1,38 @@
 import React from "react";
-import NavbarApp from "./components/NavbarApp";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useState} from "react";
 import Login from "./components/Login";
+import Home from "./components/Home";
+import { Routes, Route, Navigate, } from 'react-router-dom';
+import BackgroundImage from "./components/BackgroundImage";
+import './App.css';
+import {AuthContextProvider} from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const auth = getAuth();
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setIsSubmitted(true);
-    } else {
-      setIsSubmitted(false);
-    }
-  });
-
   return (
-      <>
-        {isSubmitted ? <NavbarApp/>  : <Login/>}
-      </>
+      <div>
+      <BackgroundImage/>
+      <div className="main-element">
+          <AuthContextProvider>
+          <Routes>
+              <Route
+                  path="login"
+                  element={
+                       <Login />
+                  }
+              />
+              <Route
+                  path="home"
+                  element={
+                      <ProtectedRoute>
+                          <Home/>
+                      </ProtectedRoute>
+                  }
+              />
+          </Routes>
+          </AuthContextProvider>
+      </div>
+      </div>
   );
 }
 
