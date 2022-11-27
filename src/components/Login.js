@@ -30,7 +30,8 @@ function Login() {
 
   return (
     <Container className="contents">
-        <div>
+        <div style={{textAlign: "center"}}>
+          <h1>SYSTEM GOSPODARKI SPRZĘTEM TELEINFORMATYCZNYM</h1>
           <Field
               label="Email"
               name="email"

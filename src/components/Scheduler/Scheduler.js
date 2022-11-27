@@ -109,7 +109,7 @@ export default function App() {
     };
 
   return (
-      <Container>
+      <Container className="contents">
       {events.length === 0 ?
               'Ładuje się ...'
               :

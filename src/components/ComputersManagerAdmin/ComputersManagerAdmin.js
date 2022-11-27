@@ -12,6 +12,7 @@ import QueryComputer from "../QueryComputer";
 import ToggleVisibility from "../ToggleVisibility";
 import Container from 'react-bootstrap/Container';
 import ModelForm from "../ModelForm";
+import Alert from 'react-bootstrap/Alert';
 
 export default function ComputersManagerAdmin() {
 
@@ -183,7 +184,9 @@ export default function ComputersManagerAdmin() {
 
   return (
       <Container className="contents">
-          <span style={{color:'red'}}>Lista komputerów w przedsiębiorstwie</span>
+          <Alert variant="primary mt-2">
+              <span>LISTA KOMPUTERÓW W PRZEDSIĘBIORSTWIE</span>
+          </Alert>
           <ToggleVisibility>
           <div>
               {computers.length === 0 ?
@@ -200,12 +203,16 @@ export default function ComputersManagerAdmin() {
           </div>
           </ToggleVisibility>
 
-          <span style={{color:'red'}}>DODAJ KOMPUTER</span>
+          <Alert variant="primary mt-2">
+              <span>DODAJ KOMPUTER</span>
+          </Alert>
           <ToggleVisibility>
             <AddComputer companiesData={companies} modelsData={models} computer={initialValues} onSubmit={addComputer} />
           </ToggleVisibility>
 
-          <span style={{color:'red'}}>WYSZUKAJ KOMPUTER</span>
+          <Alert variant="primary mt-2">
+              <span>WYSZUKAJ KOMPUTER</span>
+          </Alert>
           <ToggleVisibility>
           <QueryComputer submitLabel="Wyszukaj" onSubmit={queryComputers} />
               {queryComputer.length === 0 ?
@@ -220,7 +227,10 @@ export default function ComputersManagerAdmin() {
                    </ul>
               }
           </ToggleVisibility>
-          <span style={{color:'red'}}>DODAJ MODEL KOMPUTERA</span>
+
+          <Alert variant="primary mt-2">
+              <span>DODAJ MODEL KOMPUTERA</span>
+          </Alert>
           <ToggleVisibility>
               <ModelForm companiesData={companies} submitLabel={'ZAPISZ'} onSubmit={addComputerModel}/>
           </ToggleVisibility>

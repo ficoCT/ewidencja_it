@@ -1,4 +1,5 @@
 import {useState} from "react";
+import Button from 'react-bootstrap/Button';
 
 export default function ToggleVisibility({ children }) {
 
@@ -13,7 +14,7 @@ export default function ToggleVisibility({ children }) {
     return (
         <div>
             {show && children}
-            <button onClick={toggleShow}>{buttonText}</button>
+            <Button variant="primary" onClick={toggleShow}>{buttonText}</Button>
         </div>
     );
 }
