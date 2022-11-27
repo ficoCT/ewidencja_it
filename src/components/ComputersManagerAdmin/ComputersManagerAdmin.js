@@ -21,7 +21,7 @@ export default function ComputersManagerAdmin() {
     const [companies, setCompanies] = useState([]);
     const [models, setModels] = useState({});
     const [users, setUsers] = useState({});
-    const [initialValues, setInitialValues] = useState({company: '', model:  '', materialIndex: '', serialNumber: ''});
+    const [initialValues, setInitialValues] = useState({});
 
     const db = getFirestore(app);
     const computersRef = collection(db, 'computers');
@@ -90,6 +90,14 @@ export default function ComputersManagerAdmin() {
                 usersData.push({ ...doc.data(), id: doc.id });
             })
         })
+
+        let initialValuesIdUser = usersData[0].id;
+        let initialValuesUsername = usersData[0].username;
+
+        setInitialValues((values) => {
+            return { ...values, ['idUser']: initialValuesIdUser, ['username']: initialValuesUsername };
+        });
+
         return usersData;
     }
 
@@ -106,13 +114,18 @@ export default function ComputersManagerAdmin() {
 
       }, []);
 
-      function addComputer(computer) {
+      async function addComputer(computer) {
+
+          const userRef = doc(db, 'users', computer.idUser);
+          const docSnap = await getDoc(userRef);
 
           addDoc(computersRef, {
               company: computer.company,
               materialIndex: computer.materialIndex,
               model: computer.model,
-              serialNumber: computer.serialNumber
+              serialNumber: computer.serialNumber,
+              idUser: computer.idUser,
+              username: docSnap.data().username
           })
               .then(() => {
                   loadComputers(computersRef).then(computersData => setComputers(computersData));
@@ -165,7 +178,12 @@ export default function ComputersManagerAdmin() {
 
         updateDoc(companyRef, {
             [computerModel.types]: arrayUnion(computerModel.model)
-        });
+        })
+            .then(() => {
+                loadCompany(companyRef).then(data => {
+                    setCompanies(data.companiesData);
+                    setModels(data.companyData);
+        })});
 
     }
 
@@ -174,11 +192,6 @@ export default function ComputersManagerAdmin() {
         const computerRef = doc(db, 'computers', assignment.computerId);
         const userRef = doc(db, 'users', assignment.userId);
         const docSnap = await getDoc(userRef);
-        let username = "Nie przydzielono";
-
-        if (docSnap.exists()) {
-            username = docSnap;
-        }
 
         updateDoc(computerRef, {
             "idUser": assignment.userId,
@@ -223,7 +236,7 @@ export default function ComputersManagerAdmin() {
               <span>DODAJ KOMPUTER</span>
           </Alert>
           <ToggleVisibility>
-            <AddComputer companiesData={companies} modelsData={models} computer={initialValues} onSubmit={addComputer} />
+            <AddComputer companiesData={companies} modelsData={models}  users={users} computer={initialValues} onSubmit={addComputer} />
           </ToggleVisibility>
 
           <Alert variant="primary">

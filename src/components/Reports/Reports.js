@@ -41,7 +41,7 @@ export default function Reports() {
   }, []);
 
   return (
-      <Container>
+      <Container className="contents">
           <span style={{color:'red'}}>KOMPUTERY</span>
           {Object.keys(companies).length === 0 ?
               <h1>Ładowanie danych ...</h1>

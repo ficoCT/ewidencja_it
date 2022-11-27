@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 
 export default function Repairs() {
   return (
-      <Container>
+      <Container className="contents">
         <h1>Repairs</h1>
       </Container>
   );

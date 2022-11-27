@@ -3,6 +3,8 @@ import ComputerForm from "../ComputerForm";
 
 export default function EditComputer({companiesData, modelsData, computer, onSubmit }) {
 
+  console.log('onSubmit', onSubmit);
+
   return (
         <ComputerForm submitLabel="Zapisz" companiesData={companiesData} modelsData={modelsData} computer={computer} onSubmit={onSubmit}/>
   );

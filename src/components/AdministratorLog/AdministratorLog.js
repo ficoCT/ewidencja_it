@@ -63,7 +63,7 @@ export default function AdministratorLog() {
   }
 
   return (
-      <Container>
+      <Container className="contents">
       <Form onSubmit={handleSubmit}>
         <br />
         <br />

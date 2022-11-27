@@ -18,6 +18,7 @@ export default function NavbarApp() {
             <>
                 <Navbar bg="primary" variant="dark" className="mb-2">
                                 <Nav className="me-auto navbarContainer">
+                                    <Nav.Link href="/home">Home</Nav.Link>
                                     <Nav.Link href="/computers-manager-user">Komputer</Nav.Link>
                                     <Nav.Link href="/software">
                                         <CgSoftwareDownload className="navImg"/>

@@ -7,7 +7,9 @@ function mapComputerToFormValues(computer) {
     company: computer.company,
     materialIndex: computer.materialIndex,
     model: computer.model,
-    serialNumber: computer.serialNumber
+    serialNumber: computer.serialNumber,
+    idUser: computer.idUser,
+    username: computer.username
   };
 }
 
@@ -16,22 +18,21 @@ function mapFormValuesToComputer(values) {
     company:values.company,
     materialIndex: values.materialIndex,
     model: values.model,
-    serialNumber: values.serialNumber
+    serialNumber: values.serialNumber,
+    idUser: values.idUser,
+    username: ""
   };
 }
 
-export default function ComputerForm({companiesData, modelsData, computer, submitLabel, onSubmit }) {
+export default function ComputerForm({companiesData, modelsData, users, computer, submitLabel, onSubmit}) {
 
   const initialValues = mapComputerToFormValues(computer);
 
   const [values, setValues] = useState(initialValues);
-  const [companies, setCompanies] = useState(companiesData);
-  const [models, setModels] = useState(modelsData);
-
   const [errorMessages, setErrorMessages] = useState(null);
 
   const handleChange = (name, value) => {
-
+    console.log(' (name, value)', name, value);
     setValues((values) => {
       return { ...values, [name]: value };
     });
@@ -46,20 +47,20 @@ export default function ComputerForm({companiesData, modelsData, computer, submi
 
     if (typeof onSubmit !== 'function') return;
     onSubmit(mapFormValuesToComputer(values));
+    setValues(initialValues);
   }
 
   return (
   <form onSubmit={handleSubmit}>
-
     <select
         id="company"
         name="company"
         onChange={(e) => {handleChange("company", e.target.value)}}
     >
-      {companies.length === 0 ?
+      {companiesData.length === 0 ?
           'Ładuje się ...'
           :
-          companies.map(({value, label}) => {
+          companiesData.map(({value, label}) => {
             return (
                 <option key={value} value={value}>
                   {label}
@@ -75,10 +76,10 @@ export default function ComputerForm({companiesData, modelsData, computer, submi
         name="models"
         onChange={(e) => handleChange("model", e.target.value)}
     >
-      {Object.keys(models).length === 0 ?
+      {Object.keys(modelsData).length === 0 ?
           'Ładuje się ...'
           :
-          models[values.company].map(value => {
+          modelsData[values.company].map(value => {
             return (
                 <option key={value} value={value} defaultValue={'Wybierz model'}>
                   {value}
@@ -104,6 +105,23 @@ export default function ComputerForm({companiesData, modelsData, computer, submi
         errorMessage={errorMessages?.serialNumber}
         onChange={(e) => handleChange("serialNumber", e.target.value)}
     />
+    <select
+        id="users"
+        name="users"
+        onChange={(e) => handleChange("idUser", e.target.value)}
+    >
+      {users.length === 0 ?
+          'Ładuje się ...'
+          :
+          users.map(({id, username}) => {
+            return (
+                <option key={id} value={id}>
+                  {username}
+                </option>
+            );
+          })
+      }
+    </select>
     <input type="submit" value={submitLabel} />
   </form>
   );
