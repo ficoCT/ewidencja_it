@@ -6,6 +6,7 @@ import BackgroundImage from "./components/BackgroundImage";
 import './App.css';
 import {AuthContextProvider} from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ComputersManagerAdmin from "./components/ComputersManagerAdmin";
 
 function App() {
 
@@ -26,6 +27,14 @@ function App() {
                   element={
                       <ProtectedRoute>
                           <Home/>
+                      </ProtectedRoute>
+                  }
+              />
+              <Route
+                  path="computers-manager-admin"
+                  element={
+                      <ProtectedRoute>
+                          <ComputersManagerAdmin />
                       </ProtectedRoute>
                   }
               />
