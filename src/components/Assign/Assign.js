@@ -1,8 +1,7 @@
 import * as React from 'react';
-import Container from 'react-bootstrap/Container';
 import {useState} from "react";
 
-export default function Assign({users, assign, computerId}) {
+export default function Assign({users, assign, computerId, refresh}) {
 
     const [userId, setUserId] = useState(users[0].id);
 
@@ -10,12 +9,15 @@ export default function Assign({users, assign, computerId}) {
         setUserId(value);
     };
 
-    function handleAssign() {
+    function handleAssign(event) {
+        event.preventDefault();
         assign({userId: userId, computerId: computerId});
+        if (typeof refresh !== 'function') return;
+        refresh();
     }
 
   return (
-      <Container>
+          <form onSubmit={handleAssign}>
           <select
               id="users"
               name="users"
@@ -33,7 +35,7 @@ export default function Assign({users, assign, computerId}) {
                   })
               }
           </select>
-          <button onClick={handleAssign}>Potwierdź</button>
-      </Container>
+          <button type="submit" onClick={handleAssign}>Potwierdź</button>
+          </form>
   );
 }

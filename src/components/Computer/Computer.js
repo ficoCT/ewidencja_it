@@ -36,6 +36,12 @@ export default function Computer({companiesData, modelsData, computer, users, on
         setPrinting(false);
     }
 
+    function refresh() {
+        setAssignUser(false);
+        setIsEditing(false);
+        setPrinting(false);
+    }
+
     let computerComponent;
 
     if (isEditing) {
@@ -44,11 +50,18 @@ export default function Computer({companiesData, modelsData, computer, users, on
 
     } else if (printing){
 
-        computerComponent = <Print computer={computer}/>
+        computerComponent = <Print computer={computer} refresh={refresh}/>
 
     } else if (assignUser){
 
-        computerComponent = <Assign computerId={computer.id} users={users} assign={assign}/>
+        computerComponent =
+        <>
+            <div><ViewComputer computer={computer} /></div>
+            <button onClick={handleEditButtonClick}>Edytuj</button>
+            <button onClick={handleDeleteButtonClick}>Usuń</button>
+            <button onClick={handlePrintingButtonClick}>Podgląd formularza</button>
+            <Assign computerId={computer.id} users={users} assign={assign} refresh={refresh}/>
+        </>
 
     } else {
 

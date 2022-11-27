@@ -2,7 +2,7 @@ import React, {useCallback, useRef, useState} from 'react';
 import ReactToPrint from "react-to-print";
 import {ComputerFormPrinting} from "../ComputerFormPrinting";
 
-export default function Print({computer}) {
+export default function Print({computer, refresh}) {
 
   const componentRef = React.useRef(null);
 
@@ -53,7 +53,13 @@ export default function Print({computer}) {
 
   }, []);
 
+  function comeBack() {
+    if (typeof refresh !== 'function') return;
+    refresh();
+  }
+
   return (
+      <>
       <div>
         <ReactToPrint
             content={reactToPrintContent}
@@ -63,5 +69,7 @@ export default function Print({computer}) {
         {loading && <p className="indicator">onBeforeGetContent: Loading...</p>}
         <ComputerFormPrinting ref={componentRef} computer={computer} />
       </div>
+      <button onClick={comeBack}>Powrót</button>
+      </>
   );
 }

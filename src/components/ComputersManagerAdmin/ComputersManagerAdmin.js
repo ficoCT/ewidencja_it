@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {app} from "../../firebase";
 import {
     collection, getFirestore,
-    doc, getDocs, addDoc, deleteDoc, updateDoc,
+    doc,getDoc, getDocs, addDoc, deleteDoc, updateDoc,
     arrayUnion, arrayRemove,
     query, where
 } from "firebase/firestore";
@@ -169,12 +169,20 @@ export default function ComputersManagerAdmin() {
 
     }
 
-    function assign(assignment) {
+    async function  assignUser(assignment) {
 
         const computerRef = doc(db, 'computers', assignment.computerId);
+        const userRef = doc(db, 'users', assignment.userId);
+        const docSnap = await getDoc(userRef);
+        let username = "Nie przydzielono";
+
+        if (docSnap.exists()) {
+            username = docSnap;
+        }
 
         updateDoc(computerRef, {
             "idUser": assignment.userId,
+            "username": docSnap.data().username
         })
             .then(() => {
                 loadComputers(computersRef).then(computersData => setComputers(computersData));
@@ -195,7 +203,15 @@ export default function ComputersManagerAdmin() {
                   <ul>
                     {computers.map(computer => (
                       <li key={computer.id}>
-                        <Computer companiesData={companies} modelsData={models} computer={computer} users={users} onUpdate={updateComputer} onDelete={deleteComputer} assign={assign}/>
+                            <Computer
+                                companiesData={companies}
+                                modelsData={models}
+                                computer={computer}
+                                users={users}
+                                onUpdate={updateComputer}
+                                onDelete={deleteComputer}
+                                assign={assignUser}
+                            />
                       </li>
                     ))}
                   </ul>
@@ -222,7 +238,13 @@ export default function ComputersManagerAdmin() {
                        <ul>
                            {queryComputer.map(computer => (
                               <li key={computer.id}>
-                                  <Computer companiesData={companies} modelsData={models} computer={computer} onUpdate={updateComputer} onDelete={deleteComputer} />
+                                  <Computer
+                                      companiesData={companies}
+                                      modelsData={models}
+                                      computer={computer}
+                                      onUpdate={updateComputer}
+                                      onDelete={deleteComputer}
+                                  />
                               </li>
                            ))}
                        </ul>
