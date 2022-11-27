@@ -9,7 +9,7 @@ export default function Field({ label, name, type, value, errorMessage, onChange
   }
 
   return (
-    <Form.Group className="mb-3" controlId={label}>
+    <Form.Group className="mb-3" style={{textAlign: "left"}} controlId={label}>
       <Form.Label>{label}</Form.Label>
       {errorMessage && <Alert variant="danger">{' '}{errorMessage}</Alert>}
       <Form.Control

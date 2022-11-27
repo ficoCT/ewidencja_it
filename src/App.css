@@ -13,11 +13,22 @@
     padding: 1rem;
 }
 
-.main-element {
-    padding: 1rem;
-}
-
 .FormPrint {
     text-align: center;
     padding: 2rem;
+}
+
+.navbarContainer {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.navImg {
+    margin-left: 0.25rem;
+    margin-right: 0.15rem;
+    font-size: 2rem;
+    color: #FFFFFF;
 }

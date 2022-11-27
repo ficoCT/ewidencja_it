@@ -14,7 +14,7 @@ export default function ToggleVisibility({ children }) {
     return (
         <div>
             {show && children}
-            <Button variant="primary" onClick={toggleShow}>{buttonText}</Button>
+            <Button className="mt-2 mb-4" variant="primary" onClick={toggleShow}>{buttonText}</Button>
         </div>
     );
 }

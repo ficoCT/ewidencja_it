@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { validateLogin } from "../validateLogin";
+import { useNavigate } from "react-router-dom";
 import Field from "./Field";
 import React from "react";
 import Button from 'react-bootstrap/Button';
@@ -30,7 +28,7 @@ function Login() {
 
   return (
     <Container className="contents">
-        <div style={{textAlign: "center"}}>
+        <div style={{textAlign: "center", marginTop: "1rem"}}>
           <h1>SYSTEM GOSPODARKI SPRZĘTEM TELEINFORMATYCZNYM</h1>
           <Field
               label="Email"

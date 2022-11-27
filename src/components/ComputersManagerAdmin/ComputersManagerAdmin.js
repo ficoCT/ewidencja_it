@@ -183,12 +183,12 @@ export default function ComputersManagerAdmin() {
     }
 
   return (
-      <Container className="contents">
-          <Alert variant="primary mt-2">
+      <Container>
+          <Alert variant="primary">
               <span>LISTA KOMPUTERÓW W PRZEDSIĘBIORSTWIE</span>
           </Alert>
           <ToggleVisibility>
-          <div>
+          <div className="contents">
               {computers.length === 0 ?
                   <h1>Ładowanie danych ...</h1>
                   :
@@ -203,36 +203,40 @@ export default function ComputersManagerAdmin() {
           </div>
           </ToggleVisibility>
 
-          <Alert variant="primary mt-2">
+          <Alert variant="primary">
               <span>DODAJ KOMPUTER</span>
           </Alert>
           <ToggleVisibility>
             <AddComputer companiesData={companies} modelsData={models} computer={initialValues} onSubmit={addComputer} />
           </ToggleVisibility>
 
-          <Alert variant="primary mt-2">
+          <Alert variant="primary">
               <span>WYSZUKAJ KOMPUTER</span>
           </Alert>
           <ToggleVisibility>
-          <QueryComputer submitLabel="Wyszukaj" onSubmit={queryComputers} />
-              {queryComputer.length === 0 ?
-                   ''
-                   :
-                   <ul>
-                       {queryComputer.map(computer => (
-                          <li key={computer.id}>
-                              <Computer companiesData={companies} modelsData={models} computer={computer} onUpdate={updateComputer} onDelete={deleteComputer} />
-                          </li>
-                       ))}
-                   </ul>
-              }
+          <div className="contents">
+              <QueryComputer className="contents" submitLabel="Wyszukaj" onSubmit={queryComputers} />
+                  {queryComputer.length === 0 ?
+                       ''
+                       :
+                       <ul>
+                           {queryComputer.map(computer => (
+                              <li key={computer.id}>
+                                  <Computer companiesData={companies} modelsData={models} computer={computer} onUpdate={updateComputer} onDelete={deleteComputer} />
+                              </li>
+                           ))}
+                       </ul>
+                  }
+          </div>
           </ToggleVisibility>
 
-          <Alert variant="primary mt-2">
+          <Alert variant="primary">
               <span>DODAJ MODEL KOMPUTERA</span>
           </Alert>
           <ToggleVisibility>
-              <ModelForm companiesData={companies} submitLabel={'ZAPISZ'} onSubmit={addComputerModel}/>
+              <div className="contents">
+                <ModelForm className="contents" companiesData={companies} submitLabel={'ZAPISZ'} onSubmit={addComputerModel}/>
+              </div>
           </ToggleVisibility>
 
       </Container>

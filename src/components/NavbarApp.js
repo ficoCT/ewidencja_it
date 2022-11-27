@@ -16,50 +16,46 @@ import { MdLogout } from "react-icons/md";
 export default function NavbarApp() {
     return (
             <>
-                <Navbar bg="primary" variant="dark">
-                        <Container>
-                                <Nav className="me-auto">
+                <Navbar bg="primary" variant="dark" className="mb-2">
+                                <Nav className="me-auto navbarContainer">
                                     <Nav.Link href="/computers-manager-user">Komputer</Nav.Link>
                                     <Nav.Link href="/software">
-                                        <CgSoftwareDownload/>
+                                        <CgSoftwareDownload className="navImg"/>
                                         Oprogramowanie
                                     </Nav.Link>
                                     <Nav.Link href="/otherHardware">
-                                        <FaPrint/>
+                                        <FaPrint className="navImg"/>
                                         Inne
                                     </Nav.Link>
                                     <Nav.Link href="/timetable">
-                                        <FaCalendar/>
+                                        <FaCalendar className="navImg"/>
                                         Terminarz
                                     </Nav.Link>
                                     <Nav.Link href="/reports">
-                                        <TbReportAnalytics/>
+                                        <TbReportAnalytics className="navImg"/>
                                         Raporty
                                     </Nav.Link>
                                     <Nav.Link href="/repairs">
-                                        <GiAutoRepair/>
+                                        <GiAutoRepair className="navImg"/>
                                         Naprawy
                                     </Nav.Link>
                                     <Nav.Link href="/administrator-log">
-                                        <TfiNotepad/>
+                                        <TfiNotepad className="navImg"/>
                                         Dziennik
                                     </Nav.Link>
                                     <Nav.Link href="/user-list">
-                                        <FiUsers/>
+                                        <FiUsers className="navImg"/>
                                         Użytkownicy
                                     </Nav.Link>
-                                    {/*<Nav.Link href="/login">Zaloguj się</Nav.Link>*/}
-                                    {/*<Nav.Link href="/register">Zarejestruj się</Nav.Link>*/}
                                     <Nav.Link href="/computers-manager-admin">
-                                        <FaLaptop/>
+                                        <FaLaptop className="navImg"/>
                                         Komputery
                                     </Nav.Link>
                                     <Nav.Link href="/logout">
-                                        <MdLogout/>
+                                        <MdLogout className="navImg"/>
                                         Wyloguj
                                     </Nav.Link>
                                 </Nav>
-                        </Container>
                 </Navbar>
                 <Outlet />
             </>

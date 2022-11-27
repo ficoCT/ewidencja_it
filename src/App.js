@@ -17,13 +17,14 @@ import AdministratorLog from "./components/AdministratorLog";
 import UserList from "./components/UserList";
 import NewUser from "./components/NewUser";
 import Unauthorized from "./components/Unauthorized";
+import {userInputs} from "./formSource";
+import NavbarApp from "./components/NavbarApp";
 
 function App() {
 
   return (
       <div>
       <BackgroundImage/>
-      <div className="main-element">
           <AuthContextProvider>
           <Routes>
               <Route
@@ -33,103 +34,111 @@ function App() {
                   }
               />
               <Route
-                  path="home"
+                  path="/"
                   element={
                       <ProtectedRoute>
-                          <Home/>
+                          <NavbarApp/>
                       </ProtectedRoute>
                   }
-              />
-              <Route
-                  path="computers-manager-user"
-                  element={
-                      <ProtectedRoute>
-                          <ComputersUser />
-                      </ProtectedRoute>
-                  }
-              />
-              <Route
-                  path="software"
-                  element={
-                      <ProtectedRoute>
-                          <Software />
-                      </ProtectedRoute>
-                  }
-              />
-              <Route path="otherHardware"
-                     element={
-                         <ProtectedRoute>
-                             <OtherHardware />
-                         </ProtectedRoute>
-                     }
-              />
-              <Route
-                  path="timetable"
-                  element={
-                      <ProtectedRoute>
-                          <Scheduler />
-                      </ProtectedRoute>
-                  }
-              />
-              <Route
-                  path="reports"
-                  element={
-                      <ProtectedRoute>
-                          <Reports />
-                      </ProtectedRoute>
-                  }
-              />
-              <Route
-                  path="repairs"
-                  element={
-                      <ProtectedRoute>
-                          <Repairs />
-                      </ProtectedRoute>
-                  }
-              />
-              <Route
-                  path="administrator-log"
-                  element={
-                      <ProtectedRoute>
-                          <AdministratorLog />
-                      </ProtectedRoute>
-                  }
-              />
-              <Route
-                  path="user-list"
-                  element={
-                      <ProtectedRoute>
-                          <UserList/>
-                      </ProtectedRoute>
-                  }
-              />
-              {/*<Route*/}
-              {/*    path="new-user"*/}
-              {/*    element={*/}
-              {/*        <ProtectedRoute>*/}
-              {/*            <NewUser inputs={userInputs} title="Dodaj użytkownika" />*/}
-              {/*        </ProtectedRoute>*/}
-              {/*    }*/}
-              {/*/>*/}
-              <Route
-                  path="unauthorized"
-                  element={
-                      <ProtectedRoute>
-                          <Unauthorized />
-                      </ProtectedRoute>
-                  }
-              />
-              <Route
-                  path="computers-manager-admin"
-                  element={
-                      <ProtectedRoute>
-                          <ComputersManagerAdmin />
-                      </ProtectedRoute>
-                  }
-              />
+              >
+                  <Route
+                      path="home"
+                      element={
+                          <ProtectedRoute>
+                              <Home/>
+                          </ProtectedRoute>
+                      }
+                  />
+                  <Route
+                      path="computers-manager-user"
+                      element={
+                          <ProtectedRoute>
+                              <ComputersUser />
+                          </ProtectedRoute>
+                      }
+                  />
+                  <Route
+                      path="software"
+                      element={
+                          <ProtectedRoute>
+                              <Software />
+                          </ProtectedRoute>
+                      }
+                  />
+                  <Route path="otherHardware"
+                         element={
+                             <ProtectedRoute>
+                                 <OtherHardware />
+                             </ProtectedRoute>
+                         }
+                  />
+                  <Route
+                      path="timetable"
+                      element={
+                          <ProtectedRoute>
+                              <Scheduler />
+                          </ProtectedRoute>
+                      }
+                  />
+                  <Route
+                      path="reports"
+                      element={
+                          <ProtectedRoute>
+                              <Reports />
+                          </ProtectedRoute>
+                      }
+                  />
+                  <Route
+                      path="repairs"
+                      element={
+                          <ProtectedRoute>
+                              <Repairs />
+                          </ProtectedRoute>
+                      }
+                  />
+                  <Route
+                      path="administrator-log"
+                      element={
+                          <ProtectedRoute>
+                              <AdministratorLog />
+                          </ProtectedRoute>
+                      }
+                  />
+                  <Route
+                      path="user-list"
+                      element={
+                          <ProtectedRoute>
+                              <UserList/>
+                          </ProtectedRoute>
+                      }
+                  />
+                  <Route
+                      path="new-user"
+                      element={
+                          <ProtectedRoute>
+                              <NewUser inputs={userInputs} title="Dodaj użytkownika" />
+                          </ProtectedRoute>
+                      }
+                  />
+                  <Route
+                      path="unauthorized"
+                      element={
+                          <ProtectedRoute>
+                              <Unauthorized />
+                          </ProtectedRoute>
+                      }
+                  />
+                  <Route
+                      path="computers-manager-admin"
+                      element={
+                          <ProtectedRoute>
+                              <ComputersManagerAdmin />
+                          </ProtectedRoute>
+                      }
+                  />
+          </Route>
           </Routes>
           </AuthContextProvider>
-      </div>
       </div>
   );
 }
