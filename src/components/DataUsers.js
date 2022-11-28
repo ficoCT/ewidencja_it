@@ -11,6 +11,7 @@ import React from "react";
 import Alert from 'react-bootstrap/Alert';
 import User from "./User";
 import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
 //FcPlus
 
 const DataTable = () => {
@@ -47,7 +48,7 @@ const DataTable = () => {
     };
 
     return (
-        <Container>
+        <Container className="contents">
             <div className='mt-2'>
                 {data.map(user => (
                     <Alert key={user.id} variant='primary'>
@@ -55,11 +56,12 @@ const DataTable = () => {
                     </Alert>
                 ))}
 
-                Nowy użytkownik
                 <br />
-                <Link to="/new-user">
-                    Dodaj
-                </Link>
+                <Button variant="success">
+                    <Link to="/new-user" className="white-link">
+                        Dodaj użytkownika
+                    </Link>
+                </Button>
             </div>
         </Container>
     );

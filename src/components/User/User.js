@@ -10,9 +10,9 @@ export default function User({ user, onUpdate, onDelete }) {
     }
 
     return (
-                    <>
+                    <div className="user">
                         <ViewUser user={user} />
                         <Button variant="danger" onClick={handleDeleteButtonClick} className='mx-4'>Usuń</Button>
-                    </>
+                    </div>
     );
 }

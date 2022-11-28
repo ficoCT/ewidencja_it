@@ -125,7 +125,8 @@ export default function ComputersManagerAdmin() {
               model: computer.model,
               serialNumber: computer.serialNumber,
               idUser: computer.idUser,
-              username: docSnap.data().username
+              username: docSnap.data().username,
+              repair: false
           })
               .then(() => {
                   loadComputers(computersRef).then(computersData => setComputers(computersData));

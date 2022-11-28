@@ -9,6 +9,9 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import Container from "react-bootstrap/Container";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const NewUser = ({ inputs, title }) => {
     const [file, setFile] = useState("");
@@ -81,12 +84,9 @@ const NewUser = ({ inputs, title }) => {
     };
 
     return (
-        <div>
-            <div>
-                <div>
-                    <h1>{title}</h1>
-                </div>
-                <div>
+        <Container className="contents" style={{textAlign: "center"}}>
+                <h1 className="userTitle">{title}</h1>
+                <div style={{textAlign: "left"}}>
                     <div>
                         <img
                             src={
@@ -95,42 +95,34 @@ const NewUser = ({ inputs, title }) => {
                                     : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                             }
                             alt=""
+                            className="imgUser"
                         />
                     </div>
-                    <div>
-                        <form onSubmit={handleAdd}>
-                            <div>
-                                <label htmlFor="file">
-                                    Image: Icon
-                                </label>
-                                {errorFile && <span>{'Coś poszło nie tak :('}</span>}
-                                <input
-                                    type="file"
-                                    id="file"
-                                    onChange={(e) => setFile(e.target.files[0])}
-                                    style={{ display: "none" }}
-                                />
-                            </div>
-
-                            {inputs.map((input) => (
-                                <div key={input.id}>
-                                    <label>{input.label}</label>
-                                    <input
-                                        id={input.id}
-                                        type={input.type}
-                                        placeholder={input.placeholder}
-                                        onChange={handleInput}
-                                    />
-                                </div>
-                            ))}
-                            <button disabled={per !== null && per < 100} type="submit">
-                                Zapisz
-                            </button>
-                        </form>
-                    </div>
                 </div>
-            </div>
-        </div>
+            <Form onSubmit={handleAdd}>
+                <div style={{textAlign: "left"}}>
+                    <label htmlFor="file">
+                        Dodaj zdjęcie
+                    </label>
+                    {errorFile && <span>{'Coś poszło nie tak :('}</span>}
+                    <input
+                        type="file"
+                        id="file"
+                        onChange={(e) => setFile(e.target.files[0])}
+                        style={{ display: "none" }}
+                    />
+                </div>
+                {inputs.map((input) => (
+                    <Form.Group className="mb-3" style={{textAlign: "left"}} controlId={input.id}>
+                        <Form.Label>{input.label}</Form.Label>
+                        <Form.Control type="input" placeholder={input.placeholder} onChange={handleInput}/>
+                    </Form.Group>
+                ))}
+                <Button disabled={per !== null && per < 100} variant="success" type="submit">
+                    Zapisz
+                </Button>
+            </Form>
+        </Container>
     );
 };
 

@@ -6,8 +6,8 @@ import { FcHome } from "react-icons/fc";
 
 export default function ViewUser({ user: { id, displayName, username, email, phone, department, address} }) {
   return (
-      <>
+      <div className="userView">
         <strong> {username} </strong> <FcDepartment/> {department} <FcAddressBook/> {email} <FcPhone/> {phone} <FcHome/> {address}
-      </>
+      </div>
   );
 }
