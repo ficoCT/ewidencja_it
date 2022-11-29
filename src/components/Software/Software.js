@@ -20,7 +20,7 @@ export default function Software() {
     const [softwareCompanies, setSoftwareCompanies] = useState([]);
     // const [queryComputer, setQueryComputer] = useState([]);
     // const [companies, setCompanies] = useState([]);
-    // const [models, setModels] = useState({});
+    const [programs, setPrograms] = useState({});
     // const [users, setUsers] = useState({});
     // const [initialValues, setInitialValues] = useState({});
     //
@@ -33,14 +33,14 @@ export default function Software() {
     //
         let label;
         let softwareCompaniesData = [];
-        let companyData = {};
+        let companiesData = {};
         await getDocs(softwareCompanyRef).then(snapshot => {
             snapshot.docs.forEach(doc => {
                 label = doc.id.split("");
                 label[0] = label[0].toUpperCase();
                 label.toString();
                 softwareCompaniesData.push({value: doc.id, label: label});
-                Object.assign(companyData, {[doc.id]: doc.data()});
+                Object.assign(companiesData, {[doc.id]: doc.data()});
             })
         })
     //     let allModelsCompany = [];
@@ -67,7 +67,7 @@ export default function Software() {
     //
         return {
             softwareCompaniesData: softwareCompaniesData,
-            companyData: companyData
+            companiesData: companiesData
         };
     //
     }
@@ -107,7 +107,7 @@ export default function Software() {
         // loadComputers(softwareRef).then(softwareData => setComputers(softwareData));
         loadSoftwareCompany(softwareCompanyRef).then(data => {
             setSoftwareCompanies(data.softwareCompaniesData);
-            // setModels(data.companyData);
+            setPrograms(data.companiesData);
         });
         // loadUsers(usersRef).then(data => {
         //     setUsers(data);
@@ -173,22 +173,23 @@ export default function Software() {
     //     loadComputers(q).then(qC => setQueryComputer(qC));
     //
     // }
-    //
-    // function addComputerModel(softwareModel) {
-    //
-    //     const companyRef = doc(db, "company", softwareModel.company);
-    //
-    //     updateDoc(companyRef, {
-    //         [softwareModel.types]: arrayUnion(softwareModel.model)
-    //     })
-    //         .then(() => {
-    //             loadCompany(companyRef).then(data => {
-    //                 setCompanies(data.companiesData);
-    //                 setModels(data.companyData);
-    //             })});
-    //
-    // }
-    //
+
+    function addProgram(softwareProgram) {
+        console.log("softwareProgram", softwareProgram);
+        const companyRef = doc(db, "softwareCompany", softwareProgram.company);
+
+        updateDoc(companyRef, {
+            [softwareProgram.types]: arrayUnion(softwareProgram.program)
+        })
+            .then(() => {
+
+                loadSoftwareCompany(softwareCompanyRef).then(data => {
+                    setSoftwareCompanies(data.softwareCompaniesData);
+                    setPrograms(data.companiesData);
+                })});
+
+    }
+
     // async function  assignUser(assignment) {
     //
     //     const computerRef = doc(db, 'software', assignment.computerId);
@@ -273,7 +274,7 @@ export default function Software() {
             <ToggleVisibility>
                 <div className="contents">
                     {/*<SoftwareForm className="contents" softwareCompaniesData={softwareCompaniesData} submitLabel={'ZAPISZ'} onSubmit={addComputerModel}/>*/}
-                    <SoftwareForm className="contents" softwareCompaniesData={softwareCompanies} submitLabel={'ZAPISZ'}/>
+                    <SoftwareForm className="contents" softwareCompaniesData={softwareCompanies} onSubmit={addProgram} submitLabel={'ZAPISZ'}/>
                 </div>
             </ToggleVisibility>
 

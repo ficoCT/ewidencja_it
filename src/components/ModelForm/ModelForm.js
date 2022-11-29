@@ -30,6 +30,7 @@ export default function ModelForm({companiesData, submitLabel, onSubmit }) {
     <select
         id="company"
         name="company"
+        value={values.company}
         onChange={(e) => {handleChange("company", e.target.value)}}
     >
       {companiesData.length === 0 ?
@@ -49,6 +50,7 @@ export default function ModelForm({companiesData, submitLabel, onSubmit }) {
     <select
         id="types"
         name="types"
+        value={values.types}
         onChange={(e) => {handleChange("types", e.target.value)}}
     >
       {types.length === 0 ?
