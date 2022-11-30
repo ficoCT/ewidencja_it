@@ -32,7 +32,7 @@ export default function ComputerForm({companiesData, modelsData, users, computer
   const [errorMessages, setErrorMessages] = useState(null);
 
   const handleChange = (name, value) => {
-    console.log(' (name, value)', name, value);
+
     setValues((values) => {
       return { ...values, [name]: value };
     });

@@ -1,1 +1,1 @@
-export { default } from './SoftwareForm.js';
+export { default } from './SoftwareForm';

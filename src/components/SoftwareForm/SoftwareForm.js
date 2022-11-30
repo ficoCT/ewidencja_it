@@ -1,13 +1,28 @@
 import React, { useState } from 'react';
-import Field from "../Field";
+import Field from "../Field"
 
-const types = [{value: 'office', label: ['Program biurowy']}, {value: 'system', label: ['System operacyjny']}]
+function mapSoftwareToFormValues(software) {
+  return {
+    company: software.company,
+    name: software.name,
+    type: software.key
+  }
+}
 
-export default function SoftwareForm({softwareCompaniesData, submitLabel, onSubmit }) {
+function mapFormValuesToSoftware(values) {
+  return {
+    company:values.company,
+    name: values.name,
+    key: values.key
+  };
+}
 
-  const initialValues = {company: softwareCompaniesData[0].value, types:  types[0].value, program: ''};
+export default function SoftwareForm({companiesData, softwareData, users, software, submitLabel, onSubmit}) {
+
+  const initialValues = mapSoftwareToFormValues(software);
 
   const [values, setValues] = useState(initialValues);
+  const [errorMessages, setErrorMessages] = useState(null);
 
   const handleChange = (name, value) => {
 
@@ -19,24 +34,23 @@ export default function SoftwareForm({softwareCompaniesData, submitLabel, onSubm
 
   function handleSubmit(event) {
     event.preventDefault();
+
     if (typeof onSubmit !== 'function') return;
-    onSubmit(values);
+    onSubmit(mapFormValuesToSoftware(values));
     setValues(initialValues);
   }
 
   return (
   <form onSubmit={handleSubmit}>
-
     <select
         id="company"
         name="company"
-        value={values.company}
         onChange={(e) => {handleChange("company", e.target.value)}}
     >
-      {softwareCompaniesData.length === 0 ?
+      {companiesData.length === 0 ?
           'Ładuje się ...'
           :
-          softwareCompaniesData.map(({value, label}) => {
+          companiesData.map(({value, label}) => {
             return (
                 <option key={value} value={value}>
                   {label}
@@ -48,32 +62,47 @@ export default function SoftwareForm({softwareCompaniesData, submitLabel, onSubm
     <br />
     <br />
     <select
-        id="types"
-        name="types"
-        value={values.types}
-        onChange={(e) => {handleChange("types", e.target.value)}}
+        id="name"
+        name="name"
+        onChange={(e) => handleChange("name", e.target.value)}
     >
-      {types.length === 0 ?
+      {Object.keys(softwareData).length === 0 ?
           'Ładuje się ...'
           :
-          types.map(({value, label}) => {
+          softwareData[values.company].map(value => {
             return (
-                <option key={value} value={value}>
-                  {label}
+                <option key={value} value={value} defaultValue={'Wybierz program'}>
+                  {value}
                 </option>
             );
-          })
-      }
+          })}
     </select>
     <br />
     <br />
     <Field
-        label="Program"
-        name="program"
+        label="Klucz produktu"
+        name="key"
         type="text"
-        value={values.program}
-        onChange={(e) => handleChange("program", e.target.value)}
+        value={values.key}
+        onChange={(e) => handleChange("key", e.target.value)}
     />
+    <select
+        id="users"
+        name="users"
+        onChange={(e) => handleChange("idUser", e.target.value)}
+    >
+      {users.length === 0 ?
+          'Ładuje się ...'
+          :
+          users.map(({id, username}) => {
+            return (
+                <option key={id} value={id}>
+                  {username}
+                </option>
+            );
+          })
+      }
+    </select>
     <input type="submit" value={submitLabel} />
   </form>
   );
