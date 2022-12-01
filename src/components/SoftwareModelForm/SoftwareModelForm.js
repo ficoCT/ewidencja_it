@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Field from "../Field";
+import Button from "react-bootstrap/Button";
 
 const types = [{value: 'office', label: ['Program biurowy']}, {value: 'system', label: ['System operacyjny']}]
 
 export default function SoftwareModelForm({softwareCompaniesData, submitLabel, onSubmit }) {
 
-  const initialValues = {company: softwareCompaniesData[0].value, type:  types[0].value, name: ''};
+  const initialValues = {company: softwareCompaniesData[0].value, type:  types[0].value, name: 'Podaj nazwę programu'};
 
   const [values, setValues] = useState(initialValues);
 
@@ -74,7 +75,7 @@ export default function SoftwareModelForm({softwareCompaniesData, submitLabel, o
         value={values.name}
         onChange={(e) => handleChange("name", e.target.value)}
     />
-    <input type="submit" value={submitLabel} />
+    <Button variant="success" type="submit" >{submitLabel}</Button>
   </form>
   );
 }

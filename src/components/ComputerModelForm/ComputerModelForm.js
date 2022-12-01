@@ -3,7 +3,7 @@ import Field from "../Field";
 
 const types = [{value: 'desktops', label: ['Desktops']}, {value: 'laptops', label: ['Laptops']}]
 
-export default function ModelForm({companiesData, submitLabel, onSubmit }) {
+export default function ComputerModelForm({companiesData, submitLabel, onSubmit }) {
 
   const initialValues = {company: companiesData[0].value, types:  types[0].value, model: ''};
 

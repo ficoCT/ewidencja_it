@@ -11,7 +11,7 @@ import AddComputer from '../AddComputer';
 import QueryComputer from "../QueryComputer";
 import ToggleVisibility from "../ToggleVisibility";
 import Container from 'react-bootstrap/Container';
-import ModelForm from "../ModelForm";
+import ComputerModelForm from "../ModelForm";
 import Alert from 'react-bootstrap/Alert';
 
 export default function ComputersManagerAdmin() {
@@ -207,16 +207,16 @@ export default function ComputersManagerAdmin() {
   return (
       <Container>
           <Alert variant="primary">
-              <span>LISTA KOMPUTERÓW W PRZEDSIĘBIORSTWIE</span>
+              <span style={{fontSize: "1.3rem"}}>LISTA KOMPUTERÓW W PRZEDSIĘBIORSTWIE</span>
           </Alert>
           <ToggleVisibility>
           <div className="contents">
               {computers.length === 0 ?
                   <h1>Ładowanie danych ...</h1>
                   :
-                  <ul>
+                  <>
                     {computers.map(computer => (
-                      <li key={computer.id}>
+                      <div key={computer.id}>
                             <Computer
                                 companiesData={companies}
                                 modelsData={models}
@@ -226,22 +226,22 @@ export default function ComputersManagerAdmin() {
                                 onDelete={deleteComputer}
                                 assign={assignUser}
                             />
-                      </li>
+                      </div>
                     ))}
-                  </ul>
+                  </>
               }
           </div>
           </ToggleVisibility>
 
           <Alert variant="primary">
-              <span>DODAJ KOMPUTER</span>
+              <span style={{fontSize: "1.3rem"}}>DODAJ KOMPUTER</span>
           </Alert>
           <ToggleVisibility>
             <AddComputer companiesData={companies} modelsData={models}  users={users} computer={initialValues} onSubmit={addComputer} />
           </ToggleVisibility>
 
           <Alert variant="primary">
-              <span>WYSZUKAJ KOMPUTER</span>
+              <span style={{fontSize: "1.3rem"}}>WYSZUKAJ KOMPUTER</span>
           </Alert>
           <ToggleVisibility>
           <div className="contents">
@@ -267,11 +267,11 @@ export default function ComputersManagerAdmin() {
           </ToggleVisibility>
 
           <Alert variant="primary">
-              <span>DODAJ MODEL KOMPUTERA</span>
+              <span style={{fontSize: "1.3rem"}}>DODAJ MODEL KOMPUTERA</span>
           </Alert>
           <ToggleVisibility>
               <div className="contents">
-                <ModelForm className="contents" companiesData={companies} submitLabel={'ZAPISZ'} onSubmit={addComputerModel}/>
+                <ComputerModelForm className="contents" companiesData={companies} submitLabel={'ZAPISZ'} onSubmit={addComputerModel}/>
               </div>
           </ToggleVisibility>
 

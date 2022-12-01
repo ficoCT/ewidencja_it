@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Field from "../Field"
+import Button from "react-bootstrap/Button";
 
 function mapSoftwareToFormValues(software) {
   return {
@@ -85,7 +86,7 @@ export default function SoftwareForm({softwareCompaniesData, softwareData, softw
         value={values.key}
         onChange={(e) => handleChange("key", e.target.value)}
     />
-    <input type="submit" value={submitLabel} />
+    <Button variant="success" type="submit" >{submitLabel}</Button>
   </form>
   );
 }

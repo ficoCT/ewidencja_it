@@ -4,6 +4,8 @@ import ViewComputer from '../ViewComputer';
 import Print from "../Print";
 import Assign from "../Assign";
 import ViewProgram from "../ViewProgram";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
 
 //export default function Program({companiesData, modelsData, program, users, onUpdate, onDelete, assign}) {
 export default function Program({program}) {
@@ -68,14 +70,9 @@ export default function Program({program}) {
     // } else {
     {
             programComponent =
-        <>
+        <Alert key={program.id} variant='primary'>
             <div><ViewProgram program={program} /></div>
-    {/*//         <button onClick={handleEditButtonClick}>Edytuj</button>*/}
-    {/*//         <button onClick={handleDeleteButtonClick}>Usuń</button>*/}
-    {/*//         <button onClick={handlePrintingButtonClick}>Podgląd formularza</button>*/}
-    {/*//         <button onClick={assignUserToComputer}>Przypisz użytkownika</button>*/}
-        </>
-
+        </Alert>
     }
 
     return (

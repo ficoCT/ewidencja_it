@@ -3,6 +3,8 @@ import EditComputer from '../EditComputer';
 import ViewComputer from '../ViewComputer';
 import Print from "../Print";
 import Assign from "../Assign";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
 
 export default function Computer({companiesData, modelsData, computer, users, onUpdate, onDelete, assign}) {
 
@@ -55,24 +57,28 @@ export default function Computer({companiesData, modelsData, computer, users, on
     } else if (assignUser){
 
         computerComponent =
-        <>
-            <div><ViewComputer computer={computer} /></div>
-            <button onClick={handleEditButtonClick}>Edytuj</button>
-            <button onClick={handleDeleteButtonClick}>Usuń</button>
-            <button onClick={handlePrintingButtonClick}>Podgląd formularza</button>
-            <Assign computerId={computer.id} users={users} assign={assign} refresh={refresh}/>
-        </>
+            <Alert key={computer.id} variant='primary'>
+                <ViewComputer computer={computer} />
+                <div className="buttons">
+                    <Button variant="warning" size="sm" className="me-1" onClick={handleEditButtonClick}>Edytuj</Button>
+                    <Button variant="danger" size="sm" className="me-1" onClick={handleDeleteButtonClick}>Usuń</Button>
+                    <Button variant="info" size="sm" className="me-1" onClick={handlePrintingButtonClick}>Podgląd formularza</Button>
+                    <Assign computerId={computer.id} users={users} assign={assign} refresh={refresh}/>
+                </div>
+            </Alert>
 
     } else {
 
         computerComponent =
-        <>
-            <div><ViewComputer computer={computer} /></div>
-            <button onClick={handleEditButtonClick}>Edytuj</button>
-            <button onClick={handleDeleteButtonClick}>Usuń</button>
-            <button onClick={handlePrintingButtonClick}>Podgląd formularza</button>
-            <button onClick={assignUserToComputer}>Przypisz użytkownika</button>
-        </>
+        <Alert key={computer.id} variant='primary'>
+            <ViewComputer computer={computer} />
+            <div className="buttons">
+                <Button variant="warning" size="sm" className="me-1" onClick={handleEditButtonClick}>Edytuj</Button>
+                <Button variant="danger" size="sm" className="me-1" onClick={handleDeleteButtonClick}>Usuń</Button>
+                <Button variant="info" size="sm" className="me-1" onClick={handlePrintingButtonClick}>Podgląd formularza</Button>
+                <Button variant="success" size="sm" className="me-1" onClick={assignUserToComputer}>Przypisz użytkownika</Button>
+            </div>
+        </Alert>
 
     }
 

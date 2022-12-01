@@ -59,5 +59,13 @@
     width: 5rem;
 }
 
+.computer {
+    display: flex;
+}
+
+.buttons {
+    margin-top: 0.5rem;
+}
+
 
 

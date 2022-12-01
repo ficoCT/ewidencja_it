@@ -10,7 +10,7 @@ import Computer from '../Computer';
 import AddComputer from '../AddComputer';
 import QueryComputer from "../QueryComputer";
 import ToggleVisibility from "../ToggleVisibility";
-import ModelForm from "../ModelForm";
+import ComputerModelForm from "../ModelForm";
 import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
 import SoftwareForm from "../SoftwareModelForm";
@@ -136,15 +136,15 @@ export default function Software() {
                     {software.length === 0 ?
                         <h1>Ładowanie danych ...</h1>
                         :
-                        <ul>
+                        <>
                             {software.map(program => (
-                                <li key={program.id}>
-                                    <Program
+                                <div key={program.id}>
+                                    <Programgit add .
                                         program={program}
                                     />
-                                </li>
+                                </div>
                             ))}
-                        </ul>
+                        </>
                     }
                 </div>
             </ToggleVisibility>
