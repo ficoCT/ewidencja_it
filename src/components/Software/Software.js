@@ -139,7 +139,7 @@ export default function Software() {
                         <>
                             {software.map(program => (
                                 <div key={program.id}>
-                                    <Programgit add .
+                                    <Program
                                         program={program}
                                     />
                                 </div>
