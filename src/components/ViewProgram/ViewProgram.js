@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-export default function ViewProgram({ computer: { id, company, model, materialIndex, serialNumber, username} }) {
+export default function ViewProgram({ program: { name, company, key} }) {
   return (
       <>
-        <strong> {serialNumber} </strong> {' '} {company} {' '} {model} {' '} {materialIndex} {' '} <strong> {username} </strong>
+        <strong> {name} </strong> {' '} {company} {' '} {key}
       </>
   );
 }

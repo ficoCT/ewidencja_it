@@ -3,6 +3,7 @@ import EditComputer from '../EditComputer';
 import ViewComputer from '../ViewComputer';
 import Print from "../Print";
 import Assign from "../Assign";
+import ViewProgram from "../ViewProgram";
 
 //export default function Program({companiesData, modelsData, program, users, onUpdate, onDelete, assign}) {
 export default function Program({program}) {

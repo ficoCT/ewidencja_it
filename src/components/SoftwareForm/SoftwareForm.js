@@ -5,6 +5,7 @@ function mapSoftwareToFormValues(software) {
   return {
     company: software.company,
     type: software.type,
+    name: software.name,
     key: software.key
   }
 }
@@ -13,16 +14,15 @@ function mapFormValuesToSoftware(values) {
   return {
     company:values.company,
     type: values.type,
+    name: values.name,
     key: values.key
   };
 }
 
 export default function SoftwareForm({softwareCompaniesData, softwareData, software, submitLabel, onSubmit}) {
-  console.log('softwareData', softwareData);
+
   const initialValues = mapSoftwareToFormValues(software);
-
   const [values, setValues] = useState(initialValues);
-
   const handleChange = (name, value) => {
 
     setValues((values) => {
@@ -61,9 +61,9 @@ export default function SoftwareForm({softwareCompaniesData, softwareData, softw
     <br />
     <br />
     <select
-        id="type"
-        name="type"
-        onChange={(e) => handleChange("type", e.target.value)}
+        id="name"
+        name="name"
+        onChange={(e) => handleChange("name", e.target.value)}
     >
       {Object.keys(softwareData).length === 0 ?
           'Ładuje się ...'
@@ -79,7 +79,7 @@ export default function SoftwareForm({softwareCompaniesData, softwareData, softw
     <br />
     <br />
     <Field
-        label="Klucz produktu"
+        label="Klucz "
         name="key"
         type="text"
         value={values.key}

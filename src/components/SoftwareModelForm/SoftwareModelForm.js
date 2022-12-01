@@ -5,7 +5,7 @@ const types = [{value: 'office', label: ['Program biurowy']}, {value: 'system', 
 
 export default function SoftwareModelForm({softwareCompaniesData, submitLabel, onSubmit }) {
 
-  const initialValues = {company: softwareCompaniesData[0].value, type:  types[0].value, key: ''};
+  const initialValues = {company: softwareCompaniesData[0].value, type:  types[0].value, name: ''};
 
   const [values, setValues] = useState(initialValues);
 
@@ -68,11 +68,11 @@ export default function SoftwareModelForm({softwareCompaniesData, submitLabel, o
     <br />
     <br />
     <Field
-        label="Klucz produktu"
-        name="key"
+        label="Nazwa"
+        name="name"
         type="text"
-        value={values.key}
-        onChange={(e) => handleChange("key", e.target.value)}
+        value={values.name}
+        onChange={(e) => handleChange("name", e.target.value)}
     />
     <input type="submit" value={submitLabel} />
   </form>

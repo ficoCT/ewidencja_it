@@ -16,13 +16,14 @@ import Alert from 'react-bootstrap/Alert';
 import SoftwareForm from "../SoftwareModelForm";
 import AddSoftware from "../AddSoftware";
 import SoftwareModelForm from "../SoftwareModelForm";
+import Program from "../Program";
 
 export default function Software() {
 
     const [softwareCompanies, setSoftwareCompanies] = useState([]);
     // const [queryComputer, setQueryComputer] = useState([]);
     // const [companies, setCompanies] = useState([]);
-    const [software, setSoftware] = useState({});
+    const [software, setSoftware] = useState([]);
     const [programTypes, setProgramTypes] = useState({});
     const [users, setUsers] = useState({});
     const [initialValuesProgram, setInitialValuesProgram] = useState({});
@@ -45,7 +46,6 @@ export default function Software() {
                 label.toString();
                 companiesData.push({value: doc.id, label: label});
                 Object.assign(companyData, {[doc.id]: doc.data()});
-                console.log('test_1', companiesData, 'test_2', companyData);
             })
         });
         let allSoftwareCompany = [];
@@ -67,6 +67,7 @@ export default function Software() {
         setInitialValuesProgram({
             company: initialValuesCompany,
             type:  initialValuesProgram,
+            name: 'Nazwa programu',
             key: 'XXX XXX XXX'});
 
         return {
@@ -89,7 +90,7 @@ export default function Software() {
 
     useEffect(() => {
 
-        loadPrograms(softwareRef).then(softwareData => setSoftware(softwareData));
+        loadPrograms(softwareRef).then(software => setSoftware(software));
         loadSoftwareCompany(softwareCompanyRef).then(data => {
             setSoftwareCompanies(data.companiesData);
             setProgramTypes(data.companyData);
@@ -100,12 +101,12 @@ export default function Software() {
 
         addDoc(softwareRef, {
             company: program.company,
-            type: program.type,
+            name: program.name,
             key: program.key
         })
             .then(() => {
-                loadPrograms(softwareRef).then(softwareData =>
-                    setSoftware(softwareData));
+                loadPrograms(softwareRef).then(software =>
+                    setSoftware(software));
             })
 
     }
@@ -115,7 +116,7 @@ export default function Software() {
         const softwareProgramCompanyRef = doc(db, "softwareCompany", softwareProgram.company);
 
         updateDoc(softwareProgramCompanyRef, {
-            [softwareProgram.type]: arrayUnion(softwareProgram.key)
+            [softwareProgram.type]: arrayUnion(softwareProgram.name)
         })
             .then(() => {
                 loadSoftwareCompany(softwareCompanyRef).then(data => {
@@ -132,7 +133,19 @@ export default function Software() {
             </Alert>
             <ToggleVisibility>
                 <div className="contents">
-
+                    {software.length === 0 ?
+                        <h1>Ładowanie danych ...</h1>
+                        :
+                        <ul>
+                            {software.map(program => (
+                                <li key={program.id}>
+                                    <Program
+                                        program={program}
+                                    />
+                                </li>
+                            ))}
+                        </ul>
+                    }
                 </div>
             </ToggleVisibility>
 
