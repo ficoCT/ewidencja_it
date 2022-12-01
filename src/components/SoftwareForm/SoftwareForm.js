@@ -4,25 +4,24 @@ import Field from "../Field"
 function mapSoftwareToFormValues(software) {
   return {
     company: software.company,
-    name: software.name,
-    type: software.key
+    type: software.type,
+    key: software.key
   }
 }
 
 function mapFormValuesToSoftware(values) {
   return {
     company:values.company,
-    name: values.name,
+    type: values.type,
     key: values.key
   };
 }
 
-export default function SoftwareForm({companiesData, softwareData, users, software, submitLabel, onSubmit}) {
-
+export default function SoftwareForm({softwareCompaniesData, softwareData, software, submitLabel, onSubmit}) {
+  console.log('softwareData', softwareData);
   const initialValues = mapSoftwareToFormValues(software);
 
   const [values, setValues] = useState(initialValues);
-  const [errorMessages, setErrorMessages] = useState(null);
 
   const handleChange = (name, value) => {
 
@@ -47,10 +46,10 @@ export default function SoftwareForm({companiesData, softwareData, users, softwa
         name="company"
         onChange={(e) => {handleChange("company", e.target.value)}}
     >
-      {companiesData.length === 0 ?
+      {softwareCompaniesData.length === 0 ?
           'Ładuje się ...'
           :
-          companiesData.map(({value, label}) => {
+          softwareCompaniesData.map(({value, label}) => {
             return (
                 <option key={value} value={value}>
                   {label}
@@ -62,9 +61,9 @@ export default function SoftwareForm({companiesData, softwareData, users, softwa
     <br />
     <br />
     <select
-        id="name"
-        name="name"
-        onChange={(e) => handleChange("name", e.target.value)}
+        id="type"
+        name="type"
+        onChange={(e) => handleChange("type", e.target.value)}
     >
       {Object.keys(softwareData).length === 0 ?
           'Ładuje się ...'
@@ -86,23 +85,6 @@ export default function SoftwareForm({companiesData, softwareData, users, softwa
         value={values.key}
         onChange={(e) => handleChange("key", e.target.value)}
     />
-    <select
-        id="users"
-        name="users"
-        onChange={(e) => handleChange("idUser", e.target.value)}
-    >
-      {users.length === 0 ?
-          'Ładuje się ...'
-          :
-          users.map(({id, username}) => {
-            return (
-                <option key={id} value={id}>
-                  {username}
-                </option>
-            );
-          })
-      }
-    </select>
     <input type="submit" value={submitLabel} />
   </form>
   );

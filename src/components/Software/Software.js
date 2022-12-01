@@ -15,6 +15,7 @@ import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
 import SoftwareForm from "../SoftwareModelForm";
 import AddSoftware from "../AddSoftware";
+import SoftwareModelForm from "../SoftwareModelForm";
 
 export default function Software() {
 
@@ -35,21 +36,42 @@ export default function Software() {
     async function loadSoftwareCompany() {
 
         let label;
-        let softwareCompaniesData = [];
-        let companiesData = {};
+        let companiesData = [];
+        let companyData = {};
         await getDocs(softwareCompanyRef).then(snapshot => {
             snapshot.docs.forEach(doc => {
                 label = doc.id.split("");
                 label[0] = label[0].toUpperCase();
                 label.toString();
-                softwareCompaniesData.push({value: doc.id, label: label});
-                Object.assign(companiesData, {[doc.id]: doc.data()});
+                companiesData.push({value: doc.id, label: label});
+                Object.assign(companyData, {[doc.id]: doc.data()});
+                console.log('test_1', companiesData, 'test_2', companyData);
             })
-        })
+        });
+        let allSoftwareCompany = [];
+        let allPrograms = {};
+        for (let company in companyData) {
+            allPrograms = companyData[company];
+            for (let typeSoftware in allPrograms) {
+                for (let program of allPrograms[typeSoftware]) {
+                    allSoftwareCompany.push(program);
+                }
+            }
+            companyData[company] = allSoftwareCompany;
+            allSoftwareCompany = [];
+        }
+
+        let initialValuesCompany = Object.keys(companyData)[0];
+        let initialValuesProgram = companyData[Object.keys(companyData)[0]][0];
+
+        setInitialValuesProgram({
+            company: initialValuesCompany,
+            type:  initialValuesProgram,
+            key: 'XXX XXX XXX'});
 
         return {
-            softwareCompaniesData: softwareCompaniesData,
-            companiesData: companiesData
+            companiesData: companiesData,
+            companyData: companyData
         };
 
     }
@@ -65,115 +87,43 @@ export default function Software() {
         return softwareData;
     }
 
-    // async function loadUsers() {
-    //
-    //     let usersData = [];
-    //     await getDocs(usersRef).then(snapshot => {
-    //         snapshot.docs.forEach(doc => {
-    //             usersData.push({ ...doc.data(), id: doc.id });
-    //         })
-    //     })
-    //
-    //     let initialValuesIdUser = usersData[0].id;
-    //     let initialValuesUsername = usersData[0].username;
-    //
-    //     setInitialValues((values) => {
-    //         return { ...values, ['idUser']: initialValuesIdUser, ['username']: initialValuesUsername };
-    //     });
-    //
-    //     return usersData;
-    // }
-    //
     useEffect(() => {
 
         loadPrograms(softwareRef).then(softwareData => setSoftware(softwareData));
         loadSoftwareCompany(softwareCompanyRef).then(data => {
-            setSoftwareCompanies(data.softwareCompaniesData);
-            setSoftware(data.companiesData);
+            setSoftwareCompanies(data.companiesData);
+            setProgramTypes(data.companyData);
         });
-
     }, []);
 
     async function addProgram(program) {
 
         addDoc(softwareRef, {
             company: program.company,
-            name: program.name,
+            type: program.type,
             key: program.key
         })
             .then(() => {
-                loadPrograms(softwareRef).then(softwareData => setSoftware(softwareData));
+                loadPrograms(softwareRef).then(softwareData =>
+                    setSoftware(softwareData));
             })
 
     }
-
-    // function updateComputer(id, computer) {
-    //     const computerRef = doc(db, 'software', id);
-    //
-    //     updateDoc(computerRef, {
-    //         "company": computer.company,
-    //         "model": computer.model,
-    //         "materialIndex": computer.materialIndex,
-    //         "serialNumber": computer.serialNumber,
-    //     })
-    //         .then(() => {
-    //             loadComputers(softwareRef).then(softwareData => setComputers(softwareData));
-    //         })
-    //
-    // }
-    //
-    // function deleteComputer(id) {
-    //
-    //     const computerRef = doc(db, 'software', id)
-    //     deleteDoc(computerRef)
-    //         .then(() => {
-    //             loadComputers(softwareRef).then(softwareData => setComputers(csoftwareData));
-    //         })
-    //
-    // }
-    //
-    // function queryComputers(values) {
-    //
-    //     let conditions = []
-    //
-    //     if (values.company !== "") conditions.push(where("company", "==", values.company));
-    //     if (values.model !== "") conditions.push(where("model", "==", values.model));
-    //     if (values.materialIndex !== "") conditions.push(where("materialIndex", "==", values.materialIndex));
-    //     if (values.serialNumber !== "") conditions.push(where("serialNumber", "==", values.serialNumber));
-    //
-    //     const q = query(softwareRef, ...conditions);
-    //     loadComputers(q).then(qC => setQueryComputer(qC));
-    //
-    // }
 
     function addTypeProgram(softwareProgram) {
 
-        addDoc(softwareRef, {
-            company: softwareProgram.company,
-            type: softwareProgram.type,
-            name: softwareProgram.name
+        const softwareProgramCompanyRef = doc(db, "softwareCompany", softwareProgram.company);
+
+        updateDoc(softwareProgramCompanyRef, {
+            [softwareProgram.type]: arrayUnion(softwareProgram.key)
         })
             .then(() => {
-                loadPrograms(softwareRef).then(softwareData => setSoftware(softwareData));
-            })
+                loadSoftwareCompany(softwareCompanyRef).then(data => {
+                    setSoftwareCompanies(data.companiesData);
+                    setProgramTypes(data.companyData);
+                })});
 
     }
-
-    // async function  assignUser(assignment) {
-    //
-    //     const computerRef = doc(db, 'software', assignment.computerId);
-    //     const userRef = doc(db, 'users', assignment.userId);
-    //     const docSnap = await getDoc(userRef);
-    //
-    //     updateDoc(computerRef, {
-    //         "idUser": assignment.userId,
-    //         "username": docSnap.data().username
-    //     })
-    //         .then(() => {
-    //             loadComputers(softwareRef).then(softwareData => setComputers(softwareData));
-    //         })
-    //
-    // }
 
     return (
         <Container>
@@ -182,25 +132,7 @@ export default function Software() {
             </Alert>
             <ToggleVisibility>
                 <div className="contents">
-                    {/*{computers.length === 0 ?*/}
-                    {/*    <h1>Ładowanie danych ...</h1>*/}
-                    {/*    :*/}
-                    {/*    <ul>*/}
-                    {/*        {computers.map(computer => (*/}
-                    {/*            <li key={computer.id}>*/}
-                    {/*                <Computer*/}
-                    {/*                    companiesData={companies}*/}
-                    {/*                    modelsData={models}*/}
-                    {/*                    computer={computer}*/}
-                    {/*                    users={users}*/}
-                    {/*                    onUpdate={updateComputer}*/}
-                    {/*                    onDelete={deleteComputer}*/}
-                    {/*                    assign={assignUser}*/}
-                    {/*                />*/}
-                    {/*            </li>*/}
-                    {/*        ))}*/}
-                    {/*    </ul>*/}
-                    {/*}*/}
+
                 </div>
             </ToggleVisibility>
 
@@ -208,42 +140,15 @@ export default function Software() {
                 <span>DODAJ PROGRAM</span>
             </Alert>
             <ToggleVisibility>
-                <AddSoftware softwareCompaniesData={softwareCompanies} softwareData={programTypes}  users={users} program={initialValuesProgram} onSubmit={addProgram} />
+                <AddSoftware softwareCompaniesData={softwareCompanies} softwareData={programTypes}  users={users} software={initialValuesProgram} onSubmit={addProgram} />
             </ToggleVisibility>
-
-            {/*<Alert variant="primary">*/}
-            {/*    <span>WYSZUKAJ KOMPUTER</span>*/}
-            {/*</Alert>*/}
-            {/*<ToggleVisibility>*/}
-            {/*    <div className="contents">*/}
-            {/*        <QueryComputer className="contents" submitLabel="Wyszukaj" onSubmit={queryComputers} />*/}
-            {/*        {queryComputer.length === 0 ?*/}
-            {/*            ''*/}
-            {/*            :*/}
-            {/*            <ul>*/}
-            {/*                {queryComputer.map(computer => (*/}
-            {/*                    <li key={computer.id}>*/}
-            {/*                        <Computer*/}
-            {/*                            companiesData={companies}*/}
-            {/*                            modelsData={models}*/}
-            {/*                            computer={computer}*/}
-            {/*                            onUpdate={updateComputer}*/}
-            {/*                            onDelete={deleteComputer}*/}
-            {/*                        />*/}
-            {/*                    </li>*/}
-            {/*                ))}*/}
-            {/*            </ul>*/}
-            {/*        }*/}
-            {/*    </div>*/}
-            {/*</ToggleVisibility>*/}
 
             <Alert variant="primary">
                 <span>DODAJ RODZAJ PROGRAMU</span>
             </Alert>
             <ToggleVisibility>
                 <div className="contents">
-                    {/*<SoftwareModelForm className="contents" softwareCompaniesData={softwareCompaniesData} submitLabel={'ZAPISZ'} onSubmit={addComputerModel}/>*/}
-                    <SoftwareForm className="contents" softwareCompaniesData={softwareCompanies} onSubmit={addTypeProgram} submitLabel={'ZAPISZ'}/>
+                    <SoftwareModelForm className="contents" softwareCompaniesData={softwareCompanies} onSubmit={addTypeProgram} submitLabel={'ZAPISZ'}/>
                 </div>
             </ToggleVisibility>
 
