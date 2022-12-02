@@ -4,26 +4,28 @@ import {app} from "../../firebase";
 import {useEffect} from "react";
 import {useState} from "react";
 import Container from 'react-bootstrap/Container';
+import Alert from "react-bootstrap/Alert";
 
 export default function Reports() {
 
   const db = getFirestore(app);
   const companyRef = collection(db, 'company');
+  const usersRef = collection(db, 'users');
 
   const [companies, setCompanies] = useState({});
+  const [users, setUsers] = useState({});
 
   async function loadCompany() {
 
     let name = [];
     let companyData = {};
+    let nameCompany = "";
     await getDocs(companyRef).then(snapshot => {
       snapshot.docs.forEach(doc => {
         Object.assign(companyData, {[doc.id]: doc.data()});
         name.push(doc.id);
       })
     })
-
-    console.log('companyData', companyData);
 
     return {
       name: name,
@@ -32,35 +34,59 @@ export default function Reports() {
 
   }
 
+  async function loadUsers() {
+
+    let usersData = [];
+    await getDocs(usersRef).then(snapshot => {
+      snapshot.docs.forEach(doc => {
+        usersData.push({ ...doc.data(), id: doc.id });
+      })
+    })
+
+    return usersData;
+
+  }
+
   useEffect(() => {
 
     loadCompany(companyRef).then(data => {
       setCompanies(data);
+    });
+    loadUsers(usersRef).then(data => {
+      setUsers(data);
     });
 
   }, []);
 
   return (
       <Container className="contents">
-          <span style={{color:'red'}}>KOMPUTERY</span>
-          {Object.keys(companies).length === 0 ?
+          <Alert variant='primary'>
+            <h2>KOMPUTERY</h2>
+            {Object.keys(companies).length === 0 ?
+                <h1>Ładowanie danych ...</h1>
+                :
+                <>
+                  {companies.name.map(name => (
+                      <div key={name} className="reports">
+                        <h3>{name.toUpperCase()}</h3>
+                        Laptopy: <span className="importantText"> {companies.companyData[name]['laptops'].length} </span> <br/>
+                        Komputery stacjonarne: <span className="importantText"> {companies.companyData[name]['laptops'].length} </span> <br/>
+                      </div>
+                  ))}
+                </>
+            }
+          </Alert>
+        <Alert variant='primary'>
+          <h2>UŻYTKOWNICY</h2>
+          {users === 0 ?
               <h1>Ładowanie danych ...</h1>
               :
-              <ul>
-                {companies.name.map(name => (
-                    <li key={name}>
-                      Firma: {name} <br/>
-                      Laptopy: {companies.companyData[name]['laptops'].length} <br/>
-                      Komputery stacjonarne: {companies.companyData[name]['laptops'].length} <br/>
-                    </li>
-                ))}
-              </ul>
+                    <div className="reports">
+                      <span>W bazie znajduje się <span className="importantText"> {users.length} </span> aktywnych użytkowników.</span>
+                       <br/>
+                    </div>
           }
-          <span style={{color:'red'}}>Ilość użytkowników</span>
-            <br/>
-            Użytkownicy:
-            <br/>
-          a  <br/>
+        </Alert>
       </Container>
   );
 }
