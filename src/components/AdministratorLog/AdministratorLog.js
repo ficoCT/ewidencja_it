@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Field from "../Field";
 import {useState} from "react";
-import {addDoc, collection, deleteDoc, doc, getDocs, getFirestore} from "firebase/firestore";
+import {addDoc, collection, deleteDoc, doc, getDocs, getFirestore, serverTimestamp} from "firebase/firestore";
 import {app} from "../../firebase";
 import {useEffect} from "react";
 import Container from 'react-bootstrap/Container';
@@ -9,6 +9,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Note from "../Note";
+// import firebase from "firebase/compat";
+// import * as fc from 'firebase/compat';
+
 
 export default function AdministratorLog() {
 
@@ -45,6 +48,8 @@ export default function AdministratorLog() {
     addDoc(logRef, {
       title: values.title,
       note: values.note,
+      // createdAt: Timestamp.fromDate(new Date())
+      createdAt: serverTimestamp()
     })
         .then(() => {
           loadLog(logRef).then(logData => setLog(logData));
@@ -105,6 +110,7 @@ export default function AdministratorLog() {
           <>
             {log.map(note => (
               <Note
+                key={note.id}
                 note={note}
                 onDelete={deleteNote}
               />

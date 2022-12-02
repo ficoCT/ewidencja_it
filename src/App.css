@@ -67,5 +67,10 @@
     margin-top: 0.5rem;
 }
 
+.note {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+}
 
 
