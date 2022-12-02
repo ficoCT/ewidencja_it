@@ -1,13 +1,14 @@
 import * as React from 'react';
 import Field from "../Field";
 import {useState} from "react";
-import {addDoc, collection, getDocs, getFirestore} from "firebase/firestore";
+import {addDoc, collection, deleteDoc, doc, getDocs, getFirestore} from "firebase/firestore";
 import {app} from "../../firebase";
 import {useEffect} from "react";
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
+import Note from "../Note";
 
 export default function AdministratorLog() {
 
@@ -48,6 +49,16 @@ export default function AdministratorLog() {
         .then(() => {
           loadLog(logRef).then(logData => setLog(logData));
         })
+  }
+
+  function deleteNote(id) {
+
+    const noteRef = doc(db, 'administratorLog', id)
+    deleteDoc(noteRef)
+        .then(() => {
+          loadLog(logRef).then(logData => setLog(logData));
+        })
+
   }
 
   useEffect(() => {
@@ -93,9 +104,10 @@ export default function AdministratorLog() {
            :
           <>
             {log.map(note => (
-                  <Alert key={note.id} variant='primary'>
-                    {note.title} {'-'} {note.note}
-                  </Alert>
+              <Note
+                note={note}
+                onDelete={deleteNote}
+              />
             ))}
           </>
       }

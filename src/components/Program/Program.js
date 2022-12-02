@@ -60,7 +60,7 @@ export default function Program({program}) {
     //
     //     computerComponent =
     //     <>
-    //         <div><ViewProgram computer={computer} /></div>
+    //         <div><ViewNote computer={computer} /></div>
     //         <button onClick={handleEditButtonClick}>Edytuj</button>
     //         <button onClick={handleDeleteButtonClick}>Usuń</button>
     //         <button onClick={handlePrintingButtonClick}>Podgląd formularza</button>

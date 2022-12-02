@@ -7,7 +7,6 @@ const types = [{value: 'printer', label: ['Drukarka']}, {value: 'scanner', label
 export default function HardwareModelForm({companiesData, submitLabel, onSubmit }) {
 
   const initialValues = {company: companiesData[0].value, types:  types[0].value, model: 'Podaj model'};
-
   const [values, setValues] = useState(initialValues);
 
   const handleChange = (name, value) => {

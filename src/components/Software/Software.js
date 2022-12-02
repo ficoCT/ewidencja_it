@@ -6,14 +6,9 @@ import {
     arrayUnion,
     query, where
 } from "firebase/firestore";
-import Computer from '../Computer';
-import AddComputer from '../AddComputer';
-import QueryComputer from "../QueryComputer";
 import ToggleVisibility from "../ToggleVisibility";
-import ComputerModelForm from "../ModelForm";
 import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
-import SoftwareForm from "../SoftwareModelForm";
 import AddSoftware from "../AddSoftware";
 import SoftwareModelForm from "../SoftwareModelForm";
 import Program from "../Program";
