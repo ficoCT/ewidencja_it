@@ -22,7 +22,6 @@ function Login() {
             navigate('/home')
         } catch (e) {
             setError(e.message)
-            console.log(e.message)
         }
     };
 

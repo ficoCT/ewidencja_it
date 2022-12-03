@@ -45,6 +45,7 @@ export default function SoftwareForm({softwareCompaniesData, softwareData, softw
     <select
         id="company"
         name="company"
+        class="form-select"
         onChange={(e) => {handleChange("company", e.target.value)}}
     >
       {softwareCompaniesData.length === 0 ?
@@ -64,6 +65,7 @@ export default function SoftwareForm({softwareCompaniesData, softwareData, softw
     <select
         id="name"
         name="name"
+        class="form-select"
         onChange={(e) => handleChange("name", e.target.value)}
     >
       {Object.keys(softwareData).length === 0 ?

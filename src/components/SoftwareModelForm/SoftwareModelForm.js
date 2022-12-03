@@ -32,6 +32,7 @@ export default function SoftwareModelForm({softwareCompaniesData, submitLabel, o
         id="company"
         name="company"
         value={values.company}
+        class="form-select"
         onChange={(e) => {handleChange("company", e.target.value)}}
     >
       {softwareCompaniesData.length === 0 ?
@@ -52,6 +53,7 @@ export default function SoftwareModelForm({softwareCompaniesData, submitLabel, o
         id="type"
         name="type"
         value={values.type}
+        class="form-select"
         onChange={(e) => {handleChange("type", e.target.value)}}
     >
       {types.length === 0 ?

@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import { Routes, Route, Navigate } from 'react-router-dom';
 import BackgroundImage from "./components/BackgroundImage";
 import './App.css';
-import {AuthContextProvider} from "./context/AuthContext";
+import {AuthContextProvider, UserAuth} from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ComputersManagerAdmin from "./components/ComputersManagerAdmin";
 import ComputersUser from "./components/ComputersUser";

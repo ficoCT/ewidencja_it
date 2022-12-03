@@ -1,6 +1,5 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { FaPrint } from "react-icons/fa";
@@ -12,8 +11,12 @@ import { TfiNotepad } from "react-icons/tfi";
 import { FiUsers } from "react-icons/fi";
 import { FaLaptop } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
+import {UserAuth} from "../context/AuthContext";
 
 export default function NavbarApp() {
+
+    const { user } = UserAuth();
+
     return (
             <>
                 <Navbar bg="primary" variant="dark" className="mb-2">
@@ -52,11 +55,13 @@ export default function NavbarApp() {
                                         <FaLaptop className="navImg"/>
                                         Komputery
                                     </Nav.Link>
-                                    <Nav.Link href="/logout">
-                                        <MdLogout className="navImg"/>
-                                        Wyloguj
-                                    </Nav.Link>
                                 </Nav>
+                        <Nav.Link href="/home">
+                            <span className="importantText">{user.email}</span>
+                        </Nav.Link>
+                        <Nav.Link href="/logout">
+                            <MdLogout className="navImg"/>
+                        </Nav.Link>
                 </Navbar>
                 <Outlet />
             </>
