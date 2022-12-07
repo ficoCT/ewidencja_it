@@ -45,7 +45,7 @@ export default function SoftwareForm({softwareCompaniesData, softwareData, softw
     <select
         id="company"
         name="company"
-        class="form-select"
+        className="form-select"
         onChange={(e) => {handleChange("company", e.target.value)}}
     >
       {softwareCompaniesData.length === 0 ?

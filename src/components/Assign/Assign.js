@@ -21,7 +21,7 @@ export default function Assign({users, assign, computerId, refresh}) {
           <select
               id="users"
               name="users"
-              class="form-select"
+              className="form-select"
               onChange={(e) => {handleChange(e.target.value)}}
           >
               {users.length === 0 ?

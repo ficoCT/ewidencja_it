@@ -50,12 +50,15 @@ const DataTable = () => {
     return (
         <Container className="contents">
             <div className='mt-2'>
-                {data.map(user => (
-                    <Alert key={user.id} variant='primary'>
-                        <User user={user} onDelete={deleteUser} />
-                    </Alert>
-                ))}
-
+                {data.length === 0 ?
+                    <h1>Ładowanie danych ...</h1>
+                    :
+                        data.map(user => (
+                            <Alert key={user.id} variant='primary'>
+                                <User user={user} onDelete={deleteUser}/>
+                            </Alert>
+                        ))
+                }
                 <br />
                 <Button variant="success">
                     <Link to="/new-user" className="white-link">

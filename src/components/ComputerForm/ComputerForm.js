@@ -55,7 +55,7 @@ export default function ComputerForm({companiesData, modelsData, users, computer
     <select
         id="company"
         name="company"
-        class="form-select"
+        className="form-select"
         onChange={(e) => {handleChange("company", e.target.value)}}
     >
       {companiesData.length === 0 ?
@@ -75,7 +75,7 @@ export default function ComputerForm({companiesData, modelsData, users, computer
     <select
         id="models"
         name="models"
-        class="form-select"
+        className="form-select"
         onChange={(e) => handleChange("model", e.target.value)}
     >
       {Object.keys(modelsData).length === 0 ?
@@ -110,7 +110,7 @@ export default function ComputerForm({companiesData, modelsData, users, computer
     <select
         id="users"
         name="users"
-        class="form-select"
+        className="form-select"
         onChange={(e) => handleChange("idUser", e.target.value)}
     >
       {users.length === 0 ?

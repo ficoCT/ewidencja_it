@@ -31,7 +31,7 @@ export default function ComputerModelForm({companiesData, submitLabel, onSubmit 
         id="company"
         name="company"
         value={values.company}
-        class="form-select"
+        className="form-select"
         onChange={(e) => {handleChange("company", e.target.value)}}
     >
       {companiesData.length === 0 ?
@@ -52,7 +52,7 @@ export default function ComputerModelForm({companiesData, submitLabel, onSubmit 
         id="types"
         name="types"
         value={values.types}
-        class="form-select"
+        className="form-select"
         onChange={(e) => {handleChange("types", e.target.value)}}
     >
       {types.length === 0 ?
