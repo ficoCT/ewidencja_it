@@ -23,10 +23,8 @@ export default function NavbarApp() {
     const [isUser, setUser] = useState(false);
 
     if(typeof(user.uid)==="string") {
-        console.log("userLog");
         const db = getFirestore(app);
         const userRef = doc(db, 'users', user.uid);
-        console.log("userRef", userRef);
         const docSnap = getDoc(userRef).then(docSnap => {
             if (docSnap.exists()) {
                 setIsAdmin(docSnap.data().roles.admin);
@@ -41,17 +39,23 @@ export default function NavbarApp() {
     if (isUser) {
 
         navComponent =
+
             <Nav className="me-auto navbarContainer">
                 <Nav.Link href="/home">Home</Nav.Link>
-                <Nav.Link href="/computers-manager-user">Komputer</Nav.Link>
+                <Nav.Link href="/computer-user">Komputer</Nav.Link>
+                <Nav.Link href="/home">
+                    <span className="importantText">{user.email}</span>
+                </Nav.Link>
+                <Nav.Link href="/logout">
+                    <MdLogout className="navImg"/>
+                </Nav.Link>
             </Nav>;
-
     } else if (isAdmin){
 
         navComponent =
             <Nav className="me-auto navbarContainer">
                 <Nav.Link href="/home">Home</Nav.Link>
-                <Nav.Link href="/computers-manager-user">Komputer</Nav.Link>
+                <Nav.Link href="/computer-user">Komputer</Nav.Link>
                 <Nav.Link href="/software">
                     <CgSoftwareDownload className="navImg"/>
                     Oprogramowanie
@@ -95,6 +99,7 @@ export default function NavbarApp() {
     } else {
 
         navComponent =
+
             <Nav className="me-auto navbarContainer">
                 <Nav.Link href="/home">Home</Nav.Link>
             </Nav>;

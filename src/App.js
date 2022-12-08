@@ -50,7 +50,7 @@ function App() {
                       }
                   />
                   <Route
-                      path="computers-manager-user"
+                      path="computer-user"
                       element={
                           <ProtectedRoute>
                               <ComputersUser />

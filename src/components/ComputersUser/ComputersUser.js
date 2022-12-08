@@ -1,73 +1,68 @@
 import React, { useState } from 'react';
-import {collection, getDocs, getFirestore, query, where} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs, getFirestore, query, where} from "firebase/firestore";
 import {app} from "../../firebase";
-import {useEffect} from "react";
-import ViewComputer from "../ViewComputer";
-import ViewUser from "../ViewUser";
 import Container from 'react-bootstrap/Container';
+import {UserAuth} from "../../context/AuthContext";
+import Alert from "react-bootstrap/Alert";
+import ViewComputerUser from "../ViewComputerUser";
+import ViewUser from "../ViewUser";
 
 export default function ComputersUser() {
 
-  const [userData, setUserData] = useState({computersData: [], userData: []});
+  const [userDoc, setUserDoc] = useState({});
+  const [computers, setComputers] = useState([]);
 
+  const { user } = UserAuth();
   const db = getFirestore(app);
   const computersRef = collection(db, 'computers');
-  const userRef = collection(db, 'users');
 
-  async function loadComputersAndUser() {
-
+  if(typeof(user.uid)==="string") {
     let computersData = [];
-    let userData = [];
-    const qk = query(computersRef, where("idUser", "==", "80nfJBTHtsbdecCGk8sJ1IE9ws02"));
-    const qu = query(userRef, where("id", "==", "80nfJBTHtsbdecCGk8sJ1IE9ws02"));
+    const qk = query(computersRef, where("idUser", "==", user.uid));
 
-    await getDocs(qk).then(snapshot => {
+    getDocs(qk).then(snapshot => {
       snapshot.docs.forEach(doc => {
         computersData.push({ ...doc.data(), id: doc.id });
       })
+      setComputers(computersData);
     })
 
-    await getDocs(qu).then(snapshot => {
-      snapshot.docs.forEach(doc => {
-        userData.push({ ...doc.data(), id: doc.id });
-      })
+    const userRef = doc(db, 'users', user.uid);
+    const docSnap = getDoc(userRef).then(docSnap => {
+      if (docSnap.exists()) {
+        setUserDoc(docSnap.data());
+      }
     })
-
-    return {computersData: computersData, userData: userData};
   }
-
-  useEffect(() => {
-
-    loadComputersAndUser().then(qC => setUserData(qC));
-
-  }, []);
 
   return (
       <Container>
-        <span style={{color:'red'}}>Dane użytkownika</span>
-        {userData['userData'].length === 0 ?
-            <h1>Ładowanie danych ...</h1>
-            :
-            userData['userData'].map(user => (
-                <li key={user.id}>
-                  <ViewUser user={user} />
-                </li>
-            ))
-        }
+        <Alert variant="primary">
+          <span style={{fontSize: "1.3rem"}}>DANE UŻYTKOWNIKA</span>
+        </Alert>
+        <div className="contents">
+          {userDoc.length === 0 ?
+              <h1>Ładowanie danych ...</h1>
+              :
+              <ViewUser user={userDoc} />
+          }
+        </div>
         <br/>
         <br/>
-        <span style={{color:'red'}}>Lista komputerów użytkownika</span>
-        <ul>
-        {userData['computersData'].length === 0 ?
-            <h1>Ładowanie danych ...</h1>
-            :
-            userData['computersData'].map(computer => (
-              <li key={computer.id}>
-              <ViewComputer computer={computer} />
-              </li>
-            ))
-        }
-        </ul>
+          <Alert variant="primary">
+              <span style={{fontSize: "1.3rem"}}>LISTA KOMPUTERÓW UŻYTKOWNIKA</span>
+          </Alert>
+          <div className="contents">
+            {computers.length === 0 ?
+                <h1>Ładowanie danych ...</h1>
+                :
+                computers.map(computer => (
+                  <div key={computer.id}>
+                    <ViewComputerUser computer={computer} />
+                  </div>
+                ))
+            }
+          </div>
       </Container>
   );
 }
