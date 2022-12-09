@@ -14,11 +14,13 @@ import { MdLogout } from "react-icons/md";
 import {UserAuth} from "../context/AuthContext";
 import {useState} from "react";
 import {doc, getDoc, getFirestore} from "firebase/firestore";
-import {app} from "./../firebase";
+import {app} from "./../firebase"
+import Button from "react-bootstrap/Button";
 
 export default function NavbarApp() {
 
     const { user } = UserAuth();
+    const { logout } = UserAuth();
     const [isAdmin, setIsAdmin] = useState(false);
     const [isUser, setUser] = useState(false);
 
@@ -33,6 +35,10 @@ export default function NavbarApp() {
                 }
             }
         })
+    }
+
+    function handleLogoutButtonClick() {
+        logout();
     }
 
     let navComponent;
@@ -91,8 +97,11 @@ export default function NavbarApp() {
                 <Nav.Link href="/home">
                     <span className="importantText">{user.email}</span>
                 </Nav.Link>
-                <Nav.Link href="/logout">
-                    <MdLogout className="navImg"/>
+                <Nav.Link href="/login">
+                    <Button size="sm" className="me-1" onClick={handleLogoutButtonClick}>
+                        Wyloguj
+                        <MdLogout className="navImg"/>
+                    </Button>
                 </Nav.Link>
             </Nav>;
 
