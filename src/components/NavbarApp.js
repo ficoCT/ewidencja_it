@@ -52,7 +52,7 @@ export default function NavbarApp() {
                 <Nav.Link href="/home">
                     <span className="importantText">{user.email}</span>
                 </Nav.Link>
-                <Nav.Link href="/logout">
+                <Nav.Link href="/login">
                     <MdLogout className="navImg"/>
                 </Nav.Link>
             </Nav>;
