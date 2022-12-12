@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useState} from "react";
+import LoadingData from "../LoadingData";
 
 export default function Assign({users, assign, computerId, refresh}) {
 
@@ -25,7 +26,7 @@ export default function Assign({users, assign, computerId, refresh}) {
               onChange={(e) => {handleChange(e.target.value)}}
           >
               {users.length === 0 ?
-                  'Ładuje się ...'
+                  <LoadingData/>
                   :
                   users.map(({id, username}) => {
                       return (

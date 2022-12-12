@@ -13,6 +13,7 @@ import ToggleVisibility from "../ToggleVisibility";
 import Container from 'react-bootstrap/Container';
 import ComputerModelForm from "../ComputerModelForm";
 import Alert from 'react-bootstrap/Alert';
+import LoadingData from "../LoadingData";
 
 export default function ComputersManagerAdmin() {
 
@@ -212,7 +213,7 @@ export default function ComputersManagerAdmin() {
           <ToggleVisibility>
           <div className="contents">
               {computers.length === 0 ?
-                  <h1>Ładowanie danych ...</h1>
+                  <LoadingData/>
                   :
                   <>
                     {computers.map(computer => (

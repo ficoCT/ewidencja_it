@@ -10,7 +10,6 @@ export default function ViewNote({ note: { title, note, createdAt} }) {
     function dateCreatedAt() {
 
         const d = createdAt.toDate().toDateString();
-        console.log(d);
         setDate(d);
 
     }

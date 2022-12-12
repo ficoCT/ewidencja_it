@@ -9,6 +9,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Note from "../Note";
+import LoadingData from "../LoadingData";
 // import firebase from "firebase/compat";
 // import * as fc from 'firebase/compat';
 
@@ -78,6 +79,10 @@ export default function AdministratorLog() {
     setValues({title: '', note: ''});
   }
 
+  function sortDate (a, b) {
+    return b.createdAt - a.createdAt;
+  }
+
   return (
       <Container className="contents">
       <Form onSubmit={handleSubmit}>
@@ -105,10 +110,10 @@ export default function AdministratorLog() {
       <br/>
       <br/>
       {log.length === 0 ?
-           <h1>Ładowanie danych ...</h1>
+          <LoadingData/>
            :
           <>
-            {log.map(note => (
+            {log.sort(sortDate).map(note => (
               <Note
                 key={note.id}
                 note={note}

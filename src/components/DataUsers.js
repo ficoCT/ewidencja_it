@@ -12,6 +12,7 @@ import Alert from 'react-bootstrap/Alert';
 import User from "./User";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
+import LoadingData from "./LoadingData";
 //FcPlus
 
 const DataTable = () => {
@@ -51,7 +52,7 @@ const DataTable = () => {
         <Container className="contents">
             <div className='mt-2'>
                 {data.length === 0 ?
-                    <h1>Ładowanie danych ...</h1>
+                    <LoadingData/>
                     :
                         data.map(user => (
                             <Alert key={user.id} variant='primary'>

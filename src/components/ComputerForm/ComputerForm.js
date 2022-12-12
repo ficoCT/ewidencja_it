@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Field from "../Field"
 import validate from './validateComputerValues';
+import LoadingData from "../LoadingData";
 
 function mapComputerToFormValues(computer) {
   return {
@@ -59,7 +60,7 @@ export default function ComputerForm({companiesData, modelsData, users, computer
         onChange={(e) => {handleChange("company", e.target.value)}}
     >
       {companiesData.length === 0 ?
-          'Ładuje się ...'
+          <LoadingData/>
           :
           companiesData.map(({value, label}) => {
             return (
@@ -79,7 +80,7 @@ export default function ComputerForm({companiesData, modelsData, users, computer
         onChange={(e) => handleChange("model", e.target.value)}
     >
       {Object.keys(modelsData).length === 0 ?
-          'Ładuje się ...'
+          <LoadingData/>
           :
           modelsData[values.company].map(value => {
             return (
@@ -114,7 +115,7 @@ export default function ComputerForm({companiesData, modelsData, users, computer
         onChange={(e) => handleChange("idUser", e.target.value)}
     >
       {users.length === 0 ?
-          'Ładuje się ...'
+          <LoadingData/>
           :
           users.map(({id, username}) => {
             return (

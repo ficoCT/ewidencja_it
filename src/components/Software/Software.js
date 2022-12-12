@@ -12,6 +12,7 @@ import Alert from 'react-bootstrap/Alert';
 import AddSoftware from "../AddSoftware";
 import SoftwareModelForm from "../SoftwareModelForm";
 import Program from "../Program";
+import LoadingData from "../LoadingData";
 
 export default function Software() {
 
@@ -129,7 +130,7 @@ export default function Software() {
             <ToggleVisibility>
                 <div className="contents">
                     {software.length === 0 ?
-                        <h1>Ładowanie danych ...</h1>
+                        <LoadingData/>
                         :
                         <>
                             {software.map(program => (

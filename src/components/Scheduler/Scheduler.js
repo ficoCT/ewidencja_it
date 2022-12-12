@@ -5,6 +5,7 @@ import {addDoc, collection, deleteDoc, doc, getDocs, getFirestore, updateDoc} fr
 import {app} from "../../firebase";
 import {useEffect} from "react";
 import Container from 'react-bootstrap/Container';
+import LoadingData from "../LoadingData";
 
 export default function App() {
 
@@ -111,7 +112,7 @@ export default function App() {
   return (
       <Container className="contents">
       {events.length === 0 ?
-              'Ładuje się ...'
+              <LoadingData/>
               :
               <Scheduler
                   style={{ color: 'red' }}

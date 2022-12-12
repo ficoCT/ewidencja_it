@@ -6,6 +6,7 @@ import {UserAuth} from "../../context/AuthContext";
 import Alert from "react-bootstrap/Alert";
 import ViewComputerUser from "../ViewComputerUser";
 import ViewUser from "../ViewUser";
+import LoadingData from "../LoadingData";
 
 export default function ComputersUser() {
 
@@ -42,7 +43,7 @@ export default function ComputersUser() {
         </Alert>
         <div className="contents">
           {userDoc.length === 0 ?
-              <h1>Ładowanie danych ...</h1>
+              <LoadingData/>
               :
               <ViewUser user={userDoc} />
           }
@@ -54,7 +55,7 @@ export default function ComputersUser() {
           </Alert>
           <div className="contents">
             {computers.length === 0 ?
-                <h1>Ładowanie danych ...</h1>
+                <LoadingData/>
                 :
                 computers.map(computer => (
                   <div key={computer.id}>

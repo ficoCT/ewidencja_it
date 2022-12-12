@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Field from "../Field";
 import Button from "react-bootstrap/Button";
+import LoadingData from "../LoadingData";
 
 const types = [{value: 'office', label: ['Program biurowy']}, {value: 'system', label: ['System operacyjny']}]
 
@@ -36,7 +37,7 @@ export default function SoftwareModelForm({softwareCompaniesData, submitLabel, o
         onChange={(e) => {handleChange("company", e.target.value)}}
     >
       {softwareCompaniesData.length === 0 ?
-          'Ładuje się ...'
+          <LoadingData/>
           :
           softwareCompaniesData.map(({value, label}) => {
             return (
@@ -57,7 +58,7 @@ export default function SoftwareModelForm({softwareCompaniesData, submitLabel, o
         onChange={(e) => {handleChange("type", e.target.value)}}
     >
       {types.length === 0 ?
-          'Ładuje się ...'
+          <LoadingData/>
           :
           types.map(({value, label}) => {
             return (

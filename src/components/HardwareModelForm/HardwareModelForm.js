@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Field from "../Field";
 import Button from "react-bootstrap/Button";
+import LoadingData from "../LoadingData";
 
 const types = [{value: 'printer', label: ['Drukarka']}, {value: 'scanner', label: ['Skaner']}]
 
@@ -35,7 +36,7 @@ export default function HardwareModelForm({companiesData, submitLabel, onSubmit 
             onChange={(e) => {handleChange("company", e.target.value)}}
         >
           {companiesData.length === 0 ?
-              'Ładuje się ...'
+              <LoadingData/>
               :
               companiesData.map(({value, label}) => {
                 return (
@@ -56,7 +57,7 @@ export default function HardwareModelForm({companiesData, submitLabel, onSubmit 
             onChange={(e) => {handleChange("types", e.target.value)}}
         >
           {types.length === 0 ?
-              'Ładuje się ...'
+              <LoadingData/>
               :
               types.map(({value, label}) => {
                 return (

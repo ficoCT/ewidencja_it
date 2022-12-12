@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Field from "../Field"
 import Button from "react-bootstrap/Button";
+import LoadingData from "../LoadingData";
 
 function mapSoftwareToFormValues(software) {
   return {
@@ -49,7 +50,7 @@ export default function SoftwareForm({softwareCompaniesData, softwareData, softw
         onChange={(e) => {handleChange("company", e.target.value)}}
     >
       {softwareCompaniesData.length === 0 ?
-          'Ładuje się ...'
+          <LoadingData/>
           :
           softwareCompaniesData.map(({value, label}) => {
             return (
@@ -69,7 +70,7 @@ export default function SoftwareForm({softwareCompaniesData, softwareData, softw
         onChange={(e) => handleChange("name", e.target.value)}
     >
       {Object.keys(softwareData).length === 0 ?
-          'Ładuje się ...'
+          <LoadingData/>
           :
           softwareData[values.company].map(value => {
             return (

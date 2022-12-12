@@ -5,6 +5,7 @@ import {useEffect} from "react";
 import {useState} from "react";
 import Container from 'react-bootstrap/Container';
 import Alert from "react-bootstrap/Alert";
+import LoadingData from "../LoadingData";
 
 export default function Reports() {
 
@@ -63,7 +64,7 @@ export default function Reports() {
           <Alert variant='primary'>
             <h2>KOMPUTERY</h2>
             {Object.keys(companies).length === 0 ?
-                <h1>Ładowanie danych ...</h1>
+                <LoadingData/>
                 :
                 <>
                   {companies.name.map(name => (
@@ -79,7 +80,7 @@ export default function Reports() {
         <Alert variant='primary'>
           <h2>UŻYTKOWNICY</h2>
           {users === 0 ?
-              <h1>Ładowanie danych ...</h1>
+              <LoadingData/>
               :
                     <div className="reports">
                       <span>W bazie znajduje się <span className="importantText"> {users.length} </span> aktywnych użytkowników.</span>
