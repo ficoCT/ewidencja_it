@@ -3,25 +3,28 @@ import { useNavigate } from "react-router-dom";
 import Field from "./Field";
 import React from "react";
 import Button from 'react-bootstrap/Button';
-import Container from "react-bootstrap/Container";
+import Container from "react-bootstrap/Container"
+import {validateLogin} from './validateLogin';
 import {UserAuth} from "../context/AuthContext";
 
 function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [errorMessages, setErrorMessages] = useState('');
     const navigate = useNavigate();
     const { signIn } = UserAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('')
+        const errorMessages = validateLogin({email, password});
+        setErrorMessages(errorMessages);
+        if (errorMessages) return;
         try {
             await signIn(email, password)
             navigate('/home')
         } catch (e) {
-            setError(e.message)
+            setErrorMessages(e.message)
         }
     };
 
@@ -34,7 +37,7 @@ function Login() {
               name="email"
               type="email"
               value={email}
-              // errorMessage={errorMessages?.email}
+              errorMessage={errorMessages?.email}
               onChange={(e) => setEmail(e.target.value)}
               className='mt-5'
           />
@@ -43,7 +46,7 @@ function Login() {
               name="password"
               type="password"
               value={password}
-              // errorMessage={errorMessages?.password}
+              errorMessage={errorMessages?.password}
               onChange={(e) => setPassword(e.target.value)}
           />
           <Button
