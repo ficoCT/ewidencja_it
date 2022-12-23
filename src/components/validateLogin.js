@@ -1,9 +1,6 @@
 export function validateLogin(values) {
   const errorMessages = {};
 
-  errorMessages.email = "";
-  errorMessages.password = "";
-
   if (values.email.length === 0) {
     errorMessages.email += 'Pole nie może być puste!';
   } else if ( !String(values.email)

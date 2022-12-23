@@ -21,10 +21,10 @@ function Login() {
         setErrorMessages(errorMessages);
         if (errorMessages) return;
         try {
-            await signIn(email, password)
-            navigate('/home')
+            await signIn(email, password);
+            navigate('/home');
         } catch (e) {
-            setErrorMessages(e.message)
+            setErrorMessages(e.message);
         }
     };
 

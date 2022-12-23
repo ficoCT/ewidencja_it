@@ -48,7 +48,7 @@ export default function Computer({companiesData, modelsData, computer, users, on
 
     if (isEditing) {
 
-        computerComponent = <EditComputer companiesData={companiesData} modelsData={modelsData} computer={computer} onSubmit={handleUpdate} />;
+        computerComponent = <EditComputer companiesData={companiesData} modelsData={modelsData} users={users} computer={computer} onSubmit={handleUpdate} />;
 
     } else if (printing){
 

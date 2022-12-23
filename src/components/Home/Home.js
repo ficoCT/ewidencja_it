@@ -8,9 +8,11 @@ export default function Home() {
 
   return (
       <Container className="contents">
-        <h1>SYSTEM GOSPODARKI SPRZĘTEM TELEINFORMATYCZNYM</h1>
-        <br />
-        <h2>Witaj {user.email} </h2>
+                <div style={{textAlign: "center", marginTop: "1rem"}}>
+                <h2>SYSTEM GOSPODARKI SPRZĘTEM TELEINFORMATYCZNYM</h2>
+                <br />
+                <h2> Witaj <span className="importantText">{user.email}</span> </h2>
+          </div>
       </Container>
   );
 }

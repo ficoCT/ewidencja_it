@@ -21,7 +21,7 @@ export default function ComputersManagerAdmin() {
     const [queryComputer, setQueryComputer] = useState([]);
     const [companies, setCompanies] = useState([]);
     const [models, setModels] = useState({});
-    const [users, setUsers] = useState({});
+    const [users, setUsers] = useState([]);
     const [initialValues, setInitialValues] = useState({});
 
     const db = getFirestore(app);

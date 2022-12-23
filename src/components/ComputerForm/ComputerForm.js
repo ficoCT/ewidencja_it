@@ -88,7 +88,7 @@ export default function ComputerForm({companiesData, modelsData, users, computer
                   {value}
                 </option>
             );
-          })}
+      })}
     </select>
     <br />
     <br />
@@ -114,7 +114,8 @@ export default function ComputerForm({companiesData, modelsData, users, computer
         className="form-select"
         onChange={(e) => handleChange("idUser", e.target.value)}
     >
-      {users.length === 0 ?
+      {
+        users.length === 0 ?
           <LoadingData/>
           :
           users.map(({id, username}) => {
