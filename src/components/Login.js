@@ -18,11 +18,10 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const errorMessages = validateLogin({email, password});
-        setErrorMessages(errorMessages);
-        if (errorMessages) return;
+
         try {
             await signIn(email, password);
-            navigate('/home');
+            navigate('/home');console.log('signIn');
         } catch (e) {
             setErrorMessages(e.message);
         }

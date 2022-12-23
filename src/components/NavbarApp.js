@@ -16,6 +16,8 @@ import {useState} from "react";
 import {doc, getDoc, getFirestore} from "firebase/firestore";
 import {app} from "./../firebase"
 import Button from "react-bootstrap/Button";
+import {AiOutlineHome} from "react-icons/ai";
+import {HiDesktopComputer} from "react-icons/hi";
 
 export default function NavbarApp() {
 
@@ -47,21 +49,36 @@ export default function NavbarApp() {
         navComponent =
 
             <Nav className="me-auto navbarContainer">
-                <Nav.Link href="/home">Home</Nav.Link>
-                <Nav.Link href="/computer-user">Komputer</Nav.Link>
+                <Nav.Link href="/home">
+                    <AiOutlineHome className="navImg"/>
+                    Home
+                </Nav.Link>
+                <Nav.Link href="/computer-user">
+                    <FaLaptop className="navImg"/>
+                    Komputer
+                </Nav.Link>
                 <Nav.Link href="/home">
                     <span className="importantText">{user.email}</span>
                 </Nav.Link>
                 <Nav.Link href="/login">
-                    <MdLogout className="navImg"/>
+                    <Button size="sm" className="me-1" onClick={handleLogoutButtonClick}>
+                        Wyloguj
+                        <MdLogout className="navImg"/>
+                    </Button>
                 </Nav.Link>
             </Nav>;
     } else if (isAdmin){
 
         navComponent =
             <Nav className="me-auto navbarContainer">
-                <Nav.Link href="/home">Home</Nav.Link>
-                <Nav.Link href="/computer-user">Komputer</Nav.Link>
+                <Nav.Link href="/home">
+                    <AiOutlineHome className="navImg"/>
+                    Home
+                </Nav.Link>
+                <Nav.Link href="/computer-user">
+                    <FaLaptop className="navImg"/>
+                    Komputer
+                </Nav.Link>
                 <Nav.Link href="/software">
                     <CgSoftwareDownload className="navImg"/>
                     Oprogramowanie
@@ -91,11 +108,8 @@ export default function NavbarApp() {
                     Użytkownicy
                 </Nav.Link>
                 <Nav.Link href="/computers-manager-admin">
-                    <FaLaptop className="navImg"/>
+                    <HiDesktopComputer className="navImg"/>
                     Komputery
-                </Nav.Link>
-                <Nav.Link href="/home">
-                    <span className="importantText">{user.email}</span>
                 </Nav.Link>
                 <Nav.Link href="/login">
                     <Button size="sm" className="me-1" onClick={handleLogoutButtonClick}>

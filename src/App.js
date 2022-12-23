@@ -119,14 +119,6 @@ function App() {
                       }
                   />
                   <Route
-                      path="unauthorized"
-                      element={
-                          <ProtectedRoute>
-                              <Unauthorized />
-                          </ProtectedRoute>
-                      }
-                  />
-                  <Route
                       path="computers-manager-admin"
                       element={
                           <ProtectedRoute>
@@ -134,9 +126,16 @@ function App() {
                           </ProtectedRoute>
                       }
                   />
-          </Route>
+              </Route>
+              <Route
+                  path="*"
+                  element={
+                      <Unauthorized />
+                  }
+              />
           </Routes>
           </AuthContextProvider>
+
       </div>
   );
 }

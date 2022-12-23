@@ -3,8 +3,10 @@ import Container from 'react-bootstrap/Container';
 
 export default function Unauthorized() {
   return (
-      <Container>
-          Unauthorized
+      <Container className="contents">
+          <div style={{textAlign: "center", marginTop: "1rem"}}>
+              <h1>Nie znaleziono takiej strony</h1>
+          </div>
       </Container>
   );
 }
