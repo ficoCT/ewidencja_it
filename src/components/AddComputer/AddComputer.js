@@ -7,9 +7,8 @@ export default function AddComputer({companiesData, modelsData, users, computer,
 
   return (
       <div className="contents">
-        <h3>Dodaj komputer</h3>
         <ComputerForm submitLabel="Dodaj" companiesData={companiesData} modelsData={modelsData} users={users} computer={computer} onSubmit={onSubmit} />
-        <h3>Skanuj kod kreskowy</h3>
+        <h4 className="mt-2">Skanuj kod kreskowy</h4>
         <ToggleVisibility>
           <BarcodeScanner/>
         </ToggleVisibility>

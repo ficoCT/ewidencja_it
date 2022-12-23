@@ -20,11 +20,11 @@ class BarcodeScanner extends Component {
         return (
             <div>
                 <Scanner onDetected={this._onDetected} />
-                <Form>
-                    <Form.Control
+                 <Form className="mb-2">
+                     <Form.Control
                         as="textarea"
                         defaultValue={'No data scanned'}
-                        value={this.state.results[0] ? this.state.results[0].codeResult.code : 'No data scanned'}
+                        value={this.state.results[0] ? this.state.results[0].codeResult.code : 'Nie zeskanowałeś żadnego kodu'}
                         rows={3}
                     />
                 </Form>

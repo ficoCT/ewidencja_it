@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Field from "../Field"
 import validate from './validateComputerValues';
 import LoadingData from "../LoadingData";
+import Button from "react-bootstrap/Button";
 
 function mapComputerToFormValues(computer) {
   return {
@@ -53,6 +54,7 @@ export default function ComputerForm({companiesData, modelsData, users, computer
 
   return (
   <form onSubmit={handleSubmit}>
+    <div className="mb-2">Firma</div>
     <select
         id="company"
         name="company"
@@ -72,7 +74,7 @@ export default function ComputerForm({companiesData, modelsData, users, computer
       }
     </select>
     <br />
-    <br />
+    <div className="mb-2">Model</div>
     <select
         id="models"
         name="models"
@@ -91,7 +93,6 @@ export default function ComputerForm({companiesData, modelsData, users, computer
       })}
     </select>
     <br />
-    <br />
     <Field
         label="Numer inwentaryzacyjny"
         name="materialIndex"
@@ -108,6 +109,7 @@ export default function ComputerForm({companiesData, modelsData, users, computer
         errorMessage={errorMessages?.serialNumber}
         onChange={(e) => handleChange("serialNumber", e.target.value)}
     />
+    <div className="mb-2">Przypisz użytkownika</div>
     <select
         id="users"
         name="users"
@@ -127,7 +129,7 @@ export default function ComputerForm({companiesData, modelsData, users, computer
           })
       }
     </select>
-    <input type="submit" value={submitLabel} />
+    <Button variant="success" className="mt-3" type="submit">{submitLabel}</Button>
   </form>
   );
 }
