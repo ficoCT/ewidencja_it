@@ -49,8 +49,8 @@ export default function Print({computer, refresh}) {
 
   const reactToPrintTrigger = React.useCallback(() => {
 
-    return <button>Drukuj</button>;
-
+    return <button class="btn btn-success">Drukuj</button>;
+P
   }, []);
 
   function comeBack() {
@@ -69,7 +69,7 @@ export default function Print({computer, refresh}) {
         {loading && <p className="indicator">onBeforeGetContent: Loading...</p>}
         <ComputerFormPrinting ref={componentRef} computer={computer} />
       </div>
-      <button onClick={comeBack}>Powrót</button>
+      <button class="btn btn-primary mb-2" onClick={comeBack}>Powrót</button>
       </>
   );
 }

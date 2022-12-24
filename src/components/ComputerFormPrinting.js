@@ -63,7 +63,7 @@ export class ComputerFormPrinting extends React.PureComponent {
               <tbody>
               <tr>
                   <td>..................................</td>
-                  <td>..................................</td>
+                  <td>{computer.username}</td>
               </tr>
               </tbody>
           </Table>
