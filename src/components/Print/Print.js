@@ -50,7 +50,6 @@ export default function Print({computer, refresh}) {
   const reactToPrintTrigger = React.useCallback(() => {
 
     return <button class="btn btn-success">Drukuj</button>;
-P
   }, []);
 
   function comeBack() {

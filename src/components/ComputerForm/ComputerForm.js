@@ -129,7 +129,7 @@ export default function ComputerForm({companiesData, modelsData, users, computer
           })
       }
     </select>
-    <Button variant="success" className="mt-3" type="submit">{submitLabel}</Button>
+    <Button variant="success" className="mt-3 mb-2" type="submit">{submitLabel}</Button>
   </form>
   );
 }

@@ -77,7 +77,7 @@ export default function ComputerModelForm({companiesData, submitLabel, onSubmit 
         value={values.model}
         onChange={(e) => handleChange("model", e.target.value)}
     />
-    <input type="submit" value={submitLabel} />
+    <button type="submit" class="btn btn-success">{submitLabel}</button>
   </form>
   );
 }

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useState} from "react";
 import LoadingData from "../LoadingData";
+import Button from "react-bootstrap/Button";
 
 export default function Assign({users, assign, computerId, refresh}) {
 
@@ -22,7 +23,7 @@ export default function Assign({users, assign, computerId, refresh}) {
           <select
               id="users"
               name="users"
-              className="form-select"
+              className="form-select mt-2 mb-2"
               onChange={(e) => {handleChange(e.target.value)}}
           >
               {users.length === 0 ?
@@ -37,7 +38,7 @@ export default function Assign({users, assign, computerId, refresh}) {
                   })
               }
           </select>
-          <button type="submit" onClick={handleAssign}>Potwierdź</button>
+          <Button variant="success"  type="submit" onClick={handleAssign}>Potwierdź</Button>
           </form>
   );
 }

@@ -48,7 +48,7 @@ export default function QueryComputer({submitLabel, onSubmit }) {
                   value={values.serialNumber}
                   onChange={handleChange}
               />
-              <input type="submit" value={submitLabel} />
+              <button type="submit" className="btn btn-success mb-2">{submitLabel}</button>
           </form>
   );
 }

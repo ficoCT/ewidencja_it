@@ -28,6 +28,7 @@ export default function ComputersManagerAdmin() {
     const computersRef = collection(db, 'computers');
     const companyRef = collection(db, 'company');
     const usersRef = collection(db, 'users');
+    let q = {};
 
     async function loadCompany() {
 
@@ -145,9 +146,11 @@ export default function ComputersManagerAdmin() {
               "serialNumber": computer.serialNumber,
           })
                .then(() => {
-               loadComputers(computersRef).then(computersData => setComputers(computersData));
+                   loadComputers(computersRef).then(computersData => setComputers(computersData));
            })
-
+               .then(() => {
+                   loadComputers(q).then(computersData => setQueryComputer(computersData));
+               })
       }
 
       function deleteComputer(id) {
@@ -157,7 +160,9 @@ export default function ComputersManagerAdmin() {
               .then(() => {
                   loadComputers(computersRef).then(computersData => setComputers(computersData));
               })
-
+              .then(() => {
+                  loadComputers(q).then(computersData => setQueryComputer(computersData));
+              })
       }
 
     function queryComputers(values) {
@@ -169,7 +174,7 @@ export default function ComputersManagerAdmin() {
         if (values.materialIndex !== "") conditions.push(where("materialIndex", "==", values.materialIndex));
         if (values.serialNumber !== "") conditions.push(where("serialNumber", "==", values.serialNumber));
 
-        const q = query(computersRef, ...conditions);
+        q = query(computersRef, ...conditions);
         loadComputers(q).then(qC => setQueryComputer(qC));
 
     }
@@ -202,7 +207,9 @@ export default function ComputersManagerAdmin() {
             .then(() => {
                 loadComputers(computersRef).then(computersData => setComputers(computersData));
             })
-
+            .then(() => {
+                loadComputers(q).then(computersData => setQueryComputer(computersData));
+            })
     }
 
   return (
@@ -250,19 +257,21 @@ export default function ComputersManagerAdmin() {
                   {queryComputer.length === 0 ?
                        ''
                        :
-                       <ul>
+                       <div>
                            {queryComputer.map(computer => (
-                              <li key={computer.id}>
+                              <div key={computer.id}>
                                   <Computer
                                       companiesData={companies}
                                       modelsData={models}
                                       computer={computer}
+                                      users={users}
                                       onUpdate={updateComputer}
                                       onDelete={deleteComputer}
+                                      assign={assignUser}
                                   />
-                              </li>
+                              </div>
                            ))}
-                       </ul>
+                       </div>
                   }
           </div>
           </ToggleVisibility>
