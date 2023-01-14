@@ -14,7 +14,7 @@ const firebaseConfig = {
     projectId: "recordsofictequipment",
     storageBucket: "recordsofictequipment.appspot.com",
     messagingSenderId: "867400008170",
-    appId: "1:867400008170:web:c0c3171d1f4db0161a7293",
+    appId: "ComputerFormPrinting:867400008170:web:c0c3171d1f4db0161a7293",
     measurementId: "G-X3HNBK4MLE"
 };
 

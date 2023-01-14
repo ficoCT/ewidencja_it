@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {app} from "../../firebase";
+import { app } from "../../firebase";
 import {
     collection, getFirestore,
-    doc,getDoc, getDocs, addDoc, deleteDoc, updateDoc,
-    arrayUnion,
-    query, where
-} from "firebase/firestore";
-import ToggleVisibility from "../ToggleVisibility";
+    doc, getDocs, addDoc, updateDoc,
+    arrayUnion } from "firebase/firestore";
 import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
+import ToggleVisibility from "../ToggleVisibility";
 import AddSoftware from "../AddSoftware";
 import SoftwareModelForm from "../SoftwareModelForm";
 import Program from "../Program";
@@ -17,19 +15,14 @@ import LoadingData from "../LoadingData";
 export default function Software() {
 
     const [softwareCompanies, setSoftwareCompanies] = useState([]);
-    // const [queryComputer, setQueryComputer] = useState([]);
-    // const [companies, setCompanies] = useState([]);
     const [software, setSoftware] = useState([]);
     const [programTypes, setProgramTypes] = useState({});
     const [users, setUsers] = useState({});
     const [initialValuesProgram, setInitialValuesProgram] = useState({});
-
     const db = getFirestore(app);
-    // const softwareRef = collection(db, 'software');
     const softwareRef = collection(db, 'software');
     const softwareCompanyRef = collection(db, 'softwareCompany');
-    // const usersRef = collection(db, 'users');
-    //
+
     async function loadSoftwareCompany() {
 
         let label;
@@ -56,14 +49,11 @@ export default function Software() {
             companyData[company] = allSoftwareCompany;
             allSoftwareCompany = [];
         }
-
         let initialValuesCompany = Object.keys(companyData)[0];
         let initialValuesProgram = companyData[Object.keys(companyData)[0]][0];
-
         setInitialValuesProgram({
             company: initialValuesCompany,
-            type:  initialValuesProgram,
-            name: 'Nazwa programu',
+            name:  initialValuesProgram,
             key: 'XXX XXX XXX'});
 
         return {
@@ -81,7 +71,9 @@ export default function Software() {
                 softwareData.push({ ...doc.data(), id: doc.id });
             })
         })
+
         return softwareData;
+
     }
 
     useEffect(() => {
@@ -91,6 +83,7 @@ export default function Software() {
             setSoftwareCompanies(data.companiesData);
             setProgramTypes(data.companyData);
         });
+
     }, []);
 
     async function addProgram(program) {
@@ -110,7 +103,6 @@ export default function Software() {
     function addTypeProgram(softwareProgram) {
 
         const softwareProgramCompanyRef = doc(db, "softwareCompany", softwareProgram.company);
-
         updateDoc(softwareProgramCompanyRef, {
             [softwareProgram.type]: arrayUnion(softwareProgram.name)
         })
@@ -124,6 +116,7 @@ export default function Software() {
 
     return (
         <Container>
+
             <Alert variant="primary">
                 <span>LISTA OPROGRAMOWANIA</span>
             </Alert>
@@ -149,7 +142,12 @@ export default function Software() {
                 <span>DODAJ PROGRAM</span>
             </Alert>
             <ToggleVisibility>
-                <AddSoftware softwareCompaniesData={softwareCompanies} softwareData={programTypes}  users={users} software={initialValuesProgram} onSubmit={addProgram} />
+                <AddSoftware softwareCompaniesData={softwareCompanies}
+                             softwareData={programTypes}
+                             users={users}
+                             software={initialValuesProgram}
+                             onSubmit={addProgram}
+                />
             </ToggleVisibility>
 
             <Alert variant="primary">
@@ -157,7 +155,11 @@ export default function Software() {
             </Alert>
             <ToggleVisibility>
                 <div className="contents">
-                    <SoftwareModelForm className="contents" softwareCompaniesData={softwareCompanies} onSubmit={addTypeProgram} submitLabel={'ZAPISZ'}/>
+                    <SoftwareModelForm className="contents"
+                                       softwareCompaniesData={softwareCompanies}
+                                       onSubmit={addTypeProgram}
+                                       submitLabel={'ZAPISZ'}
+                    />
                 </div>
             </ToggleVisibility>
 

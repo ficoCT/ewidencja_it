@@ -1,16 +1,14 @@
-import { Scheduler } from "@aldabil/react-scheduler";
 import * as React from 'react';
-import {useState} from "react";
-import {addDoc, collection, deleteDoc, doc, getDocs, getFirestore, updateDoc} from "firebase/firestore";
-import {app} from "../../firebase";
-import {useEffect} from "react";
+import { useState, useEffect } from "react";
+import { app } from "../../firebase";
+import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, updateDoc } from "firebase/firestore";
+import { Scheduler } from "@aldabil/react-scheduler";
 import Container from 'react-bootstrap/Container';
 import LoadingData from "../LoadingData";
 
 export default function App() {
 
     const [events, setEvents] = useState([]);
-
     const db = getFirestore(app);
     const schedulerRef = collection(db, 'scheduler');
 
@@ -27,7 +25,9 @@ export default function App() {
             event.start = event.start.toDate();
             event.end = event.end.toDate();
         });
+
         return eventsData;
+
     }
 
     async function reloadEvents(schedulerRef) {
@@ -39,9 +39,7 @@ export default function App() {
             })
         })
         eventsData.forEach(event => {
-
             const schedulerRefUpdate = doc(db, 'scheduler', event.id);
-
             updateDoc(schedulerRefUpdate, {
                 event_id: event.id,
                 title: event.title,
@@ -51,18 +49,19 @@ export default function App() {
         });
 
         return eventsData;
+
     }
 
     useEffect(() => {
+
         loadEvents(schedulerRef)
             .then( eventsData => setEvents(eventsData));
+
     }, []);
 
     const handleConfirm = async (event, action) => {
-        console.log(event, action);
 
         if (action === "edit") {
-            //const schedulerRefUpdate = doc(db, 'scheduler', String(event.event_id));
             const schedulerRefUpdate = doc(db, 'scheduler', event.event_id);
             updateDoc(schedulerRefUpdate, {
                 title: event.title,
@@ -85,14 +84,6 @@ export default function App() {
                     .then( eventsData => setEvents(eventsData));
             })
         }
-        /**
-         * Make sure to return 4 mandatory fields:
-         * event_id: string|number
-         * title: string
-         * start: Date|string
-         * end: Date|string
-         * ....extra other fields depend on your custom fields/editor properties
-         */
 
         return {
             ...event,
@@ -111,6 +102,7 @@ export default function App() {
 
   return (
       <Container className="contents">
+
       {events.length === 0 ?
               <LoadingData/>
               :
@@ -121,6 +113,7 @@ export default function App() {
                   onDelete={handleDelete}
               />
       }
+
       </Container>
   );
 }

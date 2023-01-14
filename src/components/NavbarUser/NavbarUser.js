@@ -10,6 +10,7 @@ export default function NavbarUser({username}) {
 
     return (
             <>
+
                 <Navbar bg="primary" variant="dark">
                         <Container>
                                 <Nav className="me-auto">
@@ -19,6 +20,7 @@ export default function NavbarUser({username}) {
                         </Container>
                 </Navbar>
                 <Outlet />
+
             </>
     );
 }

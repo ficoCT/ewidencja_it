@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import Button from "react-bootstrap/Button";
 import Field from "../Field"
 import validate from './validateComputerValues';
 import LoadingData from "../LoadingData";
-import Button from "react-bootstrap/Button";
 
 function mapComputerToFormValues(computer) {
+
   return {
     company: computer.company,
     materialIndex: computer.materialIndex,
@@ -13,9 +14,11 @@ function mapComputerToFormValues(computer) {
     idUser: computer.idUser,
     username: computer.username
   };
+
 }
 
 function mapFormValuesToComputer(values) {
+
   return {
     company:values.company,
     materialIndex: values.materialIndex,
@@ -24,12 +27,12 @@ function mapFormValuesToComputer(values) {
     idUser: values.idUser,
     username: ""
   };
+
 }
 
 export default function ComputerForm({companiesData, modelsData, users, computer, submitLabel, onSubmit}) {
 
   const initialValues = mapComputerToFormValues(computer);
-
   const [values, setValues] = useState(initialValues);
   const [errorMessages, setErrorMessages] = useState(null);
 
@@ -42,18 +45,20 @@ export default function ComputerForm({companiesData, modelsData, users, computer
   };
 
   function handleSubmit(event) {
+
     event.preventDefault();
     const errorMessages = validate(values);
     setErrorMessages(errorMessages);
     if (errorMessages) return;
-
     if (typeof onSubmit !== 'function') return;
     onSubmit(mapFormValuesToComputer(values));
     setValues(initialValues);
+
   }
 
   return (
   <form onSubmit={handleSubmit}>
+
     <div className="mb-2">Firma</div>
     <select
         id="company"

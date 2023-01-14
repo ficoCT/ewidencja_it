@@ -4,10 +4,9 @@ import LoadingData from "../LoadingData";
 
 const types = [{value: 'desktops', label: ['Desktops']}, {value: 'laptops', label: ['Laptops']}]
 
-export default function ComputerModelForm({companiesData, submitLabel, onSubmit }) {
+export default function ComputerModelForm({ companiesData, submitLabel, onSubmit }) {
 
   const initialValues = {company: companiesData[0].value, types:  types[0].value, model: ''};
-
   const [values, setValues] = useState(initialValues);
 
   const handleChange = (name, value) => {
@@ -19,10 +18,12 @@ export default function ComputerModelForm({companiesData, submitLabel, onSubmit 
   };
 
   function handleSubmit(event) {
+
     event.preventDefault();
     if (typeof onSubmit !== 'function') return;
     onSubmit(values);
     setValues(initialValues);
+
   }
 
   return (

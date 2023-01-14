@@ -2,24 +2,28 @@ import * as React from 'react';
 import Field from "../Field";
 import {useState} from "react";
 
-export default function QueryComputer({submitLabel, onSubmit }) {
+export default function QueryComputer({ submitLabel, onSubmit }) {
 
     const [values, setValues] = useState({company: "", model: "", materialIndex: "", serialNumber: ""});
 
     function handleChange(event) {
+
         const { name, value } = event.target;
         setValues(values => ({ ...values, [name]: value }))
+
     }
 
     function handleSubmit(event) {
-        event.preventDefault();
 
+        event.preventDefault();
         if (typeof onSubmit !== 'function') return;
         onSubmit(values);
+
     }
 
   return (
           <form onSubmit={handleSubmit}>
+
               <Field
                   label="Producent"
                   name="company"
@@ -49,6 +53,7 @@ export default function QueryComputer({submitLabel, onSubmit }) {
                   onChange={handleChange}
               />
               <button type="submit" className="btn btn-success mb-2">{submitLabel}</button>
+
           </form>
   );
 }

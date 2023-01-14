@@ -1,5 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { app } from "../../firebase"
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+import Button from "react-bootstrap/Button";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { FaPrint } from "react-icons/fa";
@@ -11,13 +14,10 @@ import { TfiNotepad } from "react-icons/tfi";
 import { FiUsers } from "react-icons/fi";
 import { FaLaptop } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
-import {UserAuth} from "../context/AuthContext";
-import {useState} from "react";
-import {doc, getDoc, getFirestore} from "firebase/firestore";
-import {app} from "./../firebase"
-import Button from "react-bootstrap/Button";
-import {AiOutlineHome} from "react-icons/ai";
-import {HiDesktopComputer} from "react-icons/hi";
+import { UserAuth } from "../../context/AuthContext";
+import { useState } from "react";
+import { AiOutlineHome } from "react-icons/ai";
+import { HiDesktopComputer } from "react-icons/hi";
 
 export default function NavbarApp() {
 
@@ -27,6 +27,7 @@ export default function NavbarApp() {
     const [isUser, setUser] = useState(false);
 
     if(typeof(user.uid)==="string") {
+
         const db = getFirestore(app);
         const userRef = doc(db, 'users', user.uid);
         const docSnap = getDoc(userRef).then(docSnap => {
@@ -37,17 +38,18 @@ export default function NavbarApp() {
                 }
             }
         })
+
     }
 
     function handleLogoutButtonClick() {
+
         logout();
+
     }
 
     let navComponent;
     if (isUser) {
-
         navComponent =
-
             <Nav className="me-auto navbarContainer">
                 <Nav.Link href="/home">
                     <AiOutlineHome className="navImg"/>
@@ -68,7 +70,6 @@ export default function NavbarApp() {
                 </Nav.Link>
             </Nav>;
     } else if (isAdmin){
-
         navComponent =
             <Nav className="me-auto navbarContainer">
                 <Nav.Link href="/home">
@@ -118,23 +119,21 @@ export default function NavbarApp() {
                     </Button>
                 </Nav.Link>
             </Nav>;
-
     } else {
-
         navComponent =
-
             <Nav className="me-auto navbarContainer">
                 <Nav.Link href="/home">Home</Nav.Link>
             </Nav>;
-
     }
 
      return (
             <>
+
                 <Navbar bg="primary" variant="dark" className="mb-2">
                     {navComponent}
                 </Navbar>
                 <Outlet />
+
             </>
     );
 }

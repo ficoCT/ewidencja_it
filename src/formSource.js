@@ -7,7 +7,7 @@ export const userInputs = [
     },
     {
       id: "displayName",
-      label: "Name and surname",
+      label: "Imie",
       type: "text",
       placeholder: "Adam Kowalski",
     },

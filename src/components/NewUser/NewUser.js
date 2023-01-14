@@ -1,19 +1,20 @@
+import React from "react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     doc,
     serverTimestamp,
     setDoc,
 } from "firebase/firestore";
-import { auth, db, storage } from "../firebase.js";
+import { auth, db, storage } from "../../firebase.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { useNavigate } from "react-router-dom";
-import React from "react";
 import Container from "react-bootstrap/Container";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const NewUser = ({ inputs, title }) => {
+
     const [file, setFile] = useState("");
     const [data, setData] = useState({roles: {admin: false }});
     const [per, setPer] = useState(null);
@@ -22,11 +23,10 @@ const NewUser = ({ inputs, title }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const uploadFile = () => {
 
+        const uploadFile = () => {
             const storageRef = ref(storage, file.name);
             const uploadTask = uploadBytesResumable(storageRef, file);
-
             uploadTask.on(
                 "state_changed",
                 (snapshot) => {
@@ -57,15 +57,15 @@ const NewUser = ({ inputs, title }) => {
         };
         file && uploadFile();
     }, [file]);
-
     const handleInput = (e) => {
         const id = e.target.id;
         const value = e.target.value;
-
         setData({ ...data, [id]: value });
+
     };
 
     const handleAdd = async (e) => {
+
         e.preventDefault();
         try {
             const res = await createUserWithEmailAndPassword(
@@ -81,10 +81,12 @@ const NewUser = ({ inputs, title }) => {
         } catch (err) {
             setErrorUser(true);
         }
+
     };
 
     return (
         <Container className="contents" style={{textAlign: "center"}}>
+
                 <h1 className="userTitle">{title}</h1>
                 <div style={{textAlign: "left"}}>
                     <div>
@@ -122,6 +124,7 @@ const NewUser = ({ inputs, title }) => {
                     Zapisz
                 </Button>
             </Form>
+
         </Container>
     );
 };

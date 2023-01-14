@@ -6,8 +6,10 @@ import ViewNote from "../ViewNote";
 export default function Note({note, onDelete}) {
 
     function deleteNote() {
+
         if (typeof onDelete !== 'function') return;
         onDelete(note.id);
+
     }
 
         let noteComponent;

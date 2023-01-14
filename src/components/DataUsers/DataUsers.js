@@ -1,4 +1,6 @@
+import React from "react";
 import { Link } from "react-router-dom";
+import { db } from "../../firebase";
 import { useEffect, useState } from "react";
 import {
     collection,
@@ -6,20 +8,16 @@ import {
     doc,
     onSnapshot,
 } from "firebase/firestore";
-import { db } from "../firebase";
-import React from "react";
 import Alert from 'react-bootstrap/Alert';
-import User from "./User";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import LoadingData from "./LoadingData";
-//FcPlus
+import User from "../User";
+import LoadingData from "../LoadingData";
 
 const DataTable = () => {
+
     const [data, setData] = useState([]);
-
     useEffect(() => {
-
         const unsub = onSnapshot(
             collection(db, "users"),
             (snapShot) => {
@@ -37,19 +35,23 @@ const DataTable = () => {
         return () => {
             unsub();
         };
+
     }, []);
 
     const deleteUser = async (id) => {
+
         try {
             await deleteDoc(doc(db, "users", id));
             setData(data.filter((item) => item.id !== id));
         } catch (err) {
             console.log(err);
         }
+
     };
 
     return (
         <Container className="contents">
+
             <div className='mt-2'>
                 {data.length === 0 ?
                     <LoadingData/>
@@ -67,6 +69,7 @@ const DataTable = () => {
                     </Link>
                 </Button>
             </div>
+
         </Container>
     );
 };

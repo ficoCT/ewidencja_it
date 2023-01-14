@@ -1,10 +1,10 @@
 import * as React from 'react';
-import Container from 'react-bootstrap/Container';
-import {collection, getDocs, getFirestore, query, where} from "firebase/firestore";
+import { useState, useEffect } from "react";
+import { app } from "../../firebase";
+import { collection, getDocs, getFirestore, query, where } from "firebase/firestore";
 import Alert from "react-bootstrap/Alert";
-import {useState} from "react";
-import {useEffect} from "react";
-import {app} from "../../firebase";
+import Container from 'react-bootstrap/Container';
+
 import ViewComputer from "../ViewComputer";
 
 export default function Repairs() {
@@ -20,6 +20,7 @@ export default function Repairs() {
         querySnapshot.forEach((doc) => {
             computersData.push({ ...doc.data(), id: doc.id });
         });
+
         return computersData;
     }
 
@@ -38,8 +39,9 @@ export default function Repairs() {
 
   return (
       <Container className="contents">
+
           <Alert variant="primary">
-              <span style={{fontSize: "1.3rem"}}>KOMPUTERY DO NAPRAWY</span>
+              <span style={{fontSize: "ComputerFormPrinting.3rem"}}>KOMPUTERY DO NAPRAWY</span>
           </Alert>
           {queryComputer.length === 0 ?
               ''
@@ -52,6 +54,7 @@ export default function Repairs() {
                   ))}
               </>
           }
+
       </Container>
   );
 }

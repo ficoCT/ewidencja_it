@@ -1,9 +1,11 @@
-import DataUsers from "./DataUsers";
+import DataUsers from "../DataUsers";
 
 const UserList = () => {
     return (
         <div>
+
             <DataUsers/>
+
         </div>
     )
 }

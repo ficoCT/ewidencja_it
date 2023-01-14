@@ -1,20 +1,16 @@
 import * as React from 'react';
-import Field from "../Field";
-import {useState} from "react";
-import {addDoc, collection, deleteDoc, doc, getDocs, getFirestore, serverTimestamp} from "firebase/firestore";
-import {app} from "../../firebase";
-import {useEffect} from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { app } from "../../firebase";
+import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, serverTimestamp } from "firebase/firestore";
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Alert from 'react-bootstrap/Alert';
+import Field from "../Field";
 import Note from "../Note";
 import LoadingData from "../LoadingData";
-// import firebase from "firebase/compat";
-// import * as fc from 'firebase/compat';
 
-
-export default function AdministratorLog() {
+export default function AdministratorLog() {console.log('al');
 
   const [values, setValues] = useState({title: '', note: ''});
   const [log, setLog] = useState([]);
@@ -33,7 +29,6 @@ export default function AdministratorLog() {
   async function loadLog(logRef) {
 
     let logData = [];
-
     await getDocs(logRef).then(snapshot => {
       snapshot.docs.forEach(doc => {
         logData.push({ ...doc.data(), id: doc.id });
@@ -49,12 +44,12 @@ export default function AdministratorLog() {
     addDoc(logRef, {
       title: values.title,
       note: values.note,
-      // createdAt: Timestamp.fromDate(new Date())
       createdAt: serverTimestamp()
     })
         .then(() => {
           loadLog(logRef).then(logData => setLog(logData));
         })
+
   }
 
   function deleteNote(id) {
@@ -74,13 +69,17 @@ export default function AdministratorLog() {
   }, []);
 
   function handleSubmit(event) {
+
     event.preventDefault();
     addNote();
     setValues({title: '', note: ''});
+
   }
 
   function sortDate (a, b) {
+
     return b.createdAt - a.createdAt;
+
   }
 
   return (
@@ -106,7 +105,6 @@ export default function AdministratorLog() {
           ZAPISZ
         </Button>
       </Form>
-
       <br/>
       <br/>
       {log.length === 0 ?

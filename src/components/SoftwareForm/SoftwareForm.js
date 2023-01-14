@@ -1,27 +1,31 @@
 import React, { useState } from 'react';
-import Field from "../Field"
 import Button from "react-bootstrap/Button";
+import Field from "../Field"
 import LoadingData from "../LoadingData";
 
 function mapSoftwareToFormValues(software) {
+
   return {
     company: software.company,
     type: software.type,
     name: software.name,
     key: software.key
   }
+
 }
 
 function mapFormValuesToSoftware(values) {
+
   return {
     company:values.company,
     type: values.type,
     name: values.name,
     key: values.key
   };
+
 }
 
-export default function SoftwareForm({softwareCompaniesData, softwareData, software, submitLabel, onSubmit}) {
+export default function SoftwareForm({ softwareCompaniesData, softwareData, software, submitLabel, onSubmit }) {
 
   const initialValues = mapSoftwareToFormValues(software);
   const [values, setValues] = useState(initialValues);
@@ -34,15 +38,17 @@ export default function SoftwareForm({softwareCompaniesData, softwareData, softw
   };
 
   function handleSubmit(event) {
-    event.preventDefault();
 
+    event.preventDefault();
     if (typeof onSubmit !== 'function') return;
     onSubmit(mapFormValuesToSoftware(values));
     setValues(initialValues);
+
   }
 
   return (
   <form onSubmit={handleSubmit}>
+
     <select
         id="company"
         name="company"
@@ -66,7 +72,7 @@ export default function SoftwareForm({softwareCompaniesData, softwareData, softw
     <select
         id="name"
         name="name"
-        class="form-select"
+        className="form-select"
         onChange={(e) => handleChange("name", e.target.value)}
     >
       {Object.keys(softwareData).length === 0 ?
@@ -90,6 +96,7 @@ export default function SoftwareForm({softwareCompaniesData, softwareData, softw
         onChange={(e) => handleChange("key", e.target.value)}
     />
     <Button variant="success" type="submit" >{submitLabel}</Button>
+
   </form>
   );
 }

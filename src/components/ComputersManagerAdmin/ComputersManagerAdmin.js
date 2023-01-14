@@ -6,16 +6,16 @@ import {
     arrayUnion,
     query, where
 } from "firebase/firestore";
+import Container from 'react-bootstrap/Container';
+import Alert from 'react-bootstrap/Alert';
 import Computer from '../Computer';
 import AddComputer from '../AddComputer';
 import QueryComputer from "../QueryComputer";
 import ToggleVisibility from "../ToggleVisibility";
-import Container from 'react-bootstrap/Container';
 import ComputerModelForm from "../ComputerModelForm";
-import Alert from 'react-bootstrap/Alert';
 import LoadingData from "../LoadingData";
 
-export default function ComputersManagerAdmin() {
+export default function ComputersManagerAdmin() {console.log('c');
 
     const [computers, setComputers] = useState([]);
     const [queryComputer, setQueryComputer] = useState([]);
@@ -56,7 +56,6 @@ export default function ComputersManagerAdmin() {
             companyData[company] = allModelsCompany;
             allModelsCompany = [];
         }
-
         let initialValuesCompany = Object.keys(companyData)[0];
         let initialValuesModel = companyData[Object.keys(companyData)[0]][0];
 
@@ -81,7 +80,9 @@ export default function ComputersManagerAdmin() {
                     computersData.push({ ...doc.data(), id: doc.id });
                 })
             })
+
         return computersData;
+
     }
 
     async function loadUsers() {
@@ -92,10 +93,8 @@ export default function ComputersManagerAdmin() {
                 usersData.push({ ...doc.data(), id: doc.id });
             })
         })
-
         let initialValuesIdUser = usersData[0].id;
         let initialValuesUsername = usersData[0].username;
-
         setInitialValues((values) => {
             return { ...values, ['idUser']: initialValuesIdUser, ['username']: initialValuesUsername };
         });
@@ -120,7 +119,6 @@ export default function ComputersManagerAdmin() {
 
           const userRef = doc(db, 'users', computer.idUser);
           const docSnap = await getDoc(userRef);
-
           addDoc(computersRef, {
               company: computer.company,
               materialIndex: computer.materialIndex,
@@ -137,8 +135,8 @@ export default function ComputersManagerAdmin() {
       }
 
       function updateComputer(id, computer) {
-           const computerRef = doc(db, 'computers', id);
 
+           const computerRef = doc(db, 'computers', id);
            updateDoc(computerRef, {
               "company": computer.company,
               "model": computer.model,
@@ -168,12 +166,11 @@ export default function ComputersManagerAdmin() {
     function queryComputers(values) {
 
         let conditions = []
-
         if (values.company !== "") conditions.push(where("company", "==", values.company));
         if (values.model !== "") conditions.push(where("model", "==", values.model));
-        if (values.materialIndex !== "") conditions.push(where("materialIndex", "==", values.materialIndex));
+        if (values.materialIndex !== "") conditions.push(where("materialIndex", "==",
+            values.materialIndex));
         if (values.serialNumber !== "") conditions.push(where("serialNumber", "==", values.serialNumber));
-
         q = query(computersRef, ...conditions);
         loadComputers(q).then(qC => setQueryComputer(qC));
 
@@ -182,7 +179,6 @@ export default function ComputersManagerAdmin() {
     function addComputerModel(computerModel) {
 
         const companyRef = doc(db, "company", computerModel.company);
-
         updateDoc(companyRef, {
             [computerModel.types]: arrayUnion(computerModel.model)
         })
@@ -199,7 +195,6 @@ export default function ComputersManagerAdmin() {
         const computerRef = doc(db, 'computers', assignment.computerId);
         const userRef = doc(db, 'users', assignment.userId);
         const docSnap = await getDoc(userRef);
-
         updateDoc(computerRef, {
             "idUser": assignment.userId,
             "username": docSnap.data().username
@@ -210,12 +205,14 @@ export default function ComputersManagerAdmin() {
             .then(() => {
                 loadComputers(q).then(computersData => setQueryComputer(computersData));
             })
+
     }
 
   return (
       <Container>
+
           <Alert variant="primary">
-              <span style={{fontSize: "1.3rem"}}>LISTA KOMPUTERÓW W PRZEDSIĘBIORSTWIE</span>
+              <span style={{fontSize: "ComputerFormPrinting.3rem"}}>LISTA KOMPUTERÓW W PRZEDSIĘBIORSTWIE</span>
           </Alert>
           <ToggleVisibility>
           <div className="contents">
@@ -242,14 +239,20 @@ export default function ComputersManagerAdmin() {
           </ToggleVisibility>
 
           <Alert variant="primary">
-              <span style={{fontSize: "1.3rem"}}>DODAJ KOMPUTER</span>
+              <span style={{fontSize: "ComputerFormPrinting.3rem"}}>DODAJ KOMPUTER</span>
           </Alert>
           <ToggleVisibility>
-            <AddComputer companiesData={companies} modelsData={models}  users={users} computer={initialValues} onSubmit={addComputer} />
+            <AddComputer
+                companiesData={companies}
+                modelsData={models}
+                users={users}
+                computer={initialValues}
+                onSubmit={addComputer}
+            />
           </ToggleVisibility>
 
           <Alert variant="primary">
-              <span style={{fontSize: "1.3rem"}}>WYSZUKAJ KOMPUTER</span>
+              <span style={{fontSize: "ComputerFormPrinting.3rem"}}>WYSZUKAJ KOMPUTER</span>
           </Alert>
           <ToggleVisibility>
           <div className="contents">
@@ -277,11 +280,16 @@ export default function ComputersManagerAdmin() {
           </ToggleVisibility>
 
           <Alert variant="primary">
-              <span style={{fontSize: "1.3rem"}}>DODAJ MODEL KOMPUTERA</span>
+              <span style={{fontSize: "ComputerFormPrinting.3rem"}}>DODAJ MODEL KOMPUTERA</span>
           </Alert>
           <ToggleVisibility>
               <div className="contents">
-                <ComputerModelForm className="contents" companiesData={companies} submitLabel={'ZAPISZ'} onSubmit={addComputerModel}/>
+                <ComputerModelForm
+                    className="contents"
+                    companiesData={companies}
+                    submitLabel={'ZAPISZ'}
+                    onSubmit={addComputerModel}
+                />
               </div>
           </ToggleVisibility>
 

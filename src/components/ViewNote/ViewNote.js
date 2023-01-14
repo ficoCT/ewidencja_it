@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {useEffect, useState} from "react";
-import {deleteDoc, doc} from "firebase/firestore";
 
 export default function ViewNote({ note: { title, note, createdAt} }) {
 
@@ -22,12 +21,14 @@ export default function ViewNote({ note: { title, note, createdAt} }) {
 
   return (
       <div className="note">
+
         <div>
             <strong> {title} </strong> {' '} {note}
         </div>
         <div style={{fontSize: "0.8rem"}}>
             {date}
         </div>
+
       </div>
   );
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Quagga from 'quagga'
 
 class Scanner extends Component {
+
   componentDidMount() {
     Quagga.init(
       {

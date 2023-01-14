@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import Field from "../Field";
 import Button from "react-bootstrap/Button";
+import Field from "../Field";
 import LoadingData from "../LoadingData";
 
-const types = [{value: 'office', label: ['Program biurowy']}, {value: 'system', label: ['System operacyjny']}]
+const types = [{value: 'office', label: ['Biurowy']}, {value: 'system', label: ['System operacyjny']}]
 
-export default function SoftwareModelForm({softwareCompaniesData, submitLabel, onSubmit }) {
+export default function SoftwareModelForm({ softwareCompaniesData, submitLabel, onSubmit }) {
 
   const initialValues = {company: softwareCompaniesData[0].value, type:  types[0].value, name: 'Podaj nazwę programu'};
-
   const [values, setValues] = useState(initialValues);
 
   const handleChange = (name, value) => {
@@ -20,10 +19,12 @@ export default function SoftwareModelForm({softwareCompaniesData, submitLabel, o
   };
 
   function handleSubmit(event) {
+
     event.preventDefault();
     if (typeof onSubmit !== 'function') return;
     onSubmit(values);
     setValues(initialValues);
+
   }
 
   return (
@@ -79,6 +80,7 @@ export default function SoftwareModelForm({softwareCompaniesData, submitLabel, o
         onChange={(e) => handleChange("name", e.target.value)}
     />
     <Button variant="success" type="submit" >{submitLabel}</Button>
+
   </form>
   );
 }

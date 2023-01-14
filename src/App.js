@@ -1,9 +1,8 @@
 import React from "react";
+import { Routes, Route } from 'react-router-dom';
+import './App.css';
 import Login from "./components/Login";
 import Home from "./components/Home";
-import { Routes, Route, Navigate } from 'react-router-dom';
-import './App.css';
-import {AuthContextProvider, UserAuth} from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ComputersManagerAdmin from "./components/ComputersManagerAdmin";
 import ComputersUser from "./components/ComputersUser";
@@ -16,8 +15,9 @@ import AdministratorLog from "./components/AdministratorLog";
 import UserList from "./components/UserList";
 import NewUser from "./components/NewUser";
 import Unauthorized from "./components/Unauthorized";
-import {userInputs} from "./formSource";
 import NavbarApp from "./components/NavbarApp";
+import { AuthContextProvider } from "./context/AuthContext";
+import { userInputs } from "./formSource";
 
 function App() {
 

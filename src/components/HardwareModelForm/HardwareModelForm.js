@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Field from "../Field";
 import Button from "react-bootstrap/Button";
+import Field from "../Field";
 import LoadingData from "../LoadingData";
 
 const types = [{value: 'printer', label: ['Drukarka']}, {value: 'scanner', label: ['Skaner']}]
@@ -19,10 +19,12 @@ export default function HardwareModelForm({companiesData, submitLabel, onSubmit 
   };
 
   function handleSubmit(event) {
+
     event.preventDefault();
     if (typeof onSubmit !== 'function') return;
     onSubmit(values);
     setValues(initialValues);
+
   }
 
   return (
@@ -78,6 +80,7 @@ export default function HardwareModelForm({companiesData, submitLabel, onSubmit 
             onChange={(e) => handleChange("model", e.target.value)}
         />
         <Button variant="success" type="submit" >{submitLabel}</Button>
+
       </form>
   );
 }

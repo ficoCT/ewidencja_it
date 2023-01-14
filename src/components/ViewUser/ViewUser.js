@@ -4,10 +4,13 @@ import { FcAddressBook } from "react-icons/fc";
 import { FcPhone } from "react-icons/fc";
 import { FcHome } from "react-icons/fc";
 
-export default function ViewUser({ user: { id, displayName, username, email, phone, department, address} }) {
+export default function ViewUser({ user: { username, email, phone, department, address} }) {
   return (
       <div className="userView">
-        <strong> {username} </strong> <FcDepartment/> {department} <FcAddressBook/> {email} <FcPhone/> {phone} <FcHome/> {address}
+
+        <strong> {username} </strong> <FcDepartment/> {department} <FcAddressBook/> {email} <FcPhone/> {phone}
+          <FcHome/> {address}
+
       </div>
   );
 }

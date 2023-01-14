@@ -1,18 +1,16 @@
 import * as React from 'react';
-import {collection, getDocs, getFirestore} from "firebase/firestore";
-import {app} from "../../firebase";
-import {useEffect} from "react";
-import {useState} from "react";
+import { useEffect, useState } from "react";
+import { app } from "../../firebase";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
 import Container from 'react-bootstrap/Container';
 import Alert from "react-bootstrap/Alert";
 import LoadingData from "../LoadingData";
 
-export default function Reports() {
+export default function Reports() {console.log('re');
 
   const db = getFirestore(app);
   const companyRef = collection(db, 'company');
   const usersRef = collection(db, 'users');
-
   const [companies, setCompanies] = useState({});
   const [users, setUsers] = useState({});
 
@@ -61,6 +59,7 @@ export default function Reports() {
 
   return (
       <Container className="contents">
+
           <Alert variant='primary'>
             <h2>KOMPUTERY</h2>
             {Object.keys(companies).length === 0 ?
@@ -70,8 +69,10 @@ export default function Reports() {
                   {companies.name.map(name => (
                       <div key={name} className="reports">
                         <h3>{name.toUpperCase()}</h3>
-                        Laptopy: <span className="importantText"> {companies.companyData[name]['laptops'].length} </span> <br/>
-                        Komputery stacjonarne: <span className="importantText"> {companies.companyData[name]['laptops'].length} </span> <br/>
+                        Laptopy: <span className="importantText"> {companies.companyData[name]['laptops'].length}
+                      </span> <br/>
+                        Komputery stacjonarne: <span className="importantText">
+                        {companies.companyData[name]['laptops'].length} </span> <br/>
                       </div>
                   ))}
                 </>
@@ -83,11 +84,13 @@ export default function Reports() {
               <LoadingData/>
               :
                     <div className="reports">
-                      <span>W bazie znajduje się <span className="importantText"> {users.length} </span> aktywnych użytkowników.</span>
+                      <span>W bazie znajduje się <span className="importantText"> {users.length}
+                      </span> aktywnych użytkowników.</span>
                        <br/>
                     </div>
           }
         </Alert>
+
       </Container>
   );
 }
