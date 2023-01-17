@@ -15,7 +15,7 @@ import ToggleVisibility from "../ToggleVisibility";
 import ComputerModelForm from "../ComputerModelForm";
 import LoadingData from "../LoadingData";
 
-export default function ComputersManagerAdmin() {console.log('c');
+export default function ComputersManagerAdmin() {
 
     const [computers, setComputers] = useState([]);
     const [queryComputer, setQueryComputer] = useState([]);
@@ -72,10 +72,10 @@ export default function ComputersManagerAdmin() {console.log('c');
 
     }
 
-    async function loadComputers() {
+    async function loadComputers(loadComputersRef) {
 
         let computersData = [];
-        await getDocs(computersRef).then(snapshot => {
+        await getDocs(loadComputersRef).then(snapshot => {
                 snapshot.docs.forEach(doc => {
                     computersData.push({ ...doc.data(), id: doc.id });
                 })

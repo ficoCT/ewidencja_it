@@ -8,7 +8,6 @@ import Alert from "react-bootstrap/Alert";
 import HardwareModelForm from "../HardwareModelForm";
 import ToggleVisibility from "../ToggleVisibility";
 import LoadingData from "../LoadingData";
-import Program from "../Program";
 import AddHardware from "../AddHardware";
 import Hardware from "../Hardware";
 

@@ -89,7 +89,7 @@ export default function HardwareForm({ otherHardwareCompaniesData, otherHardware
     <br />
     <br />
     <Field
-        label="Klucz "
+        label="Numer seryjny "
         name="key"
         type="text"
         value={values.key}

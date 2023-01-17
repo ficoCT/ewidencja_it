@@ -1,13 +1,13 @@
 export const userInputs = [
     {
       id: "username",
-      label: "Username",
+      label: "Imię i nazwisko",
       type: "text",
       placeholder: "Adam Kowalski",
     },
     {
       id: "displayName",
-      label: "Imie",
+      label: "Login",
       type: "text",
       placeholder: "Adam Kowalski",
     },
@@ -19,24 +19,24 @@ export const userInputs = [
     },
     {
       id: "phone",
-      label: "Phone",
+      label: "Telefon",
       type: "text",
       placeholder: "123 456 789",
     },
     {
       id: "password",
-      label: "Password",
+      label: "Hasło",
       type: "password",
     },
     {
       id: "address",
-      label: "Address",
+      label: "Adres",
       type: "text",
       placeholder: "Bielsko-Biała",
     },
     {
       id: "department",
-      label: "Department",
+      label: "Dział",
       type: "text",
       placeholder: "Kadry",
     },
