@@ -25,7 +25,8 @@ function mapFormValuesToHardware(values) {
 
 }
 
-export default function HardwareForm({ otherHardwareCompaniesData, otherHardwareData, otherHardware, submitLabel, onSubmit }) {
+export default function HardwareForm({ otherHardwareCompaniesData, otherHardwareData, otherHardware, submitLabel,
+                                       onSubmit }) {
 
   const initialValues = mapHardwareToFormValues(otherHardware);
   const [values, setValues] = useState(initialValues);

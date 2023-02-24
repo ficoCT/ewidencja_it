@@ -153,7 +153,8 @@ export default function OtherHardware() {
           </Alert>
           <ToggleVisibility>
               <div className="contents">
-                  <HardwareModelForm className="contents" companiesData={deviceCompanies} submitLabel={'ZAPISZ'} onSubmit={addDeviceModel}/>
+                  <HardwareModelForm className="contents" companiesData={deviceCompanies} submitLabel={'ZAPISZ'}
+                                     onSubmit={addDeviceModel}/>
               </div>
           </ToggleVisibility>
       </Container>
